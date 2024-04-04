@@ -24,7 +24,7 @@ embedded_instances {
   id: "go"
   data: "components {\n"
   "  id: \"death_stage01\"\n"
-  "  component: \"/game-resources/environment/maps/stage01/death_stage01.tilemap\"\n"
+  "  component: \"/game-resources/environmental/dungeon01/dungeon01.tilemap\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
