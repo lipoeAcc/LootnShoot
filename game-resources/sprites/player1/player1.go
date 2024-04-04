@@ -16,12 +16,12 @@ components {
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "default_animation: \"pngegg\"\n"
+  data: "default_animation: \"New Animation\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
   "textures {\n"
   "  sampler: \"texture_sampler\"\n"
-  "  texture: \"/game-resources/sprites/player1/attack01/attack01.atlas\"\n"
+  "  texture: \"/game-resources/sprites/player1/walk/animation_set/attack1.atlas\"\n"
   "}\n"
   ""
   position {
