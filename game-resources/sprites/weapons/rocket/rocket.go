@@ -1,28 +1,12 @@
-components {
-  id: "player"
-  component: "/game-resources/sprites/player1/player.script"
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-}
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "default_animation: \"New Animation\"\n"
+  data: "default_animation: \"rocket\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
-  "playback_rate: 0.1\n"
   "textures {\n"
   "  sampler: \"texture_sampler\"\n"
-  "  texture: \"/game-resources/sprites/player1/walk/animation_set/attack1.atlas\"\n"
+  "  texture: \"/main/sprites.atlas\"\n"
   "}\n"
   ""
   position {
@@ -38,20 +22,20 @@ embedded_components {
   }
 }
 embedded_components {
-  id: "playercollision"
+  id: "collisionobject"
   type: "collisionobject"
   data: "collision_shape: \"\"\n"
-  "type: COLLISION_OBJECT_TYPE_DYNAMIC\n"
-  "mass: 1.0\n"
+  "type: COLLISION_OBJECT_TYPE_KINEMATIC\n"
+  "mass: 0.0\n"
   "friction: 0.1\n"
   "restitution: 0.5\n"
-  "group: \"player\"\n"
-  "mask: \"wall\"\n"
+  "group: \"rockets\"\n"
+  "mask: \"enemy\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
-  "      x: 0.0\n"
+  "      x: 2.0\n"
   "      y: 0.0\n"
   "      z: 0.0\n"
   "    }\n"
@@ -65,33 +49,14 @@ embedded_components {
   "    count: 3\n"
   "    id: \"\"\n"
   "  }\n"
-  "  data: 13.5\n"
-  "  data: 34.0\n"
+  "  data: 6.5\n"
+  "  data: 4.0\n"
   "  data: 10.0\n"
   "}\n"
   "linear_damping: 0.0\n"
   "angular_damping: 0.0\n"
   "locked_rotation: false\n"
   "bullet: false\n"
-  ""
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-}
-embedded_components {
-  id: "rocketfactory"
-  type: "factory"
-  data: "prototype: \"/game-resources/sprites/weapons/rocket/rocket.go\"\n"
-  "load_dynamically: false\n"
-  "dynamic_prototype: false\n"
   ""
   position {
     x: 0.0
