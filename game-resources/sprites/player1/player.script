@@ -1,3 +1,5 @@
+local rendercam = require "rendercam.rendercam"
+
 local input_left = hash("left")
 local input_right = hash("right")
 local input_up = hash("up")
@@ -12,7 +14,14 @@ function init(self)
 	self.firing = false
 	self.dir = vmath.vector3(0, 1, 0)
 	self.input = vmath.vector3()
-	self.speed = 50
+	self.speed = 100
+
+	self.mouse = vmath.vector3(0, 0, 0)
+
+	local myID = go.get_id()
+	timer.delay(0, false, function() rendercam.follow(myID) end)
+	-- A timer with a delay of zero will trigger just before the text frame's update.
+	-- self.follow = true
 
 
 end
@@ -60,15 +69,11 @@ function on_message(self, message_id, message, sender)
 end
 
 function on_input(self, action_id, action)
-	-- Add input-handling code here. The game object this script is attached to
-	-- must have acquired input focus:
-	--
-	--    msg.post(".", "acquire_input_focus")
-	--
-	-- All mapped input bindings will be received. Mouse and touch input will
-	-- be received regardless of where on the screen it happened.
-	-- Learn more: https://defold.com/manuals/input/
-	-- Remove this function if not needed
+	if action.x and action.y then
+		-- self.mouse = rendercam.screen_to_world_2d(action.x, action.y, true)
+	end
+
+	
 	if action_id == input_left then
 		self.input.x = -1
 	elseif action_id == input_right then
