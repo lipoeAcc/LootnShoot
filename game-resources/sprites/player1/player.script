@@ -8,11 +8,25 @@ local input_down = hash("down")
 local input_primary_hit = hash("primary_hit")
 
 
+local function fire_rocket(self)
+	-- convert mouse position from screen coordinates to world coordinates
+    
+    -- fire in the direction of the mouse
+    local dir = vmath.normalize(self.mouse - go.get_position())
+    local angle = math.atan2(dir.y, dir.x)
+    local rot = vmath.quat_rotation_z(angle)
+    local props = { dir = dir }
+    print("rotate: ", rot)
+    factory.create("#rocketfactory", nil, rot, props)
+end
+
+
+
 function init(self)
 	msg.post(".", "acquire_input_focus")
 
 	self.firing = false
-	self.dir = vmath.vector3(0, 1, 0)
+	self.dir = vmath.vector3(0, 0, 0)
 	self.input = vmath.vector3()
 	self.speed = 100
 
@@ -40,10 +54,7 @@ function update(self, dt)
 	end
 	
 	if self.firing then
-		local angle = math.atan2(self.dir.y, self.dir.x)    -- [1]
-		local rot = vmath.quat_rotation_z(angle)            -- [2]
-		local props = { dir = self.dir }                    -- [3]
-		factory.create("#rocketfactory", nil, rot, props)   -- [4]
+		fire_rocket(self)
 	end
 
 	self.input.x = 0
@@ -70,7 +81,8 @@ end
 
 function on_input(self, action_id, action)
 	if action.x and action.y then
-		-- self.mouse = rendercam.screen_to_world_2d(action.x, action.y, true)
+		local mouse_world = rendercam.screen_to_world_2d(action.x, action.y)
+        self.mouse = vmath.vector3(mouse_world)
 	end
 
 	
