@@ -9,14 +9,12 @@ local input_primary_hit = hash("primary_hit")
 
 
 local function fire_rocket(self)
-	-- convert mouse position from screen coordinates to world coordinates
     
     -- fire in the direction of the mouse
     local dir = vmath.normalize(self.mouse - go.get_position())
     local angle = math.atan2(dir.y, dir.x)
     local rot = vmath.quat_rotation_z(angle)
     local props = { dir = dir }
-    print("rotate: ", rot)
     factory.create("#rocketfactory", nil, rot, props)
 end
 
@@ -33,8 +31,8 @@ function init(self)
 	self.mouse = vmath.vector3(0, 0, 0)
 
 	local myID = go.get_id()
-	timer.delay(0, false, function() rendercam.follow(myID) end)
 	-- A timer with a delay of zero will trigger just before the text frame's update.
+	timer.delay(0, false, function() rendercam.follow(myID) end)
 	-- self.follow = true
 
 
@@ -81,8 +79,8 @@ end
 
 function on_input(self, action_id, action)
 	if action.x and action.y then
-		local mouse_world = rendercam.screen_to_world_2d(action.x, action.y)
-        self.mouse = vmath.vector3(mouse_world)
+		-- convert mouse position from screen coordinates to world coordinates
+		self.mouse = rendercam.screen_to_world_2d(action.x, action.y)
 	end
 
 	
