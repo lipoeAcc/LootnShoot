@@ -16,6 +16,8 @@ local function fire_rocket(self)
     local rot = vmath.quat_rotation_z(angle)
     local props = { dir = dir }
     factory.create("#rocketfactory", nil, rot, props)
+	self.rocket_disabled = true
+	timer.delay(self.rocket_reload_time, false, function() self.rocket_disabled = false end)
 end
 
 
@@ -29,6 +31,9 @@ function init(self)
 	self.speed = 100
 
 	self.mouse = vmath.vector3(0, 0, 0)
+
+	self.rocket_disabled = false
+	self.rocket_reload_time = 2
 
 	local myID = go.get_id()
 	-- A timer with a delay of zero will trigger just before the text frame's update.
@@ -51,7 +56,7 @@ function update(self, dt)
 		go.set_position(pos)
 	end
 	
-	if self.firing then
+	if self.firing and not self.rocket_disabled then
 		fire_rocket(self)
 	end
 
