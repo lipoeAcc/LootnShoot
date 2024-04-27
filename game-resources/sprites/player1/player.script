@@ -9,7 +9,6 @@ local input_primary_hit = hash("primary_hit")
 
 
 local function fire_rocket(self)
-    
     -- fire in the direction of the mouse
     local dir = vmath.normalize(self.mouse - go.get_position())
     local angle = math.atan2(dir.y, dir.x)
@@ -18,6 +17,7 @@ local function fire_rocket(self)
     factory.create("#rocketfactory", nil, rot, props)
 	self.rocket_disabled = true
 	timer.delay(self.rocket_reload_time, false, function() self.rocket_disabled = false end)
+	msg.post("/gui#ammo", "rocket_reload",{reload_time= self.rocket_reload_time})
 end
 
 
