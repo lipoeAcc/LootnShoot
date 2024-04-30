@@ -60,6 +60,40 @@ animations {
   flip_horizontal: 0
   flip_vertical: 0
 }
+animations {
+  id: "snake"
+  images {
+    image: "/game-resources/sprites/enemies/1 Snake/Snake.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 60
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "snake_walk"
+  images {
+    image: "/game-resources/sprites/enemies/1 Snake/snake_walk_1.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/game-resources/sprites/enemies/1 Snake/snake_walk_2.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/game-resources/sprites/enemies/1 Snake/snake_walk_3.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/game-resources/sprites/enemies/1 Snake/snake_walk_4.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 8
+  flip_horizontal: 0
+  flip_vertical: 0
+}
 margin: 0
 extrude_borders: 2
 inner_padding: 0

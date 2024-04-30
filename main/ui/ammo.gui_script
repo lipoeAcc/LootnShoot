@@ -40,8 +40,6 @@ function on_message(self, message_id, message, sender)
                 timer.cancel(timer_handle)
             end
         end)
-
-		
 	end
 end
 

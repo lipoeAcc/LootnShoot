@@ -1,30 +1,27 @@
-go.property("dir", vmath.vector3())
-
-local function explode(self)
-	self.life = 1000
-	go.set_rotation(vmath.quat())
-	self.speed = 0
-	sprite.play_flipbook("#sprite", "explosion")       
+local function die(self)
+	go.delete()
 end
+
+
 
 function init(self)
-	self.speed = 200
-	self.life = 1
-end
+	self.dir = vmath.vector3(0, 0, 0)
+	self.target = vmath.vector3(0, 0, 0)
+	self.health = 100
 
-function update(self, dt)
-	local pos = go.get_position()
-	pos = pos + self.dir * self.speed * dt
-	go.set_position(pos)
-
-	self.life = self.life - dt
-	if self.life < 0 then
-		explode(self)
-	end
+	
 end
 
 function final(self)
 	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+	local result = astar.solve(0, 0,10,10)
+	print("result ", result)
+end
+
+function update(self, dt)
+	-- Add update code here
 	-- Learn more: https://defold.com/manuals/script/
 	-- Remove this function if not needed
 end
@@ -39,12 +36,13 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("animation_done") then
-		go.delete()
-	elseif message_id == hash("collision_response") then
-		explode(self)
-		-- go.delete(message.other_id)
-		-- msg.post("/gui#ui", "add_score", {score = 100})
+	if message_id == hash("collision_response") then
+		if message.group == hash("rockets") then
+			self.health = self.health - 50
+			if self.health <= 0 then
+				die(self)
+			end
+		end
 	end
 end
 

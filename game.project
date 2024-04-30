@@ -1,6 +1,7 @@
 [project]
 title = Desktop game
 dependencies#0 = https://github.com/rgrams/rendercam/archive/1.0.3.zip
+dependencies#1 = https://github.com/selimanac/defold-astar/archive/master.zip
 
 [bootstrap]
 main_collection = /main/main.collectionc
