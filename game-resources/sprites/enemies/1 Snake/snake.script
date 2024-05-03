@@ -16,23 +16,20 @@ function final(self)
 	-- Add finalization code here
 	-- Learn more: https://defold.com/manuals/script/
 	-- Remove this function if not needed
-	local result = astar.solve(0, 0,10,10)
-	print("result ", result)
 end
 
 function update(self, dt)
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+
+
 end
 
 function fixed_update(self, dt)
-	-- This function is called if 'Fixed Update Frequency' is enabled in the Engine section of game.project
-	-- Can be coupled with fixed updates of the physics simulation if 'Use Fixed Timestep' is enabled in
-	-- Physics section of game.project
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	self.target = go.get_position("/player1")
+	print("target ", self.target)
+	local pos = go.get_position()
+	print("pos ", pos)
+	local result, size, total_cost, path = astar.solve(pos.x, pos.y, self.target.x, self.target.y)
+	print("path ", path)
 end
 
 function on_message(self, message_id, message, sender)
