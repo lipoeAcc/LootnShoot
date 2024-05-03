@@ -12,7 +12,8 @@ local function fire_rocket(self)
     -- fire in the direction of the mouse
     local dir = vmath.normalize(self.mouse - go.get_position())
     local angle = math.atan2(dir.y, dir.x)
-    local rot = vmath.quat_rotation_z(angle)
+	local rot = vmath.quat_rotation_z(angle)
+	dir.z = 0
     local props = { dir = dir }
     factory.create("#rocketfactory", nil, rot, props)
 	self.rocket_disabled = true

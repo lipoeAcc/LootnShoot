@@ -4,7 +4,7 @@ local function explode(self)
 	self.life = 1000
 	go.set_rotation(vmath.quat())
 	self.speed = 0
-	sprite.play_flipbook("#sprite", "explosion")       
+	sprite.play_flipbook("#sprite", "explosion")
 end
 
 function init(self)
