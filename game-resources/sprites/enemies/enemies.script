@@ -12,11 +12,21 @@ local costs = {
 	}
 }
 
+local world = {
+	2 ,2 ,0 ,1 ,0,
+	0 ,0 ,1 ,2 ,1,
+	0 ,0 ,2 ,0 ,0,
+	0 ,2 ,2 ,2 ,2,
+	2 ,1 ,1 ,0 ,1
+}
+
+
 
 
 function init(self)
-	astar.setup(300, 300, astar.DIRECTION_EIGHT,300, 300, true)
+	astar.setup(5, 5, astar.DIRECTION_EIGHT,25, 8, true)
 	astar.set_costs(costs)
+	astar.set_map(world)
 end
 
 function final(self)
@@ -41,10 +51,8 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-    print("received message")
     if message_id == create_snake then
-        local snake = factory.create("#snakefactory")
-        go.set_position(vmath.vector3(100, 100, 1), snake)
+        local instances = collectionfactory.create("#snakefactory")
     end
 end
 

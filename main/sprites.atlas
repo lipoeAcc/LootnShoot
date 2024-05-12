@@ -1,3 +1,11 @@
+images {
+  image: "/game-resources/sprites/enemies/health/health.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/game-resources/sprites/enemies/health/Frame.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
 animations {
   id: "rocket"
   images {

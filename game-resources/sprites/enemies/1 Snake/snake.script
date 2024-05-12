@@ -1,5 +1,6 @@
 local function die(self)
-	go.delete()
+	go.delete(self.healthbar_id)
+	go.delete(msg.url(nil, go.get_id(), nil))
 end
 
 
@@ -9,7 +10,7 @@ function init(self)
 	self.target = vmath.vector3(0, 0, 0)
 	self.health = 100
 
-	
+	self.healthbar_id = go.get_id("healthbar")
 end
 
 function final(self)
@@ -25,11 +26,6 @@ end
 
 function fixed_update(self, dt)
 	self.target = go.get_position("/player1")
-	print("target ", self.target)
-	local pos = go.get_position()
-	print("pos ", pos)
-	local result, size, total_cost, path = astar.solve(pos.x, pos.y, self.target.x, self.target.y)
-	print("path ", path)
 end
 
 function on_message(self, message_id, message, sender)
@@ -38,6 +34,8 @@ function on_message(self, message_id, message, sender)
 			self.health = self.health - 50
 			if self.health <= 0 then
 				die(self)
+			else
+			go.set_scale(vmath.vector3(self.health / 100, 1, 1), self.healthbar_id)
 			end
 		end
 	end
