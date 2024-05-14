@@ -1,6 +1,12 @@
+local collision_response = hash("trigger_response")
+
 local function die(self)
 	go.delete(self.healthbar_id)
 	go.delete(msg.url(nil, go.get_id(), nil))
+end
+
+local function reduce_health(self,damage)
+
 end
 
 local function set_position(self, direction, dt)
@@ -40,8 +46,9 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("collision_response") then
-		if message.group == hash("rockets") then
+	if message_id == collision_response then
+		if message.group == hash("rockets") and message.enter then
+			print("collided")
 			self.health = self.health - 50
 			if self.health <= 0 then
 				die(self)
