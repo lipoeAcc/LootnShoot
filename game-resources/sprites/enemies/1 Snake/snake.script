@@ -11,16 +11,18 @@ function init(self)
 	self.health = 100
 
 	self.healthbar_id = go.get_id("healthbar")
+
+	-- do not show healthbar initially
+	go.set(self.healthbar_id, "scale", vmath.vector3(0, 0, 0))
 end
 
 function final(self)
 	-- Add finalization code here
 	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	-- Remove this function if not neededprint('test1')
 end
 
 function update(self, dt)
-
 
 end
 
@@ -35,7 +37,7 @@ function on_message(self, message_id, message, sender)
 			if self.health <= 0 then
 				die(self)
 			else
-			go.set_scale(vmath.vector3(self.health / 100, 1, 1), self.healthbar_id)
+				go.set_scale(vmath.vector3(self.health / 100, 1, 1), self.healthbar_id)
 			end
 		end
 	end
