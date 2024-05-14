@@ -3,13 +3,20 @@ local function die(self)
 	go.delete(msg.url(nil, go.get_id(), nil))
 end
 
+local function set_position(self, direction, dt)
+	local direction_normalized = vmath.normalize(direction)
+	local position = go.get_position() + direction_normalized * self.speed * dt
+	go.set_position(position)
+	-- set position of healthbar
+	go.set_position(position + vmath.vector3(0, 20, 0), self.healthbar_id)
+end
 
 
 function init(self)
 	self.dir = vmath.vector3(0, 0, 0)
 	self.target = vmath.vector3(0, 0, 0)
 	self.health = 100
-
+	self.speed = 20
 	self.healthbar_id = go.get_id("healthbar")
 
 	-- do not show healthbar initially
@@ -23,7 +30,8 @@ function final(self)
 end
 
 function update(self, dt)
-
+	-- update run
+	set_position(self, vmath.vector3(1, 0, 0), dt)
 end
 
 function fixed_update(self, dt)
