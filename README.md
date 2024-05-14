@@ -21,3 +21,8 @@ Happy Defolding!
 TODO
 
 Data driven stuff einbauen
+
+
+level loading mit
+https://defold.com/manuals/collection-proxy/
+collection proxy

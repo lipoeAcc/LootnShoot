@@ -40,7 +40,7 @@ instances {
   }
 }
 collection_instances {
-  id: "player1"
+  id: "player"
   collection: "/game-resources/sprites/player1/player1.collection"
   position {
     x: 0.0

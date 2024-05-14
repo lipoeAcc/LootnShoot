@@ -8,6 +8,8 @@ local input_down = hash("down")
 local input_primary_hit = hash("primary_hit")
 
 
+
+
 local function fire_rocket(self)
 	-- fire in the direction of the mouse
 	local dir = vmath.normalize(self.mouse - go.get_position())
@@ -36,7 +38,9 @@ function init(self)
 	self.rocket_disabled = false
 	self.rocket_reload_time = 2
 
-	local myID = go.get_id()
+	self.player_collection = {go.get_id("/player/player1"),go.get_id("/player/sword")} 
+
+	local myID = self.player_collection[1]
 	-- A timer with a delay of zero will trigger just before the text frame's update.
 	timer.delay(0, false, function() rendercam.follow(myID) end)
 	-- self.follow = true
@@ -52,7 +56,23 @@ function update(self, dt)
 	if self.moving then
 		local pos = go.get_position()
 		pos = pos + self.dir * self.speed * dt
-		go.set_position(pos)
+
+		for i, id in ipairs(self.player_collection) do
+			--local pos = go.get_position(id)
+			pos = pos + self.dir * self.speed * dt
+			--set an offset for the sword into moving direction
+			if(i == 2) then
+				pos = pos + 15 * self.dir
+				--set the rotation of the sword
+				local angle = math.atan2(self.dir.y, self.dir.x)
+				local rot = vmath.quat_rotation_z(angle)
+				go.set_rotation(rot, id)
+			end
+			go.set_position(pos, id)
+		end
+
+		
+
 	end
 
 	if self.firing and not self.rocket_disabled then
