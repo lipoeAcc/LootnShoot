@@ -1,25 +1,5 @@
 name: "main"
 instances {
-  id: "player1"
-  prototype: "/game-resources/sprites/player1/player1.go"
-  position {
-    x: 40.0
-    y: 50.0
-    z: 1.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
   id: "camera"
   prototype: "/rendercam/camera.go"
   position {
@@ -46,6 +26,26 @@ instances {
     x: 0.0
     y: 0.0
     z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+collection_instances {
+  id: "player1"
+  collection: "/game-resources/sprites/player1/player1.collection"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 1.0
   }
   rotation {
     x: 0.0

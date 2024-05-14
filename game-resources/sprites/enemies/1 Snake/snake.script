@@ -27,7 +27,8 @@ function update(self, dt)
 end
 
 function fixed_update(self, dt)
-	self.target = go.get_position("/player1")
+	--local id = go.get_id("player1")
+	--self.target = go.get_position(id)
 end
 
 function on_message(self, message_id, message, sender)

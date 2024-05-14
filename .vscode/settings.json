@@ -21,7 +21,8 @@
         "fixed_update",
         "on_message",
         "on_input",
-        "on_reload"
+        "on_reload",
+        "hash"
     ],
     "files.associations": {
         "*.script": "lua",
