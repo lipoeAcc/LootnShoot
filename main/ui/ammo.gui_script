@@ -24,7 +24,6 @@ function on_message(self, message_id, message, sender)
 	-- check if message is rocket_reload and if reload_time is not nil
 	if message_id == rocket_reload and message.reload_time ~=nil  then
         self.rocket_reload_time = message.reload_time
-		print("rocket_reload message received ", self.rocket_reload_time)
         -- make timer visible - id ammo_rocket_timer
         gui.set_visible(ammo_rocket_timer, true)
         -- update icon alpha to 0.5
@@ -37,6 +36,7 @@ function on_message(self, message_id, message, sender)
             self.rocket_reload_time = self.rocket_reload_time - 0.1
             if self.rocket_reload_time <= 0 then
                 gui.set_visible(ammo_rocket_timer, false)
+				gui.set_color(ammo_rocket_icon, vmath.vector4(1,1,1,1))
                 timer.cancel(timer_handle)
             end
         end)
