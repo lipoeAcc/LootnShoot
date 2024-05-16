@@ -1,6 +1,7 @@
+local animation_done = hash("animation_done")
+
 local function anim_done(self, message_id, message, sender)
-	print("anim_done")
-	if message_id == hash("animation_done") then
+	if message_id == animation_done then
 		go.delete()
 	  end
 end
