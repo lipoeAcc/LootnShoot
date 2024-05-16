@@ -1,4 +1,6 @@
 local create_snake = hash("create_snake")
+local create_mummy = hash("create_mummy")
+
 local costs = {
 	[2] = {
 		1.0, -- E
@@ -52,8 +54,10 @@ end
 
 function on_message(self, message_id, message, sender)
     if message_id == create_snake then
-        local instances = collectionfactory.create("#snakefactory")
-    end
+		local instances = collectionfactory.create("#snakefactory")
+	elseif message_id == create_mummy then
+		local instances = factory.create("#mummy_factory")
+	end
 end
 
 function on_input(self, action_id, action)
