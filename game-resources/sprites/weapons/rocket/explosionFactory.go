@@ -1,7 +1,7 @@
 embedded_components {
-  id: "factory"
+  id: "explosion_factory"
   type: "factory"
-  data: "prototype: \"\"\n"
+  data: "prototype: \"/game-resources/sprites/weapons/rocket/rocketexplosion.go\"\n"
   "load_dynamically: false\n"
   "dynamic_prototype: false\n"
   ""
