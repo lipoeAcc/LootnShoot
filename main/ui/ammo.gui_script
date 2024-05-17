@@ -1,8 +1,28 @@
 local rocket_reload = hash("rocket_reload")
+local sword_cooldown = hash("sword_cooldown")
 
+local function update_timer(timer_node, icon_node, time)
+	gui.set_visible(timer_node, true)
+	gui.set_color(icon_node, vmath.vector4(1,1,1,0.5))
+	gui.set_text(timer_node, time)
+	local timer_handle
+	timer_handle = timer.delay(0.1, true, function()
+		gui.set_text(timer_node, time)
+		time = time - 0.1
+		if time <= 0 then
+			gui.set_visible(timer_node, false)
+			gui.set_color(icon_node, vmath.vector4(1,1,1,1))
+			timer.cancel(timer_handle)
+		end
+	end)
+end
 
 function init(self)
-	
+	self.ammo_rocket_timer = gui.get_node("ammo_rocket_timer")
+	self.ammo_rocket_icon = gui.get_node("ammo_rocket_icon")
+
+	self.sword_timer = gui.get_node("sword_timer")
+	self.sword_icon = gui.get_node("sword_icon")
 end
 
 function final(self)
@@ -18,28 +38,11 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	local ammo_rocket_timer = gui.get_node("ammo_rocket_timer")
-	local ammo_rocket_icon = gui.get_node("ammo_rocket_icon")
-
 	-- check if message is rocket_reload and if reload_time is not nil
 	if message_id == rocket_reload and message.reload_time ~=nil  then
-        self.rocket_reload_time = message.reload_time
-        -- make timer visible - id ammo_rocket_timer
-        gui.set_visible(ammo_rocket_timer, true)
-        -- update icon alpha to 0.5
-        gui.set_color(ammo_rocket_icon, vmath.vector4(1,1,1,0.5))
-        -- set text of timer to remaining time. Update every 0.1 seconds - use a callback function
-        local timer_handle 
-		gui.set_text(ammo_rocket_timer, self.rocket_reload_time)
-		timer_handle = timer.delay(0.1, true, function()
-            gui.set_text(ammo_rocket_timer, self.rocket_reload_time)
-            self.rocket_reload_time = self.rocket_reload_time - 0.1
-            if self.rocket_reload_time <= 0 then
-                gui.set_visible(ammo_rocket_timer, false)
-				gui.set_color(ammo_rocket_icon, vmath.vector4(1,1,1,1))
-                timer.cancel(timer_handle)
-            end
-        end)
+		update_timer(self.ammo_rocket_timer, self.ammo_rocket_icon, message.reload_time)
+	elseif message_id == sword_cooldown and message.cooldown ~=nil then
+		update_timer(self.sword_timer, self.sword_icon, message.cooldown)
 	end
 end
 

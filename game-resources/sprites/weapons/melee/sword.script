@@ -1,7 +1,14 @@
+local animation_done = hash("animation_done")
+
+local function play_idle(self, message_id, message, sender)
+	local url = msg.url("#sprite")
+	print("play_idle")
+	sprite.play_flipbook(url, "sword")
+end
+
 function init(self)
-	-- Add initialization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	self.cooldown = 2
+	self.disabled = false
 end
 
 function final(self)
@@ -26,8 +33,16 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("collision_response") then
-		print("sword slash!")
+	if message_id == hash("trigger_response") then
+		if self.disabled == false then
+			self.disabled = true
+			timer.delay(self.cooldown, false, function() self.disabled = false end)
+			
+			local url = msg.url("#sprite")
+			sprite.play_flipbook(url, "sword_attack",play_idle)
+			msg.post("/gui#ammo", "sword_cooldown", { cooldown = self.cooldown })
+		end
+	
 	end
 end
 

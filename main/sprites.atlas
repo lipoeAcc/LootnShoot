@@ -6,6 +6,10 @@ images {
   image: "/game-resources/sprites/enemies/health/Frame.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
+images {
+  image: "/game-resources/sprites/weapons/melee/sword.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
 animations {
   id: "rocket"
   images {
@@ -121,6 +125,37 @@ animations {
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 60
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "sword_attack"
+  images {
+    image: "/game-resources/sprites/weapons/melee/sword_attack/sword_attack_00.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/game-resources/sprites/weapons/melee/sword_attack/sword_attack_01.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/game-resources/sprites/weapons/melee/sword_attack/sword_attack_02.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/game-resources/sprites/weapons/melee/sword_attack/sword_attack_03.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/game-resources/sprites/weapons/melee/sword_attack/sword_attack_04.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/game-resources/sprites/weapons/melee/sword_attack/sword_attack_05.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 12
   flip_horizontal: 0
   flip_vertical: 0
 }

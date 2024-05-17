@@ -1,3 +1,18 @@
+components {
+  id: "sword"
+  component: "/game-resources/sprites/weapons/melee/sword.script"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
 embedded_components {
   id: "swordcollision"
   type: "collisionobject"
@@ -50,7 +65,7 @@ embedded_components {
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "default_animation: \"health\"\n"
+  data: "default_animation: \"sword\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
   "textures {\n"
@@ -59,19 +74,19 @@ embedded_components {
   "}\n"
   ""
   position {
-    x: 0.0
+    x: 15.0
     y: 0.0
     z: 0.0
   }
   rotation {
     x: 0.0
     y: 0.0
-    z: 0.0
-    w: 1.0
+    z: 0.70710677
+    w: -0.70710677
   }
   scale {
-    x: 1.5
-    y: 1.5
+    x: 0.15
+    y: 0.15
     z: 1.0
   }
 }
