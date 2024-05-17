@@ -1,4 +1,4 @@
-local contact_point_response_hash = hash("contact_point_response")
+local trigger_response = hash("trigger_response")
 
 local function set_position(self, direction, dt)
 	local direction_normalized = vmath.normalize(direction)
@@ -34,8 +34,7 @@ function on_message(self, message_id, message, sender)
 	-- Learn more: https://defold.com/manuals/message-passing/
 	-- Remove this function if not needed
 	print(message_id)
-	if message_id == contact_point_response_hash then
-		print("contact")
+	if message_id == trigger_response then
 		self.dir = vmath.vector3(0, 0, 0)
 	end
 end
