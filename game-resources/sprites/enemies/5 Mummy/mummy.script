@@ -1,14 +1,15 @@
 local trigger_response = hash("trigger_response")
 
-local function set_position(self, direction, dt)
-	local direction_normalized = vmath.normalize(direction)
+local function set_position(self, dt)
+	local direction_normalized = vmath.normalize(self.dir)
 	local position = go.get_position() + direction_normalized * self.speed * dt
 	go.set_position(position)
 	-- lookup if there is a collision to wall
 end
 
+
 function init(self)
-	self.dir = vmath.vector3(0, 0, 0)
+	self.dir = vmath.vector3(0, 1, 0)
 	self.speed = 50
 end
 
@@ -25,17 +26,16 @@ function update(self, dt)
 end
 
 function fixed_update(self, dt)
-	set_position(self, vmath.vector3(0, -1, 0), dt)
-
+	set_position(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
 	-- Add message-handling code here
 	-- Learn more: https://defold.com/manuals/message-passing/
 	-- Remove this function if not needed
-	print(message_id)
-	if message_id == trigger_response then
-		self.dir = vmath.vector3(0, 0, 0)
+	if message_id == trigger_response and message.enter then
+		-- reverse direction
+		self.dir = vmath.vector3(-self.dir.x, -self.dir.y, 0)
 	end
 end
 
