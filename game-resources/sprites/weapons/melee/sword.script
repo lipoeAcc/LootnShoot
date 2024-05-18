@@ -1,4 +1,5 @@
 local trigger_response = hash("trigger_response")
+local collision_response = hash("collision_response")
 
 local function play_idle(self, message_id, message, sender)
 	local url = msg.url("#sprite")
@@ -9,12 +10,14 @@ function init(self)
 	self.cooldown = 2
 	self.disabled = false
 	self.knockback = 100
+
+	self.hitting = false
+
+	self.sword_collision = msg.url("/player/sword#sword_collision")
+	self.sword_trigger = msg.url("/player/sword#sword_trigger")
 end
 
 function final(self)
-	-- Add finalization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
 end
 
 function update(self, dt)
@@ -33,19 +36,23 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == trigger_response then
+	if message_id == collision_response and sender == self.sword_trigger then
+		
+
 		if self.disabled == false then
 			self.disabled = true
+			self.hitting = true
 			timer.delay(self.cooldown, false, function() self.disabled = false end)
+			timer.delay(0.05, false, function() self.hitting = false end)
 			
 			local url = msg.url("#sprite")
 			sprite.play_flipbook(url, "sword_attack",play_idle)
 			msg.post("/gui#ammo", "sword_cooldown", { cooldown = self.cooldown })
-
-			-- apply knockback
-			if self.knockback > 0 then
-				msg.post(message.other_id, "knockback", {knockback = self.knockback, other_id = go.get_id()})
-			end
+		end
+	end
+	if message_id == collision_response and sender == self.sword_collision then
+		if self.hitting then
+			msg.post(message.other_id, "knockback", {knockback = self.knockback, damage = 10, other_id = go.get_id()})
 		end
 	end
 end
