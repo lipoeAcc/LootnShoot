@@ -54,7 +54,7 @@ end
 
 function on_message(self, message_id, message, sender)
     if message_id == create_snake then
-		local instances = collectionfactory.create("#snakefactory")
+		local instances = collectionfactory.create("#snakefactory", vmath.vector3(500, 0, 0))
 	elseif message_id == create_mummy then
 		-- add position to factory from message.x and message.y
 		local instances = factory.create("#mummy_factory", vmath.vector3(500, 500, 0))

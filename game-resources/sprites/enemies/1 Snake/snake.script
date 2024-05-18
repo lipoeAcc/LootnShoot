@@ -1,4 +1,5 @@
 local collision_response = hash("trigger_response")
+local knockback = hash("knockback")
 
 local function die(self)
 	go.delete(self.healthbar_id)
@@ -22,6 +23,34 @@ local function set_position(self, direction, dt)
 	go.set_position(position + vmath.vector3(0, 20, 0), self.healthbar_id)
 end
 
+local function set_knockback_position(self, direction, dt)
+	local direction_normalized = vmath.normalize(direction)
+	local position = go.get_position() + direction_normalized * self.knockback_speed * dt
+	go.set_position(position)
+	-- set position of healthbar
+	go.set_position(position + vmath.vector3(0, 20, 0), self.healthbar_id)
+end
+
+local function update_position(self, direction, dt)
+	--check if knockbacking
+	if self.knockbacking then
+		set_knockback_position(self, self.knockback_direction, dt)
+		return
+	end
+	set_position(self, direction, dt)
+end
+
+local function knockback_complete(self)
+	print('knockback complete')
+	self.knockbacking = false
+end
+
+local function apply_knockback(self, direction)
+	self.knockbacking = true
+	self.knockback_direction = vmath.normalize(direction)
+	timer.delay(self.knockback_time, false, knockback_complete)
+end
+
 
 function init(self)
 	self.dir = vmath.vector3(0, 0, 0)
@@ -29,6 +58,9 @@ function init(self)
 	self.health = 100
 	self.speed = 20
 	self.healthbar_id = go.get_id("healthbar")
+	self.knockbacking = false
+	self.knockback_time = 0.3
+	self.knockback_speed = 500
 
 	-- do not show healthbar initially
 	go.set(self.healthbar_id, "scale", vmath.vector3(0, 0, 0))
@@ -42,12 +74,13 @@ end
 
 function update(self, dt)
 	-- update run
-	set_position(self, vmath.vector3(1, 0, 0), dt)
+	
 end
 
 function fixed_update(self, dt)
 	--local id = go.get_id("player1")
 	--self.target = go.get_position(id)
+	update_position(self, vmath.vector3(1, 0, 0), dt)
 end
 
 function on_message(self, message_id, message, sender)
@@ -55,6 +88,11 @@ function on_message(self, message_id, message, sender)
 		if message.group == hash("rockets") and message.enter then
 			reduce_health(self, 50)
 		end
+	end
+	if message_id == knockback then
+		local vector_other = go.get_position(message.other_id) 
+		local vector_self = go.get_position()
+		apply_knockback(self, vmath.vector3(vector_self.x-vector_other.x, vector_self.y-vector_other.y , 0))
 	end
 end
 
