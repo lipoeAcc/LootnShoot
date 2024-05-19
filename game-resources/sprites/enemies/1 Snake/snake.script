@@ -7,7 +7,6 @@ local function die(self)
 end
 
 local function reduce_health(self,damage)
-	print("apply_damage")
 	self.health = self.health - damage
 	if self.health <= 0 then
 		die(self)
