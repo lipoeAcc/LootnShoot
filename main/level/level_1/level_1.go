@@ -14,7 +14,7 @@ components {
   }
 }
 components {
-  id: "level_11"
+  id: "level_1_script"
   component: "/main/level/level_1/level_1.script"
   position {
     x: 0.0

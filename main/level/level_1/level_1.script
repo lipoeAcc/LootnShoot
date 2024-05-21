@@ -1,6 +1,8 @@
 function init(self)
-	msg.post("/enemies#enemies", "create_snake")
-	msg.post("/enemies#enemies", "create_mummy")
+	local url = msg.url("main","/enemies", "enemies")
+	print(url)
+	msg.post(url, "create_snake")
+	msg.post(url, "create_mummy")
 end
 
 function final(self)
