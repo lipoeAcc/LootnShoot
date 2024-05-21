@@ -3,6 +3,7 @@ function init(self)
 	-- Learn more: https://defold.com/manuals/script/
 	-- Remove this function if not needed
 	msg.post("#level_1_proxy", "load")
+	msg.post(".", "acquire_input_focus")
 end
 
 function final(self)

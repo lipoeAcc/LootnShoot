@@ -38,12 +38,14 @@ function init(self)
 	self.rocket_disabled = false
 	self.rocket_reload_time = 2
 
-	self.player_collection = {go.get_id("/player/player1"),go.get_id("/player/sword")} 
+	self.player_collection = {go.get_id("/player1/player1"),go.get_id("/player1/sword")} 
+
+	print("collection1 ",self.player_collection[1], go.get_id())
 
 	local myID = self.player_collection[1]
 	-- A timer with a delay of zero will trigger just before the text frame's update.
 	timer.delay(0, false, function() rendercam.follow(myID) end)
-	rendercam.set_ortho_scale(0.3)
+	rendercam.set_ortho_scale(8)
 	-- self.follow = true
 end
 
