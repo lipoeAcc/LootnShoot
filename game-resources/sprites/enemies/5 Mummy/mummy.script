@@ -33,9 +33,17 @@ function on_message(self, message_id, message, sender)
 	-- Add message-handling code here
 	-- Learn more: https://defold.com/manuals/message-passing/
 	-- Remove this function if not needed
+	if message.other_group == hash("player") then
+		print("damage")
+		msg.post(sender, "damage")
+	end
+
 	if message_id == trigger_response and message.enter then
-		-- reverse direction
-		self.dir = vmath.vector3(-self.dir.x, -self.dir.y, 0)
+		-- if wall
+
+		if message.other_group == hash("wall") then
+			self.dir = vmath.vector3(-self.dir.x, -self.dir.y, 0)
+		end
 	end
 end
 
