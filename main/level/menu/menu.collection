@@ -1,7 +1,7 @@
-name: "main"
+name: "menu"
 instances {
-  id: "loader"
-  prototype: "/main/loader/loader.go"
+  id: "menu"
+  prototype: "/main/level/menu/menu.go"
   position {
     x: 0.0
     y: 0.0
