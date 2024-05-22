@@ -17,6 +17,7 @@ end
 
 local function set_position(self, direction, dt)
 	local direction_normalized = vmath.normalize(direction)
+	local position = go.get_position() + direction_normalized * self.speed * dt
 	go.set_position(vmath.vector3(position.x, position.y, 1))
 	-- set position of healthbar
 	go.set_position(position + vmath.vector3(0, 20, 0), self.healthbar_id)

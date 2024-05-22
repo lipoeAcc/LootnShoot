@@ -6,7 +6,6 @@ local input_up = hash("up")
 local input_down = hash("down")
 
 local input_primary_hit = hash("primary_hit")
-local gui_ammo_url = msg.url("main", "/gui", "ammo")
 
 
 
@@ -21,7 +20,7 @@ local function fire_rocket(self)
 	factory.create("#rocketfactory", nil, rot, props)
 	self.rocket_disabled = true
 	timer.delay(self.rocket_reload_time, false, function() self.rocket_disabled = false end)
-	msg.post(gui_ammo_url, "rocket_reload", { reload_time = self.rocket_reload_time })
+	msg.post(msg.url("/gui"), "rocket_reload", { reload_time = self.rocket_reload_time })
 end
 
 
