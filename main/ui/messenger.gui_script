@@ -1,0 +1,114 @@
+local display_message_hash = hash("display_message")
+local display_message_time = 5
+
+local function create_node_display_message(self, message)
+	-- frame for the box node by making a node slightly larger than the box node in white
+	local frame_position = vmath.vector3(150, 75, 0)
+	local frame_size = vmath.vector3(260, 110, 0)
+	local frame_color = vmath.vector4(1, 1, 1, 1)
+	local frame_node = gui.new_box_node(frame_position, frame_size)
+	gui.set_color(frame_node, frame_color)
+	-- start creating the box node at the top right corner of the screen
+	local position = vmath.vector3(150, 75, 0)
+	local size = vmath.vector3(250, 100, 0)
+	local color = vmath.vector4(0, 0, 0, 1)
+	local box_node = gui.new_box_node(position, size)
+	gui.set_color(box_node, color)
+
+
+
+	-- create the text node inside the box node
+	local text_position = vmath.vector3(150, 75, 0)
+	local text = message
+	local font = "default"
+	local font_size = 20
+	local text_color = vmath.vector4(1,1,1,1)
+	local text_node = gui.new_text_node(text_position, text)
+	gui.set_font(text_node, font)
+	gui.set_color(text_node, text_color)
+	-- make the text that it has a max width of 250 and will wrap around
+	gui.set_line_break(text_node, true)
+	gui.set_size(text_node, vmath.vector3(240, 100, 0))
+
+
+	return frame_node, box_node, text_node
+
+end
+
+local function delete_node_display_message(self, frame_node, box_node, text_node)
+	-- delete the frame node
+	gui.delete_node(frame_node)
+	-- delete the box node
+	gui.delete_node(box_node)
+	-- delete the text node
+	gui.delete_node(text_node)
+end
+
+local update_message_positions = function(self)
+    local x = 150
+    local y = 75
+	-- print all entries in the message_boxes table
+	for i, v in ipairs(self.message_boxes) do
+		print(i, v)
+	end
+
+    for i = #self.message_boxes, 1, -1 do
+        local message_box = self.message_boxes[i]
+        gui.set_position(message_box.frame_node, vmath.vector3(x, y, 0))
+        gui.set_position(message_box.box_node, vmath.vector3(x, y, 0))
+        gui.set_position(message_box.text_node, vmath.vector3(x, y, 0))
+        y = y + 120
+    end
+end
+
+local function display_message(self, message)
+	--create_node_display_message(self)
+	local frame_node, box_node, text_node = create_node_display_message(self ,message)
+	self.message_boxes[#self.message_boxes + 1] = {frame_node = frame_node, box_node = box_node, text_node = text_node}
+	update_message_positions(self)
+
+	-- delete message after display_message_time seconds
+	timer.delay(display_message_time, false, function()
+		table.remove(self.message_boxes)
+		delete_node_display_message(self, frame_node, box_node, text_node)
+		update_message_positions(self)
+	end)
+end
+
+
+function init(self)
+	self.message_boxes = {}
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == display_message_hash then
+		display_message(self, message.message)
+	end
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here. The game object this script is attached to
+	-- must have acquired input focus:
+	--
+	--    msg.post(".", "acquire_input_focus")
+	--
+	-- All mapped input bindings will be received. Mouse and touch input will
+	-- be received regardless of where on the screen it happened.
+	-- Learn more: https://defold.com/manuals/input/
+	-- Remove this function if not needed
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Learn more: https://defold.com/manuals/hot-reload/
+	-- Remove this function if not needed
+end

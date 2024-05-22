@@ -46,7 +46,7 @@ function on_message(self, message_id, message, sender)
 			
 			local url = msg.url("#sprite")
 			sprite.play_flipbook(url, "sword_attack",play_idle)
-			msg.post(msg.url("/gui"), "sword_cooldown", { cooldown = self.cooldown })
+			msg.post(msg.url("/gui/ammo"), "sword_cooldown", { cooldown = self.cooldown })
 		end
 	end
 	if message_id == collision_response and sender == self.sword_collision then

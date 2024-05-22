@@ -79,13 +79,13 @@ instances {
     z: 1.0
   }
 }
-instances {
-  id: "gui"
-  prototype: "/main/ui/gui.go"
+collection_instances {
+  id: "player1"
+  collection: "/game-resources/sprites/player1/player1.collection"
   position {
     x: 0.0
     y: 0.0
-    z: 0.0
+    z: 1.0
   }
   rotation {
     x: 0.0
@@ -100,12 +100,12 @@ instances {
   }
 }
 collection_instances {
-  id: "player1"
-  collection: "/game-resources/sprites/player1/player1.collection"
+  id: "gui"
+  collection: "/main/ui/gui.collection"
   position {
     x: 0.0
     y: 0.0
-    z: 1.0
+    z: 0.0
   }
   rotation {
     x: 0.0

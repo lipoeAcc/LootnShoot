@@ -20,7 +20,7 @@ local function fire_rocket(self)
 	factory.create("#rocketfactory", nil, rot, props)
 	self.rocket_disabled = true
 	timer.delay(self.rocket_reload_time, false, function() self.rocket_disabled = false end)
-	msg.post(msg.url("/gui"), "rocket_reload", { reload_time = self.rocket_reload_time })
+	msg.post(msg.url("/gui/ammo"), "rocket_reload", { reload_time = self.rocket_reload_time })
 end
 
 
@@ -46,6 +46,10 @@ function init(self)
 	-- A timer with a delay of zero will trigger just before the text frame's update.
 	timer.delay(0, false, function() rendercam.follow(myID) rendercam.set_ortho_scale(0.3) end)
 	-- self.follow = true
+
+	-- send a message to display a message
+	timer.delay(1, false, function() msg.post("/gui/messenger", "display_message", { message = "Welcome to the game!" }) end)
+	timer.delay(3, false, function() msg.post("/gui/messenger", "display_message", { message = "If you stay alive, you will reach the next stage!" }) end)
 end
 
 function final(self)

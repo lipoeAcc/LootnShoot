@@ -34,7 +34,6 @@ function on_message(self, message_id, message, sender)
 	-- Learn more: https://defold.com/manuals/message-passing/
 	-- Remove this function if not needed
 	if message.other_group == hash("player") then
-		print("damage")
 		msg.post(sender, "damage")
 	end
 
