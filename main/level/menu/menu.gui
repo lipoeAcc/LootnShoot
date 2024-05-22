@@ -1,4 +1,4 @@
-script: ""
+script: "/main/level/menu/menu.gui_script"
 fonts {
   name: "default"
   font: "/builtins/fonts/default.font"
@@ -109,7 +109,7 @@ nodes {
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
   texture: ""
-  id: "box"
+  id: "start_button"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
