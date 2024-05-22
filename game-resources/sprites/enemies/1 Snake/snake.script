@@ -17,8 +17,7 @@ end
 
 local function set_position(self, direction, dt)
 	local direction_normalized = vmath.normalize(direction)
-	local position = go.get_position() + direction_normalized * self.speed * dt
-	go.set_position(position)
+	go.set_position(vmath.vector3(position.x, position.y, 1))
 	-- set position of healthbar
 	go.set_position(position + vmath.vector3(0, 20, 0), self.healthbar_id)
 end
@@ -41,7 +40,6 @@ local function update_position(self, direction, dt)
 end
 
 local function knockback_complete(self)
-	print('knockback complete')
 	self.knockbacking = false
 end
 
@@ -93,7 +91,6 @@ function on_message(self, message_id, message, sender)
 		local vector_other = go.get_position(message.other_id) 
 		local vector_self = go.get_position()
 		apply_knockback(self, vmath.vector3(vector_self.x-vector_other.x, vector_self.y-vector_other.y , 0))
-		print("apply knockback - damage: ", message.damage)
 		reduce_health(self, message.damage)
 	end
 	if message_id == hash("damage") then

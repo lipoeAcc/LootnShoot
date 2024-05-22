@@ -29,8 +29,6 @@ function init(self)
 	astar.setup(5, 5, astar.DIRECTION_EIGHT,25, 8, true)
 	astar.set_costs(costs)
 	astar.set_map(world)
-
-	print("enemies-url ", msg.url())
 end
 
 function final(self)

@@ -1,8 +1,6 @@
 local trigger_response = hash("trigger_response")
 local collision_response = hash("collision_response")
 
-local gui_ammo_url = msg.url("main", "/gui", "ammo")
-
 local function play_idle(self, message_id, message, sender)
 	local url = msg.url("#sprite")
 	sprite.play_flipbook(url, "sword")
@@ -48,7 +46,7 @@ function on_message(self, message_id, message, sender)
 			
 			local url = msg.url("#sprite")
 			sprite.play_flipbook(url, "sword_attack",play_idle)
-			msg.post(gui_ammo_url, "sword_cooldown", { cooldown = self.cooldown })
+			msg.post(msg.url("/gui"), "sword_cooldown", { cooldown = self.cooldown })
 		end
 	end
 	if message_id == collision_response and sender == self.sword_collision then
