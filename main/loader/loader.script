@@ -33,19 +33,14 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("proxy_loaded") then
-		print("proxy_loaded")
-		print("target ", sender)
 		self.loaded_level = self.loading_level
 		msg.post(sender, "enable")
 	end
 	if message_id == hash("load_level_1") then
-		print("load level 1")
 		self.next_load = msg.url("#level_1_proxy")
-		print("message: ",message)
 		msg.post(msg.url("main","/loader","menu_proxy"), "unload")
 	end
 	if message_id == hash("proxy_unloaded") then 
-		print(self.next_load)
 		msg.post(self.next_load, "load")
 	end
 end
