@@ -159,6 +159,25 @@ animations {
   flip_horizontal: 0
   flip_vertical: 0
 }
+animations {
+  id: "portal"
+  images {
+    image: "/game-resources/sprites/portal/portal_1.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/game-resources/sprites/portal/portal_3.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/game-resources/sprites/portal/portal_2.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_PINGPONG
+  fps: 2
+  flip_horizontal: 0
+  flip_vertical: 0
+}
 margin: 0
 extrude_borders: 2
 inner_padding: 0
