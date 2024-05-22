@@ -3,7 +3,10 @@
   "editor.suggest.showKeywords": false,
   "Lua.completion.callSnippet": "Replace",
   "Lua.runtime.version": "Lua 5.1",
-  "Lua.workspace.library": [".defold/api", ".defold/assets"],
+  "Lua.workspace.library": [
+    ".defold/api",
+    ".defold/assets"
+  ],
   "Lua.diagnostics.libraryFiles": "Disable",
   "Lua.workspace.ignoreDir": [".vscode", ".defold/api", "build"],
   "Lua.diagnostics.ignoredFiles": "Disable",
@@ -15,7 +18,25 @@
     "on_message",
     "on_input",
     "on_reload",
-    "hash"
+    "hash",
+    "msg",
+    "sound",
+    "vmath",
+    "gui",
+    "socket",
+    "sys",
+    "render",
+    "go",
+    "factory",
+    "resource",
+    "pprint",
+    "timer",
+    "particlefx",
+    "spine",
+    "sprite",
+    "json",
+    "window",
+    "physics"
   ],
   "files.associations": {
     "*.script": "lua",
@@ -53,7 +74,10 @@
     "*.texture_profiles": "textproto",
     "*.tilemap": "textproto",
     "*.tilesource": "textproto",
-    "*.appmanifest": "yaml"
+    "*.appmanifest": "yaml",
+    "*.manifest": "textproto",
+    "*.script_api": "yaml",
+    "ext.manifest": "yaml"
   },
   "search.exclude": {
     "**/node_modules": true,
@@ -66,5 +90,20 @@
     "**/*.atlas": true,
     "**/icon_*.png": true
   },
-  "Lua.diagnostics.disable": ["undefined-global"]
+  "Lua.diagnostics.disable": [
+    "undefined-global",
+    "lowercase-global",
+    "redefined-local"
+  ],
+  "[lua]": {
+    "editor.defaultFormatter": "sumneko.lua"
+  },
+  "Lua.window.statusBar": false,
+  "Lua.completion.keywordSnippet": "Replace",
+  "Lua.completion.showWord": "Fallback",
+  "Lua.completion.autoRequire": false,
+  "glsllint.additionalStageAssociations": {
+    ".fp": "frag",
+    ".vp": "vert"
+  }
 }
