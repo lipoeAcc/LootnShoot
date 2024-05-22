@@ -47,10 +47,6 @@ end
 local update_message_positions = function(self)
     local x = 150
     local y = 75
-	-- print all entries in the message_boxes table
-	for i, v in ipairs(self.message_boxes) do
-		print(i, v)
-	end
 
     for i = #self.message_boxes, 1, -1 do
         local message_box = self.message_boxes[i]
