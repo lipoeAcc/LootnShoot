@@ -1,6 +1,8 @@
 local trigger_response = hash("trigger_response")
 local collision_response = hash("collision_response")
 
+local gui_ammo_url = msg.url("main", "/gui", "ammo")
+
 local function play_idle(self, message_id, message, sender)
 	local url = msg.url("#sprite")
 	sprite.play_flipbook(url, "sword")
@@ -13,8 +15,9 @@ function init(self)
 
 	self.hitting = false
 
-	self.sword_collision = msg.url("/player/sword#sword_collision")
-	self.sword_trigger = msg.url("/player/sword#sword_trigger")
+	self.sword_collision = msg.url("/player1/sword#sword_collision")
+	self.sword_trigger = msg.url("/player1/sword#sword_trigger")
+
 end
 
 function final(self)
@@ -37,8 +40,6 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == collision_response and sender == self.sword_trigger then
-		
-
 		if self.disabled == false then
 			self.disabled = true
 			self.hitting = true
@@ -47,7 +48,7 @@ function on_message(self, message_id, message, sender)
 			
 			local url = msg.url("#sprite")
 			sprite.play_flipbook(url, "sword_attack",play_idle)
-			msg.post("/gui#ammo", "sword_cooldown", { cooldown = self.cooldown })
+			msg.post(gui_ammo_url, "sword_cooldown", { cooldown = self.cooldown })
 		end
 	end
 	if message_id == collision_response and sender == self.sword_collision then
