@@ -2,6 +2,10 @@ function init(self)
 	local url = msg.url("/enemies#enemies")
 	msg.post(url, "create_snake")
 	msg.post(url, "create_mummy")
+
+	local portal_factory_url = msg.url("/portal_factory#portal_factory")
+
+	msg.post
 end
 
 function final(self)

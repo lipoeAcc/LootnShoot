@@ -1,5 +1,5 @@
 embedded_components {
-  id: "collectionfactory"
+  id: "portal_factory"
   type: "collectionfactory"
   data: "prototype: \"/main/level/level_portal/level_portal.collection\"\n"
   "load_dynamically: false\n"
