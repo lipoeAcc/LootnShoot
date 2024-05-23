@@ -8,6 +8,8 @@ function init(self)
 
 	self.loaded_level = ""
 	self.loading_level = msg.url("main","/loader","menu_proxy")
+
+	print("loader url", msg.url())
 end
 
 function final(self)
@@ -42,6 +44,9 @@ function on_message(self, message_id, message, sender)
 	end
 	if message_id == hash("proxy_unloaded") then 
 		msg.post(self.next_load, "load")
+	end
+	if message_id == hash("next_level") then
+		print("load next level")
 	end
 end
 

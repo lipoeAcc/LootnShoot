@@ -7,6 +7,9 @@ local input_down = hash("down")
 
 local input_primary_hit = hash("primary_hit")
 
+local trigger_response = hash("trigger_response")
+local portal_group = hash("portal")
+
 
 
 
@@ -38,9 +41,7 @@ function init(self)
 	self.rocket_disabled = false
 	self.rocket_reload_time = 2
 
-	self.player_collection = {go.get_id("/player1/player1"),go.get_id("/player1/sword")} 
-
-	print("collection1 ",self.player_collection[1], go.get_id())
+	self.player_collection = {go.get_id("/player1/player1"),go.get_id("/player1/sword")}
 
 	local myID = self.player_collection[1]
 	-- A timer with a delay of zero will trigger just before the text frame's update.
@@ -102,6 +103,16 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
+	if message_id == trigger_response and message.group == portal_group and message.enter then
+		-- disable portal to have time to spawn next level
+		local portal_trigger_url = msg.url(nil, message.other_id, "portal_trigger")
+		msg.post(portal_trigger_url, "disable")
+		
+		msg.post("/gui/messenger", "display_message", { message = "You have entered a portal! I wonder what will happen..." })
+		-- message the loader to finish current level and load the next
+		local loader = msg.url("main","/loader", "loader")
+		msg.post(loader, "next_level")
+	end
 end
 
 function on_input(self, action_id, action)

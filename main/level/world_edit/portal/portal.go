@@ -1,6 +1,21 @@
 components {
   id: "portal"
-  component: "/main/level/level_portal/portal.sprite"
+  component: "/main/level/world_edit/portal/portal.sprite"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
+components {
+  id: "portal1"
+  component: "/main/level/world_edit/portal/portal.script"
   position {
     x: 0.0
     y: 0.0
@@ -21,7 +36,7 @@ embedded_components {
   "mass: 0.0\n"
   "friction: 0.1\n"
   "restitution: 0.5\n"
-  "group: \"\"\n"
+  "group: \"portal\"\n"
   "mask: \"player\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"

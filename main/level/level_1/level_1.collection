@@ -80,8 +80,8 @@ instances {
   }
 }
 instances {
-  id: "portal_factory"
-  prototype: "/main/level/level_portal/portal_factory.go"
+  id: "world_edit"
+  prototype: "/main/level/world_edit/world_edit.go"
   position {
     x: 0.0
     y: 0.0

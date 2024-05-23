@@ -47,14 +47,13 @@ end
 local update_message_positions = function(self)
     local x = 150
     local y = 75
-
-    for i = #self.message_boxes, 1, -1 do
-        local message_box = self.message_boxes[i]
-        gui.set_position(message_box.frame_node, vmath.vector3(x, y, 0))
-        gui.set_position(message_box.box_node, vmath.vector3(x, y, 0))
-        gui.set_position(message_box.text_node, vmath.vector3(x, y, 0))
-        y = y + 120
-    end
+	for i = #self.message_boxes, 1, -1 do
+		local message_box = self.message_boxes[i]
+		gui.set_position(message_box.frame_node, vmath.vector3(x, y, 0))
+		gui.set_position(message_box.box_node, vmath.vector3(x, y, 0))
+		gui.set_position(message_box.text_node, vmath.vector3(x, y, 0))
+		y = y + 120
+	end
 end
 
 local function display_message(self, message)
@@ -65,7 +64,7 @@ local function display_message(self, message)
 
 	-- delete message after display_message_time seconds
 	timer.delay(display_message_time, false, function()
-		table.remove(self.message_boxes)
+		table.remove(self.message_boxes,1)
 		delete_node_display_message(self, frame_node, box_node, text_node)
 		update_message_positions(self)
 	end)

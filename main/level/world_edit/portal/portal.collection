@@ -1,7 +1,7 @@
-name: "level_portal"
+name: "world_edit"
 instances {
-  id: "level_portal"
-  prototype: "/main/level/level_portal/level_portal.go"
+  id: "portal"
+  prototype: "/main/level/world_edit/portal/portal.go"
   position {
     x: 0.0
     y: 0.0
@@ -14,8 +14,8 @@ instances {
     w: 1.0
   }
   scale3 {
-    x: 1.0
-    y: 1.0
+    x: 0.2
+    y: 0.2
     z: 1.0
   }
 }
