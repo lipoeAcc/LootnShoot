@@ -10,6 +10,14 @@ images {
   image: "/game-resources/sprites/weapons/melee/sword.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
+images {
+  image: "/game-resources/sprites/enemies/health/health_hq.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/game-resources/sprites/enemies/health/frame_hq.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
 animations {
   id: "rocket"
   images {
