@@ -27,8 +27,9 @@ function on_input(self, action_id, action)
 	if action_id == touch and action.pressed then
 		local start_button = gui.get_node("start_button")
 		if gui.pick_node(start_button, action.x, action.y) then
-			local loader_url = msg.url("main","/loader",nil)
-			msg.post(loader_url, "load_level_1")
+			local level_control_url = msg.url("main","/level_control","level_control")
+			msg.post(level_control_url, "level_completed")
+			print("sending done message to level_control ", level_control_url)
 		end
 	end
 end

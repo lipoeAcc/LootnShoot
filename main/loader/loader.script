@@ -1,15 +1,6 @@
 function init(self)
-	-- Add initialization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-	--msg.post("#level_1_proxy", "load")
 	msg.post(".", "acquire_input_focus")
-	msg.post("#menu_proxy", "load")
-
-	self.loaded_level = ""
-	self.loading_level = msg.url("main","/loader","menu_proxy")
-
-	print("loader url", msg.url())
+	self.current_level_url = nil
 end
 
 function final(self)
@@ -35,18 +26,19 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("proxy_loaded") then
-		self.loaded_level = self.loading_level
 		msg.post(sender, "enable")
 	end
-	if message_id == hash("load_level_1") then
-		self.next_load = msg.url("#level_1_proxy")
-		msg.post(msg.url("main","/loader","menu_proxy"), "unload")
-	end
 	if message_id == hash("proxy_unloaded") then 
-		msg.post(self.next_load, "load")
+		msg.post(self.current_level_url, "load")
 	end
-	if message_id == hash("next_level") then
-		print("load next level")
+	if message_id == hash("load_level") then
+		-- if load_level is not nil there is currently a level
+		if self.current_level_url then
+			msg.post(self.current_level_url, "unload")
+		else
+			msg.post(message.url, "load")
+		end
+		self.current_level_url = message.url
 	end
 end
 

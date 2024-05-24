@@ -110,8 +110,8 @@ function on_message(self, message_id, message, sender)
 		
 		msg.post("/gui/messenger", "display_message", { message = "You have entered a portal! I wonder what will happen..." })
 		-- message the loader to finish current level and load the next
-		local loader = msg.url("main","/loader", "loader")
-		msg.post(loader, "next_level")
+		local level_control_url = msg.url("main","/level_control", "level_control")
+		msg.post(level_control_url, "level_completed")
 	end
 end
 

@@ -1,8 +1,22 @@
-local create_portal = hash("create_portal")
+local level_completed = hash("level_completed")
+local done = hash("done")
+
+local function load_level(self, level)
+	local loader_url = msg.url("main", "/loader", "loader")
+
+	msg.post(loader_url, "load_level", self.levels[self.level_state])
+	self.level_state = self.level_state + 1
+end
+
 function init(self)
-	-- Add initialization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	self.level_state = 1
+	-- array with an object for each state with level name, url and duration which can be nil (for infinite duration) 
+	self.levels = {
+		{name="menu", url=msg.url("main","/loader","menu_proxy"), duration=nil},
+		{name="level_1", url=msg.url("main","/loader","level_1_proxy"), duration=nil},
+		{name="level_2", url=msg.url("main","/loader","level_2_proxy"), duration=nil},
+	}
+	load_level(self, self.levels[self.level_state].level)
 end
 
 function final(self)
@@ -27,9 +41,10 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	-- on message create_portal do
-	if message_id == create_portal then
-		collectionfactory.create("#portal_factory", message.position)
+	if message_id == level_completed then
+		if self.level_state <= #self.levels then
+			load_level(self, self.levels[self.level_state])
+		end
 	end
 end
 
