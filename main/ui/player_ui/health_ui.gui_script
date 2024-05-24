@@ -1,0 +1,57 @@
+local set_current_health = hash("set_current_health")
+
+local function set_current_health_scale(self, current_health, max_health)
+	local health_node = gui.get_node("health")
+	local scale = vmath.vector3(self.init_max_health_scale.x * current_health / max_health, self.init_max_health_scale.y, self.init_max_health_scale.z)
+	gui.set_scale(health_node, scale)
+end
+
+local function set_current_health_text(self, current_health, max_health)
+	local health_text_node = gui.get_node("health_text")
+	gui.set_text(health_text_node, current_health .. "/" .. max_health)
+end
+
+
+function init(self)
+	local health_node = gui.get_node("health")
+	self.init_max_health_scale = gui.get_scale(health_node)
+
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == set_current_health then
+		print("set current health in gui")
+		set_current_health_scale(self, message.current_health, message.max_health)
+		set_current_health_text(self, message.current_health, message.max_health)
+	end
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here. The game object this script is attached to
+	-- must have acquired input focus:
+	--
+	--    msg.post(".", "acquire_input_focus")
+	--
+	-- All mapped input bindings will be received. Mouse and touch input will
+	-- be received regardless of where on the screen it happened.
+	-- Learn more: https://defold.com/manuals/input/
+	-- Remove this function if not needed
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Learn more: https://defold.com/manuals/hot-reload/
+	-- Remove this function if not needed
+end

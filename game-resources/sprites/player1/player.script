@@ -12,7 +12,6 @@ local portal_group = hash("portal")
 
 
 
-
 local function fire_rocket(self)
 	-- fire in the direction of the mouse
 	local dir = vmath.normalize(self.mouse - go.get_position())
@@ -24,6 +23,12 @@ local function fire_rocket(self)
 	self.rocket_disabled = true
 	timer.delay(self.rocket_reload_time, false, function() self.rocket_disabled = false end)
 	msg.post(msg.url("/gui/ammo"), "rocket_reload", { reload_time = self.rocket_reload_time })
+end
+
+local function set_current_health(self, health)
+	self.current_health = health
+	print(" update health: ", " current: ", self.current_health, " max: ", self.max_health)
+	msg.post("/gui/health_ui", "set_current_health", { current_health = self.current_health, max_health = self.max_health })
 end
 
 
@@ -48,7 +53,11 @@ function init(self)
 	timer.delay(0, false, function() rendercam.follow(myID) rendercam.set_ortho_scale(0.3) end)
 	-- self.follow = true
 
-	-- send a message to display a message
+	--player_stats
+	self.max_health = 200
+	set_current_health(self, self.max_health)
+
+	-- send a message to display a message - TODO auslagern in level_control
 	timer.delay(1, false, function() msg.post("/gui/messenger", "display_message", { message = "Welcome to the game!" }) end)
 	timer.delay(3, false, function() msg.post("/gui/messenger", "display_message", { message = "If you stay alive, you will reach the next stage!" }) end)
 end

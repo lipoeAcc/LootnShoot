@@ -1,4 +1,4 @@
-script: ""
+script: "/main/ui/player_ui/health_ui.gui_script"
 fonts {
   name: "default"
   font: "/builtins/fonts/default.font"
@@ -164,7 +164,7 @@ nodes {
   blend_mode: BLEND_MODE_ALPHA
   text: "100/100"
   font: "default"
-  id: "player_ui_hp_text"
+  id: "health_text"
   xanchor: XANCHOR_LEFT
   yanchor: YANCHOR_TOP
   pivot: PIVOT_CENTER
