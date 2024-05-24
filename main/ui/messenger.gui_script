@@ -2,6 +2,9 @@ local display_message_hash = hash("display_message")
 local display_message_time = 5
 
 local function create_node_display_message(self, message)
+	--TODO set anchro - gui.set_xanchor and gui.setyanchor
+
+	
 	-- frame for the box node by making a node slightly larger than the box node in white
 	local frame_position = vmath.vector3(150, 75, 0)
 	local frame_size = vmath.vector3(260, 110, 0)

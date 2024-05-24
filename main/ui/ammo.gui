@@ -49,8 +49,8 @@ nodes {
   text: "Rocket"
   font: "default"
   id: "ammo_rocket_description"
-  xanchor: XANCHOR_NONE
-  yanchor: YANCHOR_NONE
+  xanchor: XANCHOR_RIGHT
+  yanchor: YANCHOR_BOTTOM
   pivot: PIVOT_CENTER
   outline {
     x: 1.0
@@ -114,8 +114,8 @@ nodes {
   blend_mode: BLEND_MODE_ALPHA
   texture: "sprites/rocket"
   id: "ammo_rocket_icon"
-  xanchor: XANCHOR_NONE
-  yanchor: YANCHOR_NONE
+  xanchor: XANCHOR_RIGHT
+  yanchor: YANCHOR_BOTTOM
   pivot: PIVOT_CENTER
   adjust_mode: ADJUST_MODE_FIT
   layer: ""
@@ -173,8 +173,8 @@ nodes {
   text: "Timer"
   font: "default"
   id: "ammo_rocket_timer"
-  xanchor: XANCHOR_NONE
-  yanchor: YANCHOR_NONE
+  xanchor: XANCHOR_RIGHT
+  yanchor: YANCHOR_BOTTOM
   pivot: PIVOT_CENTER
   outline {
     x: 1.0
@@ -239,8 +239,8 @@ nodes {
   text: "Sword"
   font: "default"
   id: "sword"
-  xanchor: XANCHOR_NONE
-  yanchor: YANCHOR_NONE
+  xanchor: XANCHOR_RIGHT
+  yanchor: YANCHOR_BOTTOM
   pivot: PIVOT_CENTER
   outline {
     x: 1.0
@@ -304,8 +304,8 @@ nodes {
   blend_mode: BLEND_MODE_ALPHA
   texture: "sprites/sword"
   id: "sword_icon"
-  xanchor: XANCHOR_NONE
-  yanchor: YANCHOR_NONE
+  xanchor: XANCHOR_RIGHT
+  yanchor: YANCHOR_BOTTOM
   pivot: PIVOT_CENTER
   adjust_mode: ADJUST_MODE_FIT
   layer: ""
@@ -363,8 +363,8 @@ nodes {
   text: "Timer"
   font: "default"
   id: "sword_timer"
-  xanchor: XANCHOR_NONE
-  yanchor: YANCHOR_NONE
+  xanchor: XANCHOR_RIGHT
+  yanchor: YANCHOR_BOTTOM
   pivot: PIVOT_CENTER
   outline {
     x: 1.0
