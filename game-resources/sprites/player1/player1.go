@@ -49,6 +49,7 @@ embedded_components {
   "mask: \"wall\"\n"
   "mask: \"mummy\"\n"
   "mask: \"portal\"\n"
+  "mask: \"enemy\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"

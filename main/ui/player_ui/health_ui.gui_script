@@ -32,7 +32,6 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == set_current_health then
-		print("set current health in gui")
 		set_current_health_scale(self, message.current_health, message.max_health)
 		set_current_health_text(self, message.current_health, message.max_health)
 	end

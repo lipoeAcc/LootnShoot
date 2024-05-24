@@ -1,5 +1,8 @@
-local collision_response = hash("trigger_response")
+local trigger_response = hash("trigger_response")
 local knockback = hash("knockback")
+local player = hash("player")
+local rockets = hash("rockets")
+local collision_response = hash("collision_response")
 
 local function die(self)
 	go.delete(self.healthbar_id)
@@ -60,6 +63,9 @@ function init(self)
 	self.knockbacking = false
 	self.knockback_time = 0.3
 	self.knockback_speed = 500
+	self.disabled = false
+	-- time to be able to attack again after hitting
+	self.attack_delay = 0.3
 
 	-- do not show healthbar initially
 	go.set(self.healthbar_id, "scale", vmath.vector3(0, 0, 0))
@@ -83,9 +89,18 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == collision_response then
-		if message.group == hash("rockets") and message.enter then
+	if message_id == trigger_response then
+		if message.group == rockets and message.enter then
 			reduce_health(self, 50)
+		end
+	end
+	if message_id == collision_response then
+		if message.group == player then
+			if self.disabled == false then
+				self.disabled = true
+				msg.post(message.other_id, "damage", {damage = 10})
+				timer.delay(self.attack_delay, false, function() self.disabled = false end)
+			end
 		end
 	end
 	if message_id == knockback and self.knockbacking == false then
@@ -97,7 +112,6 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("damage") then
 		reduce_health(self, message.damage)
 	end
-
 end
 
 function on_input(self, action_id, action)
