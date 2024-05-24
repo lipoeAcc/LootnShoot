@@ -8,6 +8,14 @@ local function load_level(self, level)
 	self.level_state = self.level_state + 1
 end
 
+local function load_death_screen(self)
+	print("load death screen in level_control")
+	local loader_url = msg.url("main", "/loader", "loader")
+
+	msg.post(loader_url, "load_level", self.on_death)
+	self.level_state = 1
+end
+
 function init(self)
 	self.level_state = 1
 	-- array with an object for each state with level name, url and duration which can be nil (for infinite duration) 
@@ -16,6 +24,7 @@ function init(self)
 		{name="level_1", url=msg.url("main","/loader","level_1_proxy"), duration=nil},
 		{name="level_2", url=msg.url("main","/loader","level_2_proxy"), duration=nil},
 	}
+	self.on_death = {name="death_screen", url=msg.url("main","/loader","on_death_proxy"), duration=nil}
 	load_level(self, self.levels[self.level_state].level)
 end
 
@@ -45,6 +54,8 @@ function on_message(self, message_id, message, sender)
 		if self.level_state <= #self.levels then
 			load_level(self, self.levels[self.level_state])
 		end
+	elseif message_id == hash("player_died") then
+		load_death_screen(self)
 	end
 end
 

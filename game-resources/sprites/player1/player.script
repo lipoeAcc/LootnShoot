@@ -10,6 +10,7 @@ local input_primary_hit = hash("primary_hit")
 local trigger_response = hash("trigger_response")
 local portal_group = hash("portal")
 local damage = hash("damage")
+local heal = hash("heal")
 
 
 
@@ -55,7 +56,7 @@ function init(self)
 
 	--player_stats
 	self.max_health = 100
-	set_current_health(self, self.max_health)
+	set_current_health(self, 20)
 
 	-- send a message to display a message - TODO auslagern in level_control
 	timer.delay(1, false, function() msg.post("/gui/messenger", "display_message", { message = "Welcome to the game!" }) end)
@@ -125,9 +126,12 @@ function on_message(self, message_id, message, sender)
 		set_current_health(self, self.current_health - message.damage)
 		if self.current_health <= 0 then
 			msg.post("/gui/messenger", "display_message", { message = "You died!" })
+			local level_control_url = msg.url("main","/level_control", "level_control")
+			msg.post(level_control_url, "player_died")
 		end
+	elseif message_id == heal then
+		set_current_health(self, self.current_health + message.amount)
 	end
-		
 end
 
 function on_input(self, action_id, action)
