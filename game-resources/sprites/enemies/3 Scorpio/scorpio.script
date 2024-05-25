@@ -1,4 +1,4 @@
-local POISON_COOLDOWN = 100
+local POISON_COOLDOWN = 0.5 -- seconds
 
 local function shoot_poison(self)
 	local pos = go.get_position()
@@ -8,49 +8,30 @@ end
 
 function init(self)
 	self.cooldown = 0
-	-- Add initialization code here
-
-	-- set from bottom right corner of scorpio (self)
 	local pos = go.get_position()
 	factory.create("#poison_factory", pos, vmath.quat_rotation_z(math.rad(0)))
 end
 
 function final(self)
-	-- Add finalization code here
 end
 
 function update(self, dt)
-	-- Add update code here
 end
 
 function fixed_update(self, dt)
-	-- This function is called if 'Fixed Update Frequency' is enabled in the Engine section of game.project
-	-- Can be coupled with fixed updates of the physics simulation if 'Use Fixed Timestep' is enabled in
-	-- Physics section of game.project
-	-- Add update code herew
 	if self.cooldown <= 0 then
 		shoot_poison(self)
 		self.cooldown = POISON_COOLDOWN
 	else
-		self.cooldown = self.cooldown - 1
+		self.cooldown = self.cooldown - dt
 	end
-	-- Add update code here
 end
 
 function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
 end
 
 function on_input(self, action_id, action)
-	-- Add input-handling code here. The game object this script is attached to
-	-- must have acquired input focus:
-	--
-	--    msg.post(".", "acquire_input_focus")
-	--
-	-- All mapped input bindings will be received. Mouse and touch input will
-	-- be received regardless of where on the screen it happened.
 end
 
 function on_reload(self)
-	-- Add reload-handling code here
 end
