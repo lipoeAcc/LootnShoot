@@ -51,6 +51,7 @@ embedded_components {
   "mask: \"portal\"\n"
   "mask: \"enemy\"\n"
   "mask: \"item\"\n"
+  "mask: \"poison\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"

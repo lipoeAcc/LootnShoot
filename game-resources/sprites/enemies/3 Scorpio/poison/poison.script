@@ -1,0 +1,66 @@
+local MAX_LIFETIME = 10 -- seconds
+
+local contact_point_response = hash("contact_point_response")
+
+local function set_position(self, dt)
+	if self.dir.x == 0 and self.dir.y == 0 then
+		return
+	end
+	local direction_normalized = vmath.normalize(self.dir)
+	local position = go.get_position() + direction_normalized * self.speed * dt
+	local rot = vmath.quat_rotation_z(math.atan2(self.dir.y, self.dir.x))
+	go.set_position(position)
+	go.set_rotation(rot)
+end
+
+local function get_player_position()
+	return go.get_position("/player1/player1")
+end
+
+function init(self)
+	self.speed = 50
+	self.lifetime = MAX_LIFETIME
+	self.dir = get_player_position() - go.get_position()
+end
+
+function final(self)
+end
+
+function update(self, dt)
+end
+
+function fixed_update(self, dt)
+	set_position(self, dt)
+	if self.lifetime > 0 then
+		self.lifetime = self.lifetime - dt
+	else
+		go.delete()
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message.group == hash("player") then
+		-- TODO: damage player
+		print('POISON: PLAYER DETECTED')
+	end
+
+	if message_id == contact_point_response then
+		go.delete()
+	end
+
+	self.speed = 20
+	self.cooldown = COOLDOWN
+	self.dir = get_player_position() - go.get_position()
+end
+
+function final(self)
+end
+
+function update(self, dt)
+end
+
+function on_input(self, action_id, action)
+end
+
+function on_reload(self)
+end

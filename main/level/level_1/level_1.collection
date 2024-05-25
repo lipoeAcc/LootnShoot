@@ -119,6 +119,46 @@ instances {
     z: 1.0
   }
 }
+instances {
+  id: "scorpio"
+  prototype: "/game-resources/sprites/enemies/3 Scorpio/scorpio.go"
+  position {
+    x: 94.0
+    y: 35.0
+    z: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "scorpio1"
+  prototype: "/game-resources/sprites/enemies/3 Scorpio/scorpio.go"
+  position {
+    x: 193.0
+    y: 36.0
+    z: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
 collection_instances {
   id: "player1"
   collection: "/game-resources/sprites/player1/player1.collection"
