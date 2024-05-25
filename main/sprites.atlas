@@ -22,6 +22,18 @@ images {
   image: "/game-resources/sprites/items/heart/heart.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
+images {
+  image: "/game-resources/sprites/items/melee_attack_speed/melee_attack_speed.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/game-resources/sprites/items/ranged_attack_speed/ranged_attack_speed.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/game-resources/sprites/items/movement_speed/boots.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
 animations {
   id: "rocket"
   images {
