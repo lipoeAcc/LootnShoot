@@ -1,5 +1,6 @@
 local level_completed = hash("level_completed")
 local done = hash("done")
+local player_loaded = hash("player_loaded")
 
 local function load_level(self, level)
 	local loader_url = msg.url("main", "/loader", "loader")
@@ -16,15 +17,32 @@ local function load_death_screen(self)
 	self.level_state = 1
 end
 
+local function set_player_stats(self, player)
+	msg.post(msg.url("/player1/player1"), "player_stat_init", {max_health = player.max_health, speed = player.speed, rocket_reload_time = player.rocket_reload_time, knockback = player.knockback, melee_attackspeed = player.melee_attackspeed})
+end
+
 function init(self)
 	self.level_state = 1
 	-- array with an object for each state with level name, url and duration which can be nil (for infinite duration) 
 	self.levels = {
-		{name="menu", url=msg.url("main","/loader","menu_proxy"), duration=nil},
-		{name="level_1", url=msg.url("main","/loader","level_1_proxy"), duration=nil},
-		{name="level_2", url=msg.url("main","/loader","level_2_proxy"), duration=nil},
+		{name="menu", url=msg.url("main","/loader","menu_proxy"), duration=nil, hasplayer=false},
+		{name="level_1", url=msg.url("main","/loader","level_1_proxy"), duration=nil, hasplayer=true},
+		{name="finished_level_1", url=msg.url("main","/loader","finished_level"), duration=nil, hasplayer=false},
+		{name="level_2", url=msg.url("main","/loader","level_2_proxy"), duration=nil, hasplayer=true},
 	}
 	self.on_death = {name="death_screen", url=msg.url("main","/loader","on_death_proxy"), duration=nil}
+
+	-- player stats
+	self.player = {
+		max_health = 100,
+		speed = 100,
+		rocket_reload_time = 2,
+		knockback = 100,
+		melee_attackspeed = 2,
+	}
+
+
+
 	load_level(self, self.levels[self.level_state].level)
 end
 
@@ -52,10 +70,13 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == level_completed then
 		if self.level_state <= #self.levels then
+			print("should set player stats here")
 			load_level(self, self.levels[self.level_state])
 		end
 	elseif message_id == hash("player_died") then
 		load_death_screen(self)
+	elseif message_id == player_loaded then
+		set_player_stats(self, self.player)
 	end
 end
 

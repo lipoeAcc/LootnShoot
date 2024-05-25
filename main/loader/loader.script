@@ -27,6 +27,7 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("proxy_loaded") then
 		msg.post(sender, "enable")
+		--msg.post(msg.url("/level_control#level_control"), "level_loaded")
 	end
 	if message_id == hash("proxy_unloaded") then 
 		msg.post(self.current_level_url, "load")
