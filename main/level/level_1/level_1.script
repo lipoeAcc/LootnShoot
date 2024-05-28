@@ -1,5 +1,4 @@
 function init(self)
-	print("level1 url: ", msg.url())
 	local url = msg.url("/enemies#enemies")
 	msg.post(url, "create_snake")
 	msg.post(url, "create_mummy")
