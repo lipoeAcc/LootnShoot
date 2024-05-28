@@ -54,7 +54,7 @@ end
 function init(self)
 	msg.post(".", "acquire_input_focus")
 
-	msg.post(msg.url("/level_control#level_control"), "player_loaded")
+	msg.post(msg.url("main","/level_control","level_control"), "player_loaded")
 	
 	-- positional variables
 	self.firing = false
@@ -63,13 +63,13 @@ function init(self)
 	self.mouse = vmath.vector3(0, 0, 0)
 
 	--player_stats
-	self.max_health = 100
-	self.speed = 100
-	set_current_health(self, 20)
-	self.rocket_reload_time = 2
+	--self.max_health = 100
+	--self.speed = 100
+	--set_current_health(self, 20)
+	--self.rocket_reload_time = 2
 	--sword_stats
-	self.knockback = 100
-	self.melee_attackspeed = 2
+	--self.knockback = 100
+	--self.melee_attackspeed = 2
 
 	self.rocket_disabled = false
 	self.player_collection = {go.get_id("/player1/player1"),go.get_id("/player1/sword")}
@@ -78,13 +78,6 @@ function init(self)
 	local myID = self.player_collection[1]
 	timer.delay(0, false, function() rendercam.follow(myID) rendercam.set_ortho_scale(0.3) end)
 	-- self.follow = true
-
-	
-
-
-	-- send a message to display a message - TODO auslagern in level_control
-	timer.delay(1, false, function() msg.post("/gui/messenger", "display_message", { message = "Welcome to the game!" }) end)
-	timer.delay(3, false, function() msg.post("/gui/messenger", "display_message", { message = "If you stay alive, you will reach the next stage!" }) end)
 end
 
 function final(self)
