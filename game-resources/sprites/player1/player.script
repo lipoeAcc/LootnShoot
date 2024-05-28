@@ -12,6 +12,8 @@ local portal_group = hash("portal")
 local damage = hash("damage")
 local heal = hash("heal")
 
+local player_stat_init = hash("player_stat_init")
+
 
 
 local function fire_rocket(self)
@@ -32,35 +34,50 @@ local function set_current_health(self, health)
 	msg.post("/gui/health_ui", "set_current_health", { current_health = self.current_health, max_health = self.max_health })
 end
 
+local function update_sword_stats(self, knockback, melee_attackspeed)
+	msg.post(self.player_collection[2], "update_sword_stats", { knockback = knockback, melee_attackspeed = melee_attackspeed })
+end
+
+local function set_player_stats(self, max_health, speed, rocket_reload_time, knockback, melee_attackspeed)
+	self.max_health = max_health
+	self.speed = speed
+	self.rocket_reload_time = rocket_reload_time
+	self.knockback = knockback
+	self.melee_attackspeed = melee_attackspeed
+
+	update_sword_stats(self, knockback, melee_attackspeed)
+	set_current_health(self, self.max_health)
+end
+
 
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
 
+	msg.post(msg.url("main","/level_control","level_control"), "player_loaded")
+	
+	-- positional variables
 	self.firing = false
 	self.dir = vmath.vector3(0, 0, 0)
 	self.input = vmath.vector3()
-	self.speed = 100
-
 	self.mouse = vmath.vector3(0, 0, 0)
 
-	self.rocket_disabled = false
-	self.rocket_reload_time = 2
+	--player_stats
+	--self.max_health = 100
+	--self.speed = 100
+	--set_current_health(self, 20)
+	--self.rocket_reload_time = 2
+	--sword_stats
+	--self.knockback = 100
+	--self.melee_attackspeed = 2
 
+	self.rocket_disabled = false
 	self.player_collection = {go.get_id("/player1/player1"),go.get_id("/player1/sword")}
 
-	local myID = self.player_collection[1]
 	-- A timer with a delay of zero will trigger just before the text frame's update.
+	local myID = self.player_collection[1]
 	timer.delay(0, false, function() rendercam.follow(myID) rendercam.set_ortho_scale(0.3) end)
 	-- self.follow = true
-
-	--player_stats
-	self.max_health = 100
-	set_current_health(self, 20)
-
-	-- send a message to display a message - TODO auslagern in level_control
-	timer.delay(1, false, function() msg.post("/gui/messenger", "display_message", { message = "Welcome to the game!" }) end)
-	timer.delay(3, false, function() msg.post("/gui/messenger", "display_message", { message = "If you stay alive, you will reach the next stage!" }) end)
 end
 
 function final(self)
@@ -131,6 +148,8 @@ function on_message(self, message_id, message, sender)
 		end
 	elseif message_id == heal then
 		set_current_health(self, self.current_health + message.amount)
+	elseif message_id == player_stat_init then
+		set_player_stats(self, message.max_health, message.speed, message.rocket_reload_time, message.knockback, message.melee_attackspeed)
 	end
 end
 

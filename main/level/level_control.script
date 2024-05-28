@@ -1,31 +1,60 @@
 local level_completed = hash("level_completed")
 local done = hash("done")
+local player_loaded = hash("player_loaded")
+
+local function apply_messages(self, level)
+	if not level.message_url or not level.messages then
+		return
+	end
+	local message_url = level.message_url
+	local messages = level.messages
+	for i, message in ipairs(messages) do
+		timer.delay(message.delay, false, function()
+			msg.post(message_url, "display_message", {message = message.message})
+		end)	
+	end
+end
 
 local function load_level(self, level)
-	local loader_url = msg.url("main", "/loader", "loader")
-
-	msg.post(loader_url, "load_level", self.levels[self.level_state])
 	self.level_state = self.level_state + 1
+	local loader_url = msg.url("main", "/loader", "loader")
+	msg.post(loader_url, "load_level", self.levels[self.level_state])
 end
 
 local function load_death_screen(self)
-	print("load death screen in level_control")
 	local loader_url = msg.url("main", "/loader", "loader")
 
 	msg.post(loader_url, "load_level", self.on_death)
 	self.level_state = 1
 end
 
+local function set_player_stats(self, player, url)
+	msg.post(url, "player_stat_init", {max_health = player.max_health, speed = player.speed, rocket_reload_time = player.rocket_reload_time, knockback = player.knockback, melee_attackspeed = player.melee_attackspeed})
+end
+
 function init(self)
-	self.level_state = 1
+	self.level_state = 0
 	-- array with an object for each state with level name, url and duration which can be nil (for infinite duration) 
 	self.levels = {
-		{name="menu", url=msg.url("main","/loader","menu_proxy"), duration=nil},
-		{name="level_1", url=msg.url("main","/loader","level_1_proxy"), duration=nil},
-		{name="level_2", url=msg.url("main","/loader","level_2_proxy"), duration=nil},
+		{name="menu", url=msg.url("main","/loader","menu_proxy"), duration=nil, hasplayer=false},
+		{name="level_1", url=msg.url("main","/loader","level_1_proxy"), duration=nil, hasplayer=true, message_url=msg.url("level_1","/gui/messenger",nil), messages={{message="Welcome to level 1", delay=1}, {message="Good luck", delay=3}}},
+		{name="finished_level_1", url=msg.url("main","/loader","finished_level"), duration=nil, hasplayer=false},
+		{name="level_2", url=msg.url("main","/loader","level_2_proxy"), duration=nil, hasplayer=true, message_url=msg.url("level_2","/gui/messenger",nil), messages={{message="Welcome to level 2", delay=1}, {message="Good luck", delay=3}}},
 	}
 	self.on_death = {name="death_screen", url=msg.url("main","/loader","on_death_proxy"), duration=nil}
-	load_level(self, self.levels[self.level_state].level)
+
+	-- player stats
+	self.player = {
+		max_health = 100,
+		speed = 100,
+		rocket_reload_time = 2,
+		knockback = 100,
+		melee_attackspeed = 2,
+	}
+
+
+
+	load_level(self, self.levels[self.level_state+1].level)
 end
 
 function final(self)
@@ -52,10 +81,13 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == level_completed then
 		if self.level_state <= #self.levels then
-			load_level(self, self.levels[self.level_state])
+			load_level(self, self.levels[self.level_state+1])
 		end
 	elseif message_id == hash("player_died") then
 		load_death_screen(self)
+	elseif message_id == player_loaded then
+		set_player_stats(self, self.player, sender)
+		apply_messages(self, self.levels[self.level_state])
 	end
 end
 

@@ -1,6 +1,8 @@
 local trigger_response = hash("trigger_response")
 local collision_response = hash("collision_response")
 
+local update_sword_stats = hash("update_sword_stats")
+
 local function play_idle(self, message_id, message, sender)
 	local url = msg.url("#sprite")
 	sprite.play_flipbook(url, "sword")
@@ -53,6 +55,9 @@ function on_message(self, message_id, message, sender)
 		if self.hitting then
 			msg.post(message.other_id, "knockback", {knockback = self.knockback, damage = 10, other_id = go.get_id()})
 		end
+	elseif message_id == update_sword_stats then
+		self.cooldown = message.cooldown
+		self.knockback = message.knockback
 	end
 end
 
