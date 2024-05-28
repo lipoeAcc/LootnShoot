@@ -7,6 +7,8 @@ local collision_response = hash("collision_response")
 local function die(self)
 	go.delete(self.healthbar_id)
 	go.delete(msg.url(nil, go.get_id(), nil))
+
+	msg.post(msg.url("/item_factory"), "drop_item", {position = go.get_position(), individual_dropchance = self.individual_dropchance})
 end
 
 local function reduce_health(self,damage)
@@ -57,6 +59,7 @@ end
 function init(self)
 	self.dir = vmath.vector3(0, 0, 0)
 	self.target = vmath.vector3(0, 0, 0)
+	self.individual_dropchance = 100
 	self.health = 100
 	self.speed = 20
 	self.healthbar_id = go.get_id("healthbar")
