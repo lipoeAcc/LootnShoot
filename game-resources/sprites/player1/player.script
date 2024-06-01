@@ -67,18 +67,18 @@ local function update_items(self, item_type, item)
 	end
 end
 
-local function update_stats(self, item_type, item)
-	for i, item in ipairs(self.items) do
-		if item.item_type == "melee_attack_speed" then
-			self.melee_attackspeed = self.base_melee_attackspeed/(1 + 0.1 * item.amount)
-		elseif item.item_type == "ranged_attack_speed" then
-			self.rocket_reload_time = self.base_rocket_reload_time/(1 + 0.1 * item.amount)
-		elseif item.item_type == "movement_speed" then
-			self.speed = self.base_speed + 10 * item.amount
-		end
-	end
+local function update_stats(self)
+    self.melee_attackspeed = self.base_melee_attackspeed/(1 + 0.01 * self.items["melee_attack_speed"].amount)
+    self.rocket_reload_time = self.base_rocket_reload_time/(1 + 0.01 * self.items["ranged_attack_speed"].amount)
+	print("Speed before: " .. self.speed)
+    self.speed = self.base_speed + 100 * self.items["movement_speed"].amount
+	print("Speed after: " .. self.speed)
 end
 
+local function add_item(self, item_type, amount)
+	self.items[item_type].amount = self.items[item_type].amount + amount
+	update_stats(self)
+end
 
 
 function init(self)
@@ -100,9 +100,9 @@ function init(self)
 	self.base_knockback = 100
 	self.base_melee_attackspeed = 2
 	self.items = {
-		{item_type = "melee_attack_speed", amount = 0},
-		{item_type = "ranged_attack_speed", amount = 0},
-		{item_type = "movement_speed", amount = 0}
+		["melee_attack_speed"] = {amount = 0},
+		["ranged_attack_speed"] = {amount = 0},
+		["movement_speed"] = {amount = 0}
 	}
 
 	self.rocket_disabled = false
@@ -187,10 +187,12 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == collect_item then
 		if message.item_type == "melee_attack_speed" then
 			print("melee_attack_speed")
+			add_item(self, "melee_attack_speed", message.amount)
 		elseif message.item_type == "ranged_attack_speed" then
 			print("ranged_attack_speed")
 		elseif message.item_type == "movement_speed" then
 			print("movement_speed")
+			add_item(self, "movement_speed", message.amount)
 		end
 	end
 end
