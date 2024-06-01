@@ -17,10 +17,10 @@ local costs = {
 function init(self)
     msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 
-    print("global astar setup")
+    --print("global astar setup")
     astar.setup(25, 25, astar.DIRECTION_EIGHT,300, 25, true)
     astar.set_costs(costs)
-    print("astar result: ", astar.solve(10, 10, 20, 20))
+    --print("astar result: ", astar.solve(10, 10, 20, 20))
 end
 
 function on_input(self, action_id, action)

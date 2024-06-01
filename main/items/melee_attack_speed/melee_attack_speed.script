@@ -6,7 +6,7 @@ end
 local function collect_item(self, target)
 	-- send the heal message with the amount to heal
 	delete_self(self)
-	msg.post(target, "collect_item", { amount = 10, item_type = "melee_attack_speed"})
+	msg.post(target, "collect_item", { amount = 1, item_type = "melee_attack_speed"})
 end
 
 function init(self)
