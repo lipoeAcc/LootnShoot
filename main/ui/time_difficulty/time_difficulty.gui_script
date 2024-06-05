@@ -1,9 +1,5 @@
 local function set_time(self)
-	-- set the time to the timer node
-	print(string.format("%02d:%02f", self.time_difficulty.min, self.time_difficulty.sec))
-	print(self.time_difficulty.m_sec)
-	gui.set_text(self.timer_node, string.format("%02d:%02d.%02d", self.time_difficulty.min, self.time_difficulty.sec, self.time_difficulty.m_sec))
-	
+	gui.set_text(self.timer_node, string.format("%d:%.1f", self.time_difficulty.min, self.time_difficulty.sec))
 end
 local function update_time(self, dt)
 	-- update the time
@@ -29,7 +25,7 @@ function init(self)
 	self.timer_node = gui.get_node("time_difficulty")
 	gui.set_color(self.timer_node, vmath.vector4(1, 1, 1, 1))
 
-	local timer_instance = timer.delay(0.1, true, function()
+	timer.delay(0.1, true, function()
 		update_time(self, 0.1)
 		set_time(self)
 	end)

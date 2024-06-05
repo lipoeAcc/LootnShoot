@@ -103,8 +103,8 @@ nodes {
   text: "Easy"
   font: "default"
   id: "difficulty_name"
-  xanchor: XANCHOR_NONE
-  yanchor: YANCHOR_NONE
+  xanchor: XANCHOR_RIGHT
+  yanchor: YANCHOR_TOP
   pivot: PIVOT_CENTER
   outline {
     x: 1.0
@@ -137,7 +137,7 @@ nodes {
   position {
     x: 1778.0
     y: 984.0
-    z: 201.0
+    z: 1.0
     w: 1.0
   }
   rotation {
@@ -147,8 +147,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 2.0
+    y: 2.0
     z: 1.0
     w: 1.0
   }
@@ -166,11 +166,11 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "<text>"
+  text: "123123123"
   font: "default"
   id: "time_difficulty"
-  xanchor: XANCHOR_NONE
-  yanchor: YANCHOR_NONE
+  xanchor: XANCHOR_RIGHT
+  yanchor: YANCHOR_TOP
   pivot: PIVOT_CENTER
   outline {
     x: 1.0
@@ -187,7 +187,7 @@ nodes {
   adjust_mode: ADJUST_MODE_FIT
   line_break: false
   layer: ""
-  inherit_alpha: true
+  inherit_alpha: false
   alpha: 1.0
   outline_alpha: 1.0
   shadow_alpha: 1.0
