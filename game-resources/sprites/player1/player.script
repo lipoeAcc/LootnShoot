@@ -13,6 +13,7 @@ local damage = hash("damage")
 local heal = hash("heal")
 
 local player_stat_init = hash("player_stat_init")
+local collect_item = hash("collect_item")
 
 
 
@@ -34,8 +35,17 @@ local function set_current_health(self, health)
 	msg.post("/gui/health_ui", "set_current_health", { current_health = self.current_health, max_health = self.max_health })
 end
 
+local function heal(self, amount)
+	if not self.current_health == self.max_health then
+		if self.current_health + amount > self.max_health then
+		amount = self.max_health - self.current_health
+		end
+		set_current_health(self, self.current_health + amount)
+	end
+end
+
 local function update_sword_stats(self, knockback, melee_attackspeed)
-	msg.post(self.player_collection[2], "update_sword_stats", { knockback = knockback, melee_attackspeed = melee_attackspeed })
+	msg.post(self.player_collection[2], "update_sword_stats", { knockback = knockback, attack_speed = melee_attackspeed })
 end
 
 local function set_player_stats(self, max_health, speed, rocket_reload_time, knockback, melee_attackspeed)
@@ -49,6 +59,34 @@ local function set_player_stats(self, max_health, speed, rocket_reload_time, kno
 	set_current_health(self, self.max_health)
 end
 
+local function update_player_stats(self, max_health, speed, rocket_reload_time, knockback, melee_attackspeed)
+	if max_health ~= self.max_health then
+		self.max_health = max_health
+	end
+	if speed ~= self.speed then
+		self.speed = speed
+	end
+	if rocket_reload_time ~= self.rocket_reload_time then
+		self.rocket_reload_time = rocket_reload_time
+	end
+	if knockback ~= self.knockback or melee_attackspeed ~= self.melee_attackspeed then
+		self.knockback = knockback
+		self.melee_attackspeed = melee_attackspeed
+		update_sword_stats(self, knockback, melee_attackspeed)
+	end
+end
+
+local function update_stats(self)
+    local new_melee_attackspeed = self.base_melee_attackspeed/(1 + 0.1 * self.items["melee_attack_speed"].amount)
+    local new_rocket_reload_time = self.base_rocket_reload_time/(1 + 0.1 * self.items["ranged_attack_speed"].amount)
+    local new_speed =  self.base_speed + 10 * self.items["movement_speed"].amount
+	update_player_stats(self, self.base_max_health, new_speed, new_rocket_reload_time, self.base_knockback, new_melee_attackspeed)
+end
+
+local function add_item(self, item_type, amount)
+	self.items[item_type].amount = self.items[item_type].amount + amount
+	update_stats(self)
+end
 
 
 function init(self)
@@ -63,13 +101,17 @@ function init(self)
 	self.mouse = vmath.vector3(0, 0, 0)
 
 	--player_stats
-	--self.max_health = 100
-	--self.speed = 100
-	--set_current_health(self, 20)
-	--self.rocket_reload_time = 2
+	self.base_max_health = 100
+	self.base_speed = 100
+	self.base_rocket_reload_time = 2
 	--sword_stats
-	--self.knockback = 100
-	--self.melee_attackspeed = 2
+	self.base_knockback = 100
+	self.base_melee_attackspeed = 2
+	self.items = {
+		["melee_attack_speed"] = {amount = 0},
+		["ranged_attack_speed"] = {amount = 0},
+		["movement_speed"] = {amount = 0}
+	}
 
 	self.rocket_disabled = false
 	self.player_collection = {go.get_id("/player1/player1"),go.get_id("/player1/sword")}
@@ -147,9 +189,17 @@ function on_message(self, message_id, message, sender)
 			msg.post(level_control_url, "player_died")
 		end
 	elseif message_id == heal then
-		set_current_health(self, self.current_health + message.amount)
+		heal(self, message.amount)
 	elseif message_id == player_stat_init then
 		set_player_stats(self, message.max_health, message.speed, message.rocket_reload_time, message.knockback, message.melee_attackspeed)
+	elseif message_id == collect_item then
+		if message.item_type == "melee_attack_speed" then
+			add_item(self, "melee_attack_speed", message.amount)
+		elseif message.item_type == "ranged_attack_speed" then
+			print("ranged_attack_speed")
+		elseif message.item_type == "movement_speed" then
+			add_item(self, "movement_speed", message.amount)
+		end
 	end
 end
 

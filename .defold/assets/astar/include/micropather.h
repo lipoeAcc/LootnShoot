@@ -36,7 +36,7 @@
 
 // This probably works to remove, but isn't currently tested in STL mode.
 #define GRINLIZ_NO_STL
-
+#define MP_VECTOR micropather::MPVector
 #ifdef GRINLIZ_NO_STL
 #	define MP_VECTOR micropather::MPVector
 #else
@@ -49,20 +49,7 @@
 
 
 
-#if defined(DEBUG)
-#   if defined(_MSC_VER)
-#       // "(void)0," is for suppressing C4127 warning in "assert(false)", "assert(true)" and the like
-#       define MPASSERT( x )           if ( !((void)0,(x))) { __debugbreak(); } //if ( !(x)) WinDebugBreak()
-#   elif defined (ANDROID_NDK)
-#       include <android/log.h>
-#       define MPASSERT( x )           if ( !(x)) { __android_log_assert( "assert", "grinliz", "ASSERT in '%s' at %d.", __FILE__, __LINE__ ); }
-#   else
-#       include <assert.h>
-#       define MPASSERT                assert
-#   endif
-#   else
-#       define MPASSERT( x )           {}
-#endif
+
 
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1400 )
@@ -79,7 +66,7 @@ typedef unsigned MP_UPTR;
 
 namespace micropather
 {
-#ifdef GRINLIZ_NO_STL
+
     
     /* WARNING: vector partial replacement. Does everything needed to replace std::vector
      for micropather, but only works on Plain Old Data types. Doesn't call copy/construct/destruct
@@ -95,10 +82,10 @@ namespace micropather
         void resize( unsigned s )			{ capacity( s );
             m_size = s;
         }
-        T& operator[](unsigned i)			{ MPASSERT( i>=0 && i<m_size );
+        T& operator[](unsigned i)			{ 
             return m_buf[i];
         }
-        const T& operator[](unsigned i) const	{ MPASSERT( i>=0 && i<m_size );
+        const T& operator[](unsigned i) const	{ 
             return m_buf[i];
         }
         void push_back( const T& t )		{ capacity( m_size+1 );
@@ -111,8 +98,7 @@ namespace micropather
             if ( m_allocated < cap ) {
                 unsigned newAllocated = cap * 3/2 + 16;
                 T* newBuf = new T[newAllocated];
-                MPASSERT( m_size <= m_allocated );
-                MPASSERT( m_size < newAllocated );
+               
                 memcpy( newBuf, m_buf, sizeof(T)*m_size );
                 delete [] m_buf;
                 m_buf = newBuf;
@@ -123,7 +109,7 @@ namespace micropather
         unsigned m_size;
         T* m_buf;
     };
-#endif
+
     
     /**
      Used to pass the cost of states from the cliet application to MicroPather. This
@@ -239,16 +225,7 @@ namespace micropather
             prev->next = addThis;
             prev = addThis;
         }
-#ifdef DEBUG
-        void CheckList()
-        {
-            MPASSERT( totalCost == FLT_MAX );
-            for( PathNode* it = next; it != this; it=it->next ) {
-                MPASSERT( it->prev == this || it->totalCost >= it->prev->totalCost );
-                MPASSERT( it->totalCost <= it->next->totalCost );
-            }
-        }
-#endif
+
         
         void CalcTotalCost() {
             if ( costFromStart < FLT_MAX && estToGoal < FLT_MAX )
@@ -486,9 +463,7 @@ namespace micropather
         
         void GetNodeNeighbors(	PathNode* node, MP_VECTOR< NodeCost >* neighborNode );
         
-#ifdef DEBUG
-        //void DumpStats();
-#endif
+
         
         PathNodePool			pathNodePool;
         MP_VECTOR< StateCost >	stateCostVec;	// local to Solve, but put here to reduce memory allocation

@@ -9,7 +9,7 @@ local function play_idle(self, message_id, message, sender)
 end
 
 function init(self)
-	self.cooldown = 2
+	self.attack_speed = 2
 	self.disabled = false
 	self.knockback = 100
 
@@ -43,12 +43,12 @@ function on_message(self, message_id, message, sender)
 		if self.disabled == false then
 			self.disabled = true
 			self.hitting = true
-			timer.delay(self.cooldown, false, function() self.disabled = false end)
+			timer.delay(self.attack_speed, false, function() self.disabled = false end)
 			timer.delay(0.05, false, function() self.hitting = false end)
 			
 			local url = msg.url("#sprite")
 			sprite.play_flipbook(url, "sword_attack",play_idle)
-			msg.post(msg.url("/gui/ammo"), "sword_cooldown", { cooldown = self.cooldown })
+			msg.post(msg.url("/gui/ammo"), "sword_cooldown", { cooldown = self.attack_speed })
 		end
 	end
 	if message_id == collision_response and sender == self.sword_collision then
@@ -56,7 +56,7 @@ function on_message(self, message_id, message, sender)
 			msg.post(message.other_id, "knockback", {knockback = self.knockback, damage = 10, other_id = go.get_id()})
 		end
 	elseif message_id == update_sword_stats then
-		self.cooldown = message.cooldown
+		self.attack_speed = message.attack_speed
 		self.knockback = message.knockback
 	end
 end
