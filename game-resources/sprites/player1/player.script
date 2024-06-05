@@ -10,7 +10,7 @@ local input_primary_hit = hash("primary_hit")
 local trigger_response = hash("trigger_response")
 local portal_group = hash("portal")
 local damage = hash("damage")
-local heal = hash("heal")
+local heal_message = hash("heal")
 
 local player_stat_init = hash("player_stat_init")
 local collect_item = hash("collect_item")
@@ -36,7 +36,7 @@ local function set_current_health(self, health)
 end
 
 local function heal(self, amount)
-	if not self.current_health == self.max_health then
+	if not (self.current_health == self.max_health) then
 		if self.current_health + amount > self.max_health then
 		amount = self.max_health - self.current_health
 		end
@@ -188,7 +188,7 @@ function on_message(self, message_id, message, sender)
 			local level_control_url = msg.url("main","/level_control", "level_control")
 			msg.post(level_control_url, "player_died")
 		end
-	elseif message_id == heal then
+	elseif message_id == heal_message then
 		heal(self, message.amount)
 	elseif message_id == player_stat_init then
 		set_player_stats(self, message.max_health, message.speed, message.rocket_reload_time, message.knockback, message.melee_attackspeed)
@@ -199,7 +199,10 @@ function on_message(self, message_id, message, sender)
 			print("ranged_attack_speed")
 		elseif message.item_type == "movement_speed" then
 			add_item(self, "movement_speed", message.amount)
+		else 
+			print("unknown item type")
 		end
+
 	end
 end
 
