@@ -1,21 +1,18 @@
-local function set_time(self)
+local function update_difficulty(self)
+	gui.set_text(self.difficulty_name_node, self.time_difficulty.difficulties[self.time_difficulty.difficulty].name)
+	gui.set_color(self.difficulty_node, self.time_difficulty.difficulties[self.time_difficulty.difficulty].color)
+end
 
+local function set_time(self)
 	--self.time_difficulty.time is in seconds. Convert to minutes and seconds
 	local min = math.floor(self.time_difficulty.time / 60)
 	local sec = self.time_difficulty.time % 60
 
 	gui.set_text(self.timer_node, string.format("%02d:%04.01f", min, sec))
-end
-local function update_time(self, dt)
-	-- update the time
-	-- increment in seconds
-self.time_difficulty.sec = self.time_difficulty.sec + dt
-	if self.time_difficulty.sec >= 60 then
-		self.time_difficulty.sec = 0
-		self.time_difficulty.min = self.time_difficulty.min + 1
-		if self.time_difficulty.min >= 60 then
-			self.time_difficulty.min = 0
-		end
+	
+	if self.time_difficulty.time > self.time_difficulty.difficulties[self.time_difficulty.difficulty].threshold then
+		self.time_difficulty.difficulty = self.time_difficulty.difficulty + 1
+		update_difficulty(self)
 	end
 end
 
@@ -25,10 +22,11 @@ function init(self)
 
 	-- get the node position
 	self.timer_node = gui.get_node("time_difficulty")
+	self.difficulty_name_node = gui.get_node("difficulty_name")
+	self.difficulty_node = gui.get_node("difficulty")
 	gui.set_color(self.timer_node, vmath.vector4(1, 1, 1, 1))
 
 	timer.delay(0.1, true, function()
-		--update_time(self, 0.1)
 		self.time_difficulty.time = self.time_difficulty.time + 0.1
 		set_time(self)
 	end)
@@ -50,9 +48,11 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("set_time_difficulty") then
-		print("time_difficulty set_time_difficulty")
 		self.time_difficulty = message
+		update_difficulty(self)
 		set_time(self)
+	elseif message_id == hash("get_time_difficulty") then
+		msg.post(sender, "set_time_difficulty", self.time_difficulty)
 	end
 end
 
