@@ -18,13 +18,17 @@ end
 local function load_level(self, level)
 	self.level_state = self.level_state + 1
 	local loader_url = msg.url("main", "/loader", "loader")
-	msg.post(loader_url, "load_level", self.levels[self.level_state])
+
+	local params = {level = self.levels[self.level_state], self.time_difficulty}
+
+	msg.post(loader_url, "load_level", params)
 end
 
 local function load_death_screen(self)
 	local loader_url = msg.url("main", "/loader", "loader")
 
-	msg.post(loader_url, "load_level", self.on_death)
+	local params = {level = self.on_death, self.time_difficulty}
+	msg.post(loader_url, "load_level", params)
 	self.level_state = 1
 end
 
@@ -51,6 +55,9 @@ function init(self)
 		knockback = 100,
 		melee_attackspeed = 2,
 	}
+
+	local difficulties = {{name="easy", threshold=40}, {name="medium", threshold=60}, {name="hard", threshold=400}, {name="incredible", threshold=800}}
+	self.time_difficulty = { time=0, difficulty =1, difficulties = difficulties}
 
 
 
@@ -80,7 +87,13 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == level_completed then
-		if self.level_state <= #self.levels then
+		if self.level_state <= #self.levels and message == nil then
+			-- if message is nil, it was just a screen transition
+			load_level(self, self.levels[self.level_state+1])
+		elseif self.level_state <=#self.levels then
+			-- if message is not nil, it was a level completion
+			
+			print("Level completed")
 			load_level(self, self.levels[self.level_state+1])
 		end
 	elseif message_id == hash("player_died") then
@@ -88,6 +101,10 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == player_loaded then
 		set_player_stats(self, self.player, sender)
 		apply_messages(self, self.levels[self.level_state])
+	elseif message_id == hash("get_time_difficulty") then
+		msg.post(sender, "set_time_difficulty", self.time_difficulty)
+	elseif message_id == hash("set_time_difficulty") then
+		self.time_difficulty = message
 	end
 end
 

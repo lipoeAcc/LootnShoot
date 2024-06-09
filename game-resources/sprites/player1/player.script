@@ -80,7 +80,8 @@ local function update_stats(self)
     local new_melee_attackspeed = self.base_melee_attackspeed/(1 + 0.1 * self.items["melee_attack_speed"].amount)
     local new_rocket_reload_time = self.base_rocket_reload_time/(1 + 0.1 * self.items["ranged_attack_speed"].amount)
     local new_speed =  self.base_speed + 10 * self.items["movement_speed"].amount
-	update_player_stats(self, self.base_max_health, new_speed, new_rocket_reload_time, self.base_knockback, new_melee_attackspeed)
+	local new_max_health = self.base_max_health
+	update_player_stats(self, new_max_health, new_speed, new_rocket_reload_time, self.base_knockback, new_melee_attackspeed)
 end
 
 local function add_item(self, item_type, amount)
@@ -92,6 +93,7 @@ end
 function init(self)
 	msg.post(".", "acquire_input_focus")
 
+	-- notify level_control that player is loaded
 	msg.post(msg.url("main","/level_control","level_control"), "player_loaded")
 	
 	-- positional variables
@@ -146,9 +148,6 @@ function update(self, dt)
 			end
 			go.set_position(pos, id)
 		end
-
-		
-
 	end
 
 	if self.firing and not self.rocket_disabled then
@@ -176,11 +175,10 @@ function on_message(self, message_id, message, sender)
 		-- disable portal to have time to spawn next level
 		local portal_trigger_url = msg.url(nil, message.other_id, "portal_trigger")
 		msg.post(portal_trigger_url, "disable")
-		
-		msg.post("/gui/messenger", "display_message", { message = "You have entered a portal! I wonder what will happen..." })
-		-- message the loader to finish current level and load the next
+
+		-- level is completed - we need all the 
 		local level_control_url = msg.url("main","/level_control", "level_control")
-		msg.post(level_control_url, "level_completed")
+		msg.post(level_control_url, "level_completed", {items = self.items })
 	elseif message_id == damage then
 		set_current_health(self, self.current_health - message.damage)
 		if self.current_health <= 0 then

@@ -1,6 +1,8 @@
 function init(self)
 	msg.post(".", "acquire_input_focus")
 	self.current_level_url = nil
+
+	self.time_difficulty = nil
 end
 
 function final(self)
@@ -27,6 +29,7 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("proxy_loaded") then
 		msg.post(sender, "enable")
+		--load time_difficulty
 	end
 	if message_id == hash("proxy_unloaded") then 
 		msg.post(self.current_level_url, "load")
@@ -36,10 +39,12 @@ function on_message(self, message_id, message, sender)
 		if self.current_level_url then
 			msg.post(self.current_level_url, "unload")
 		else
-			msg.post(message.url, "load")
+			msg.post(message.level.url, "load")
+			self.time_difficulty = message.time_difficulty
 		end
-		self.current_level_url = message.url
+		self.current_level_url = message.level.url
 	end
+
 end
 
 function on_input(self, action_id, action)
