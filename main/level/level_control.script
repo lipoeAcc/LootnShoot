@@ -18,39 +18,53 @@ end
 local function load_level(self, level)
 	self.level_state = self.level_state + 1
 	local loader_url = msg.url("main", "/loader", "loader")
-	msg.post(loader_url, "load_level", self.levels[self.level_state])
+
+	local params = {level = self.levels[self.level_state], self.time_difficulty}
+
+	msg.post(loader_url, "load_level", params)
 end
 
 local function load_death_screen(self)
 	local loader_url = msg.url("main", "/loader", "loader")
 
-	msg.post(loader_url, "load_level", self.on_death)
+	local params = {level = self.on_death, self.time_difficulty}
+	msg.post(loader_url, "load_level", params)
 	self.level_state = 1
 end
 
-local function set_player_stats(self, player, url)
-	msg.post(url, "player_stat_init", {max_health = player.max_health, speed = player.speed, rocket_reload_time = player.rocket_reload_time, knockback = player.knockback, melee_attackspeed = player.melee_attackspeed})
-end
 
 function init(self)
 	self.level_state = 0
 	-- array with an object for each state with level name, url and duration which can be nil (for infinite duration) 
 	self.levels = {
 		{name="menu", url=msg.url("main","/loader","menu_proxy"), duration=nil, hasplayer=false},
-		{name="level_1", url=msg.url("main","/loader","level_1_proxy"), duration=nil, hasplayer=true, message_url=msg.url("level_1","/gui/messenger",nil), messages={{message="Welcome to level 1", delay=1}, {message="Good luck", delay=3}}},
+		{name="level_1", url=msg.url("main","/loader","level_1_proxy"), duration=nil, hasplayer=true, message_url=msg.url("level_1","/gui/messenger",nil), messages={{message="Welcome to level 1", delay=1}, {message="Good luck", delay=3}}, timer_difficulty_url=msg.url("level_1","/gui/timer_difficulty",nil)},
 		{name="finished_level_1", url=msg.url("main","/loader","finished_level"), duration=nil, hasplayer=false},
-		{name="level_2", url=msg.url("main","/loader","level_2_proxy"), duration=nil, hasplayer=true, message_url=msg.url("level_2","/gui/messenger",nil), messages={{message="Welcome to level 2", delay=1}, {message="Good luck", delay=3}}},
+		{name="level_2", url=msg.url("main","/loader","level_2_proxy"), duration=nil, hasplayer=true, message_url=msg.url("level_2","/gui/messenger",nil), messages={{message="Welcome to level 2", delay=1}, {message="Good luck", delay=3}},  timer_difficulty_url=msg.url("level_1","/gui/timer_difficulty",nil)},
 	}
 	self.on_death = {name="death_screen", url=msg.url("main","/loader","on_death_proxy"), duration=nil}
 
-	-- player stats
-	self.player = {
-		max_health = 100,
-		speed = 100,
-		rocket_reload_time = 2,
-		knockback = 100,
-		melee_attackspeed = 2,
+	-- player stats are in the player.script
+	-- self.player = {
+	--	max_health = 100,
+	--	speed = 100,
+	--.	rocket_reload_time = 2,
+	--	knockback = 100,
+	--	melee_attackspeed = 2,
+	--}
+	self.player_items = {
+		["melee_attack_speed"] = {amount = 0},
+		["ranged_attack_speed"] = {amount = 0},
+		["movement_speed"] = {amount = 0}
 	}
+
+	local difficulties = {
+		{name="easy", threshold=10, color=vmath.vector4(0, 1, 0, 1)}, -- green
+		{name="medium", threshold=60, color=vmath.vector4(1, 1, 0, 1)}, -- yellow
+		{name="hard", threshold=400, color=vmath.vector4(1, 0.5, 0, 1)}, -- orange
+		{name="incredible", threshold=800, color=vmath.vector4(1, 0, 0, 1)} -- red
+	}
+	self.time_difficulty = { time=0, difficulty =1, difficulties = difficulties}
 
 
 
@@ -80,14 +94,24 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == level_completed then
-		if self.level_state <= #self.levels then
+		if self.level_state <= #self.levels and message.items ==nil then
+			-- if message is nil, it was just a screen transition
 			load_level(self, self.levels[self.level_state+1])
+		elseif self.level_state <=#self.levels and message.items ~= nil then
+			-- we need to update the time difficulty
+			msg.post(self.levels[self.level_state].timer_difficulty_url, "get_time_difficulty", self.time_difficulty)
+			--level will be loaded after time difficulty is being received
 		end
 	elseif message_id == hash("player_died") then
 		load_death_screen(self)
 	elseif message_id == player_loaded then
-		set_player_stats(self, self.player, sender)
+		msg.post(sender, "player_item_init", {items= self.player_items})
 		apply_messages(self, self.levels[self.level_state])
+	elseif message_id == hash("get_time_difficulty") then
+		msg.post(sender, "set_time_difficulty", self.time_difficulty)
+	elseif message_id == hash("set_time_difficulty") then
+		self.time_difficulty = message
+		load_level(self, self.levels[self.level_state+1])
 	end
 end
 
