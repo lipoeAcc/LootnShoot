@@ -52,6 +52,7 @@ embedded_components {
   "mask: \"enemy\"\n"
   "mask: \"item\"\n"
   "mask: \"poison\"\n"
+  "mask: \"spawnpoint\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"

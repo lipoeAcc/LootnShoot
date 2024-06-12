@@ -1,24 +1,29 @@
-local create_portal = hash("create_portal")
+local trigger_response = hash("trigger_response")
+local player_group = hash("player")
 
-local function print_length(self)
-	for k, v in pairs(self.spawnpoint_dictionary) do
-		print("key: " .. tostring(k) .. " value: " .. tostring(v))
-	end
+local function register_spawnpoint(self)
+	local properties = {
+		position = self.position,
+		scale = self.scale,
+		id = self.id
+	}
+	msg.post("world_edit", "register_spawnpoint", properties)
 end
 
-local function register_spawnpoint(self, message)
-	local spawnpoint_id = message.id
-	self.spawnpoint_dictionary[spawnpoint_id] = message
-	print_length(self)
-end
-
-local function unregister_spawnpoint(self, message)
-	local spawnpoint_id = message.id
-	self.spawnpoint_dictionary[spawnpoint_id] = nil
+local function unregister_spawnpoint(self)
+	local properties = {
+		position = self.position,
+		scale = self.scale,
+		id = self.id
+	}
+	msg.post("world_edit", "unregister_spawnpoint", properties)
 end
 
 function init(self)
-	self.spawnpoint_dictionary = {}
+	self.position = go.get_position()
+	self.scale = go.get_scale()
+	-- concatenate position x and y to get a unique id
+	self.id = hash(self.position.x .. self.position.y)
 end
 
 function final(self)
@@ -43,13 +48,14 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	-- on message create_portal do
-	if message_id == create_portal then
-		collectionfactory.create("#portal_factory", message.position)
-	elseif message_id == hash("register_spawnpoint") then
-		register_spawnpoint(self, message)
-	elseif message_id == hash("unregister_spawnpoint") then
-		unregister_spawnpoint(self, message)
+	if message_id == trigger_response and message.group == player_group then
+		if message.enter then 
+			print("Trigger response enter - register")
+			register_spawnpoint(self)
+		else
+			print("Trigger response exit - unregister")
+			unregister_spawnpoint(self)
+		end
 	end
 end
 
