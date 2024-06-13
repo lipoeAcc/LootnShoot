@@ -29,7 +29,12 @@ local function load_death_screen(self)
 
 	local params = {level = self.on_death, self.time_difficulty}
 	msg.post(loader_url, "load_level", params)
-	self.level_state = 1
+	self.level_state = 0
+	self.player_items = {
+		["melee_attack_speed"] = {amount = 0},
+		["ranged_attack_speed"] = {amount = 0},
+		["movement_speed"] = {amount = 0}
+	}
 end
 
 
