@@ -49,12 +49,18 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == trigger_response and message.group == player_group then
-		if message.enter then 
-			print("Trigger response enter - register")
-			register_spawnpoint(self)
-		else
-			print("Trigger response exit - unregister")
-			unregister_spawnpoint(self)
+		if sender.fragment == hash("spawnarea") then
+			if message.enter then 
+				register_spawnpoint(self)
+			else
+				unregister_spawnpoint(self)
+			end
+		else 
+			if message.enter then
+				unregister_spawnpoint(self)
+			else
+				register_spawnpoint(self)
+			end
 		end
 	end
 end
