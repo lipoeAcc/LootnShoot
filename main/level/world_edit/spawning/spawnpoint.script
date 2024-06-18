@@ -7,7 +7,7 @@ local function register_spawnpoint(self)
 		scale = self.scale,
 		id = self.id
 	}
-	msg.post("world_edit", "register_spawnpoint", properties)
+	msg.post( msg.url("/world_edit"), "register_spawnpoint", properties)
 end
 
 local function unregister_spawnpoint(self)
@@ -16,7 +16,7 @@ local function unregister_spawnpoint(self)
 		scale = self.scale,
 		id = self.id
 	}
-	msg.post("world_edit", "unregister_spawnpoint", properties)
+	msg.post( msg.url("/world_edit"), "unregister_spawnpoint", properties)
 end
 
 function init(self)
