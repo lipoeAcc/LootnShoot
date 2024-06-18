@@ -1,4 +1,5 @@
 local create_portal = hash("create_portal")
+local update_difficulty = hash("update_difficulty")
 
 local BASE_DELAY = 5
 
@@ -31,7 +32,8 @@ local function spawn_random_enemy(self)
 end
 
 local function spawn_enviroment(self)
-	timer.delay((BASE_DELAY/self.difficulty), true, function ()
+	print("diffff ", difficulty)
+	return timer.delay((BASE_DELAY/self.difficulty), true, function ()
 		spawn_random_enemy(self)
 	end)
 end
@@ -40,7 +42,7 @@ function init(self)
 	self.spawnpoint_dictionary = {}
 	self.difficulty = 1
 
-	spawn_enviroment(self)
+	--self.spawner_handler = spawn_enviroment(self)
 end
 
 function final(self)
@@ -72,6 +74,12 @@ function on_message(self, message_id, message, sender)
 		register_spawnpoint(self, message)
 	elseif message_id == hash("unregister_spawnpoint") then
 		unregister_spawnpoint(self, message)
+	elseif message_id == update_difficulty then
+		self.difficulty = message.difficulty
+		if self.spawn_handler then
+			timer.cancel(self.spawn_handler)
+		end
+		self.spawn_handler = spawn_enviroment(self)
 	end
 end
 
