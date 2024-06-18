@@ -16,6 +16,7 @@ local player_stat_init = hash("player_stat_init")
 local collect_item = hash("collect_item")
 local player_item_init = hash("player_item_init")
 
+local FOG_SPEED_FACTOR = 0.1
 
 
 local function fire_rocket(self)
@@ -123,6 +124,7 @@ function init(self)
 
 	self.rocket_disabled = false
 	self.player_collection = {go.get_id("/player1/player1"),go.get_id("/player1/sword")}
+	self.is_in_fog = false;
 	update_stats(self)
 	set_current_health(self, self.max_health)
 
@@ -141,7 +143,12 @@ end
 function update(self, dt)
 	if self.moving then
 		local pos = go.get_position()
-		pos = pos + self.dir * self.speed * dt
+		local speed = self.speed
+		if (self.is_in_fog) then
+			speed = speed * FOG_SPEED_FACTOR
+		end 
+		pos = pos + self.dir * speed * dt
+		
 
 		for i, id in ipairs(self.player_collection) do
 			--local pos = go.get_position(id)
@@ -212,6 +219,14 @@ function on_message(self, message_id, message, sender)
 			print("unknown item type")
 		end
 
+	end
+
+	if message_id == trigger_response and message.other_group == hash("fog") then
+		if (message.enter) then
+			self.is_in_fog = true
+		else
+			self.is_in_fog = false 
+		end
 	end
 end
 
