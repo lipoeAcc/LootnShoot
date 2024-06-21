@@ -1,31 +1,11 @@
-name: "level_2"
+name: "spawnpoints"
 instances {
-  id: "level_2"
-  prototype: "/main/level/level_2/level_2.go"
+  id: "spawnpoint"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
   position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
+    x: 100.0
+    y: 39.0
     z: 1.0
-  }
-}
-instances {
-  id: "enemies"
-  prototype: "/game-resources/sprites/enemies/enemies.go"
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
   }
   rotation {
     x: 0.0
@@ -40,8 +20,28 @@ instances {
   }
 }
 instances {
-  id: "explosionFactory"
-  prototype: "/game-resources/sprites/weapons/rocket/explosionFactory.go"
+  id: "spawnpoint1"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 78.0
+    y: 131.0
+    z: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint2"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
   position {
     x: 0.0
     y: 0.0
@@ -60,31 +60,11 @@ instances {
   }
 }
 instances {
-  id: "world_edit"
-  prototype: "/main/level/world_edit/world_edit.go"
+  id: "spawnpoint3"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
   position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-collection_instances {
-  id: "player1"
-  collection: "/game-resources/sprites/player1/player1.collection"
-  position {
-    x: 0.0
-    y: 0.0
+    x: 42.0
+    y: 32.0
     z: 1.0
   }
   rotation {
@@ -99,13 +79,13 @@ collection_instances {
     z: 1.0
   }
 }
-collection_instances {
-  id: "gui"
-  collection: "/main/ui/gui.collection"
+instances {
+  id: "spawnpoint4"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
   position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
+    x: 29.0
+    y: -41.0
+    z: 1.0
   }
   rotation {
     x: 0.0
@@ -119,13 +99,33 @@ collection_instances {
     z: 1.0
   }
 }
-collection_instances {
-  id: "spawnpoints_2"
-  collection: "/main/level/level_2/spawnpoints_2.collection"
+instances {
+  id: "spawnpoint5"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
   position {
+    x: 154.0
+    y: 36.0
+    z: 1.0
+  }
+  rotation {
     x: 0.0
     y: 0.0
     z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint6"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 137.0
+    y: 80.0
+    z: 1.0
   }
   rotation {
     x: 0.0

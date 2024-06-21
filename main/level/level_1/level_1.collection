@@ -83,7 +83,7 @@ instances {
   id: "world_edit"
   prototype: "/main/level/world_edit/world_edit.go"
   position {
-    x: 0.0
+    x: 10.0
     y: 0.0
     z: 0.0
   }
@@ -266,6 +266,26 @@ collection_instances {
     x: 94.0
     y: 149.0
     z: 2.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+collection_instances {
+  id: "spawnpoints_1"
+  collection: "/main/level/level_1/spawnpoints_1.collection"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
   }
   rotation {
     x: 0.0

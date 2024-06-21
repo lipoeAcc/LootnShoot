@@ -1,8 +1,48 @@
 local create_portal = hash("create_portal")
+local update_difficulty = hash("update_difficulty")
+
+local BASE_DELAY = 5
+
+local function print_length(self)
+	for k, v in pairs(self.spawnpoint_dictionary) do
+		print("key: " .. tostring(k) .. " value: " .. tostring(v))
+	end
+end
+
+local function register_spawnpoint(self, message)
+	local spawnpoint_id = message.id
+	self.spawnpoint_dictionary[spawnpoint_id] = message
+end
+
+local function unregister_spawnpoint(self, message)
+	local spawnpoint_id = message.id
+	self.spawnpoint_dictionary[spawnpoint_id] = nil
+end
+
+local function spawn_random_enemy(self)
+	if next(self.spawnpoint_dictionary) == nil then
+		do return end
+	end
+    local spawnpoint_keys = {}
+    for k in pairs(self.spawnpoint_dictionary) do
+        table.insert(spawnpoint_keys, k)
+    end
+    local spawnpoint_index = spawnpoint_keys[math.random(#spawnpoint_keys)]
+    msg.post(msg.url("/enemies"), "spawn_random_enemy", {position = self.spawnpoint_dictionary[spawnpoint_index].position})
+end
+
+local function spawn_enviroment(self)
+	print("diffff ", difficulty)
+	return timer.delay((BASE_DELAY/self.difficulty), true, function ()
+		spawn_random_enemy(self)
+	end)
+end
+
 function init(self)
-	-- Add initialization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	self.spawnpoint_dictionary = {}
+	self.difficulty = 1
+
+	--self.spawner_handler = spawn_enviroment(self)
 end
 
 function final(self)
@@ -30,6 +70,16 @@ function on_message(self, message_id, message, sender)
 	-- on message create_portal do
 	if message_id == create_portal then
 		collectionfactory.create("#portal_factory", message.position)
+	elseif message_id == hash("register_spawnpoint") then
+		register_spawnpoint(self, message)
+	elseif message_id == hash("unregister_spawnpoint") then
+		unregister_spawnpoint(self, message)
+	elseif message_id == update_difficulty then
+		self.difficulty = message.difficulty
+		if self.spawn_handler then
+			timer.cancel(self.spawn_handler)
+		end
+		self.spawn_handler = spawn_enviroment(self)
 	end
 end
 
