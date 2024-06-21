@@ -116,6 +116,11 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("set_time_difficulty") then
 		self.time_difficulty = message
 		load_level(self, self.levels[self.level_state+1])
+	elseif message_id == hash("get_level_object_url") then
+		msg.post(sender, "set_level_object_url", self.levels[self.level_state].level_url)
+	elseif message_id == hash("set_level_object_url") then
+		local level_url = message.level_url
+		self.levels[self.level_state].level_url = { level_url = level_url }
 	end
 end
 
