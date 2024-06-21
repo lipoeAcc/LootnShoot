@@ -239,6 +239,26 @@ instances {
     z: 1.0
   }
 }
+instances {
+  id: "damageFactory"
+  prototype: "/game-resources/sprites/weapons/rocket/damageFactory.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
 collection_instances {
   id: "player1"
   collection: "/game-resources/sprites/player1/player1.collection"

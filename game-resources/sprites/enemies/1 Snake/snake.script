@@ -96,11 +96,6 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == trigger_response then
-		if message.group == rockets and message.enter then
-			reduce_health(self, 50)
-		end
-	end
 	if message_id == collision_response then
 		if message.group == player then
 			if self.disabled == false then
