@@ -51,13 +51,17 @@ end
 
 local function apply_knockback(self, direction)
 	self.knockbacking = true
-	self.knockback_direction = vmath.normalize(direction)
+	if direction.x == 0 and direction.y == 0 then
+		self.knockback_direction = self.dir
+	else 
+		self.knockback_direction = vmath.normalize(direction)
+	end
 	timer.delay(self.knockback_time, false, knockback_complete)
 end
 
 
 function init(self)
-	self.dir = vmath.vector3(0, 0, 0)
+	self.dir = vmath.vector3(1, 0, 0)
 	self.target = vmath.vector3(0, 0, 0)
 	self.individual_dropchance = 100
 	self.health = 100
