@@ -92,7 +92,7 @@ end
 function fixed_update(self, dt)
 	--local id = go.get_id("player1")
 	--self.target = go.get_position(id)
-	update_position(self, vmath.vector3(1, 0, 0), dt)
+	update_position(self, self.dir, dt)
 end
 
 function on_message(self, message_id, message, sender)
@@ -103,6 +103,9 @@ function on_message(self, message_id, message, sender)
 				msg.post(message.other_id, "damage", {damage = 10})
 				timer.delay(self.attack_delay, false, function() self.disabled = false end)
 			end
+		elseif message.group == hash("wall") then 
+			self.knockbacking = false
+			--self.dir = vmath.vector3(-self.dir.x, -self.dir.y, 0)
 		end
 	end
 	if message_id == knockback and self.knockbacking == false then
