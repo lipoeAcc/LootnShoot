@@ -37,13 +37,6 @@ local function load_death_screen(self)
 	}
 end
 
-local function message_difficulty(self)
-	--message world_edit
-	print("difficulty: " .. self.time_difficulty.difficulty)
-	msg.post(self.levels[self.level_state].world_edit_url,"update_difficulty", {difficulty= self.time_difficulty.difficulty})
-end
-
-
 function init(self)
 	self.level_state = 0
 	-- array with an object for each state with level name, url and duration which can be nil (for infinite duration) 
@@ -117,7 +110,6 @@ function on_message(self, message_id, message, sender)
 		load_death_screen(self)
 	elseif message_id == player_loaded then
 		msg.post(sender, "player_item_init", {items= self.player_items})
-		message_difficulty(self)
 		apply_messages(self, self.levels[self.level_state])
 	elseif message_id == hash("get_time_difficulty") then
 		msg.post(sender, "set_time_difficulty", self.time_difficulty)

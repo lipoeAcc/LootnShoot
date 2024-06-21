@@ -1,5 +1,6 @@
 local trigger_response = hash("trigger_response")
 local player_group = hash("player")
+local spawnarea = hash("spawnarea")
 
 local function register_spawnpoint(self)
 	local properties = {
@@ -49,7 +50,7 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == trigger_response and message.group == player_group then
-		if sender.fragment == hash("spawnarea") then
+		if sender.fragment == spawnarea then
 			if message.enter then 
 				register_spawnpoint(self)
 			else

@@ -1,6 +1,11 @@
+local function message_update_difficulty(self)
+	msg.post(msg.url("/world_edit"), "update_difficulty", {difficulty = self.time_difficulty.difficulty})
+end
+
 local function update_difficulty(self)
 	gui.set_text(self.difficulty_name_node, self.time_difficulty.difficulties[self.time_difficulty.difficulty].name)
 	gui.set_color(self.difficulty_node, self.time_difficulty.difficulties[self.time_difficulty.difficulty].color)
+	message_update_difficulty(self)
 end
 
 local function set_time(self)

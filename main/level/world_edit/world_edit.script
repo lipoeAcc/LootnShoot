@@ -1,5 +1,7 @@
 local create_portal = hash("create_portal")
 local update_difficulty = hash("update_difficulty")
+local get_time_difficulty = hash("get_time_difficulty")
+local unregister_spawnpoint_message = hash("unregister_spawnpoint")
 
 local BASE_DELAY = 5
 
@@ -32,7 +34,6 @@ local function spawn_random_enemy(self)
 end
 
 local function spawn_enviroment(self)
-	print("diffff ", difficulty)
 	return timer.delay((BASE_DELAY/self.difficulty), true, function ()
 		spawn_random_enemy(self)
 	end)
@@ -41,6 +42,8 @@ end
 function init(self)
 	self.spawnpoint_dictionary = {}
 	self.difficulty = 1
+
+	msg.post(msg.url("main","/level_control","level_control"), "get_time_difficulty")
 
 	--self.spawner_handler = spawn_enviroment(self)
 end
@@ -72,9 +75,9 @@ function on_message(self, message_id, message, sender)
 		collectionfactory.create("#portal_factory", message.position)
 	elseif message_id == hash("register_spawnpoint") then
 		register_spawnpoint(self, message)
-	elseif message_id == hash("unregister_spawnpoint") then
+	elseif message_id == unregister_spawnpoint_message then
 		unregister_spawnpoint(self, message)
-	elseif message_id == update_difficulty then
+	elseif message_id == update_difficulty or message_id == set_difficulty then
 		self.difficulty = message.difficulty
 		if self.spawn_handler then
 			timer.cancel(self.spawn_handler)
