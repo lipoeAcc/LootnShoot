@@ -17,7 +17,7 @@ embedded_components {
   id: "scorpio_collisionobject"
   type: "collisionobject"
   data: "collision_shape: \"\"\n"
-  "type: COLLISION_OBJECT_TYPE_TRIGGER\n"
+  "type: COLLISION_OBJECT_TYPE_KINEMATIC\n"
   "mass: 0.0\n"
   "friction: 0.1\n"
   "restitution: 0.5\n"
@@ -28,8 +28,8 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
-  "      x: 7.0\n"
-  "      y: -18.0\n"
+  "      x: -3.0\n"
+  "      y: 0.0\n"
   "      z: 0.0\n"
   "    }\n"
   "    rotation {\n"
@@ -75,8 +75,8 @@ embedded_components {
   "}\n"
   ""
   position {
-    x: 0.0
-    y: 0.0
+    x: -10.0
+    y: 19.0
     z: 0.0
   }
   rotation {
