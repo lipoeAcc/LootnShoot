@@ -120,26 +120,6 @@ instances {
   }
 }
 instances {
-  id: "scorpio"
-  prototype: "/game-resources/sprites/enemies/3 Scorpio/scorpio.go"
-  position {
-    x: 341.0
-    y: -141.0
-    z: 1.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
   id: "mummy1"
   prototype: "/game-resources/sprites/enemies/5 Mummy/mummy.go"
   position {
@@ -246,6 +226,26 @@ collection_instances {
     x: 0.0
     y: 0.0
     z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+collection_instances {
+  id: "scorpio"
+  collection: "/game-resources/sprites/enemies/3 Scorpio/scorpio.collection"
+  position {
+    x: 79.0
+    y: 33.0
+    z: 1.0
   }
   rotation {
     x: 0.0

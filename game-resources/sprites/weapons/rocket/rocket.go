@@ -46,6 +46,7 @@ embedded_components {
   "restitution: 0.5\n"
   "group: \"rockets\"\n"
   "mask: \"enemy\"\n"
+  "mask: \"scorpio\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"

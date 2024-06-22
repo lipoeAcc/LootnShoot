@@ -53,6 +53,7 @@ function on_message(self, message_id, message, sender)
 	end
 	if message_id == collision_response and sender == self.sword_collision then
 		if self.hitting then
+			print(message.other_id)
 			msg.post(message.other_id, "knockback", {knockback = self.knockback, damage = 10, other_id = go.get_id()})
 		end
 	elseif message_id == update_sword_stats then

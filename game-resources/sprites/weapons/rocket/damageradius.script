@@ -24,7 +24,7 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id== hash("trigger_response") and message.enter and message.group == hash("enemy") then
+	if message_id == hash("trigger_response") and message.enter then
 		msg.post(message.other_id, "damage",{damage=30})
 	end
 end

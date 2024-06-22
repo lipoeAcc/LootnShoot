@@ -23,6 +23,7 @@ embedded_components {
   "restitution: 0.5\n"
   "group: \"damageradius\"\n"
   "mask: \"enemy\"\n"
+  "mask: \"scorpio\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"

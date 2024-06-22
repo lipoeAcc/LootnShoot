@@ -1,9 +1,10 @@
-local POISON_COOLDOWN = 0.5 -- seconds
+local POISON_COOLDOWN = 2 -- seconds
 local DEFAULT_SPEED = 20
+local HEALTHBAR_HEIGHT = 30
 
 local function calculate_next_position(self, dt, direction)
 	self.dt = dt or self.dt
-	local direction = direction or self.dir
+	direction = direction or self.dir
 	local direction_normalized = vmath.normalize(direction)
 	local position = go.get_position() + direction_normalized * self.speed * self.dt
 	return position
@@ -12,6 +13,7 @@ end
 local function set_position(self, dt)
 	local position = calculate_next_position(self, dt)
 	go.set_position(position)
+	go.set_position(position + vmath.vector3(0, HEALTHBAR_HEIGHT, 0), self.healthbar_id)
 end
 
 local function shoot_poison()
@@ -73,6 +75,47 @@ local function handle_wall_collision(self, distance_to_self)
 	self.dir = new_direction
 end
 
+local function die(self)
+	go.delete(self.healthbar_id)
+	go.delete(msg.url(nil, go.get_id(), nil))
+	msg.post(msg.url("/item_factory"), "drop_item", {position = go.get_position(), individual_dropchance = self.individual_dropchance})
+end
+
+local function reduce_health(self,damage)
+	self.health = self.health - damage
+	if self.health <= 0 then
+		die(self)
+	else
+		go.set_scale(vmath.vector3(self.health / 100, 1, 1), self.healthbar_id)
+	end
+end
+
+local function set_knockback_position(self, direction, dt)
+	local direction_normalized = vmath.normalize(direction)
+	local position = go.get_position() + direction_normalized * self.knockback_speed * dt
+	go.set_position(position)
+	-- set position of healthbar
+	go.set_position(position + vmath.vector3(0, HEALTHBAR_HEIGHT, 0), self.healthbar_id)
+end
+
+local function update_position(self, dt)
+	if self.knockbacking then
+		set_knockback_position(self, self.knockback_direction, dt)
+		return
+	end
+	set_position(self, dt)
+end
+
+local function apply_knockback(self, direction)
+	self.knockbacking = true
+	if direction.x == 0 and direction.y == 0 then
+		self.knockback_direction = self.dir
+	else 
+		self.knockback_direction = vmath.normalize(direction)
+	end
+	timer.delay(self.knockback_time, false, function() self.knockbacking = false end)
+end
+
 function init(self)
 	self.cooldown = 0
 	self.speed = DEFAULT_SPEED
@@ -80,8 +123,16 @@ function init(self)
 	self.level_url = nil
 	self.dt = 0
 	self.direction_changed = false
+	self.health = 100
+	self.healthbar_id = go.get_id("healthbar")
+	self.disabled = false
+	self.knockback_direction = nil
+	self.knockbacking = false
+	self.knockback_speed = 500
+	self.knockback_time = 0.3
+	self.attack_delay = 0.3
 	timer.delay(0, false, function() msg.post(msg.url("main","/level_control","level_control"), "get_level_object_url") end)
-	
+	go.set(self.healthbar_id, "scale", vmath.vector3(0, 0, 0)) -- no healthbar initially
 	local pos = go.get_position()
 	factory.create("#poison_factory", pos, vmath.quat_rotation_z(math.rad(0)))
 end
@@ -95,8 +146,7 @@ end
 function fixed_update(self, dt)
 	self.dt = dt
 	handle_cooldown(self, dt)
-	set_position(self, dt)
-
+	update_position(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
@@ -104,8 +154,26 @@ function on_message(self, message_id, message, sender)
 		if message.other_group == hash("wall") then
 			handle_wall_collision(self, message.normal)
 		end	
+	elseif message_id == hash("collision_response") then
+		if message.group == hash("player") then
+			if self.disabled == false then
+				self.disabled = true
+				msg.post(message.other_id, "damage", {damage = 20})
+				timer.delay(self.attack_delay, false, function() self.disabled = false end)
+			end
+		elseif message.group == hash("wall") then 
+			self.knockbacking = false
+		end
+		
 	elseif message_id == hash("set_level_object_url") then
 		self.level_url = message.level_url
+	elseif message_id == hash("knockback") and self.knockbacking == false then
+		local vector_other = go.get_position(message.other_id) 
+		local vector_self = go.get_position()
+		apply_knockback(self, vmath.vector3(vector_self.x-vector_other.x, vector_self.y-vector_other.y , 0))
+		reduce_health(self, message.damage)
+	elseif message_id == hash("damage") then
+		reduce_health(self, message.damage)
 	end
 end
 

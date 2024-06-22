@@ -1,8 +1,6 @@
 local MAX_LIFETIME = 10 -- seconds
 local DAMAGE = 5
 
-local contact_point_response = hash("collision_response")
-
 local function set_position(self, dt)
 	if self.dir.x == 0 and self.dir.y == 0 then
 		return
@@ -44,7 +42,7 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == contact_point_response then
+	if message_id == hash("collision_response") then
 		go.delete()
 		if message.group == hash("player") then
 			hit(message)
