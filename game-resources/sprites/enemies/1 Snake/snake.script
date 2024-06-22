@@ -105,7 +105,6 @@ function on_message(self, message_id, message, sender)
 			end
 		elseif message.group == hash("wall") then 
 			self.knockbacking = false
-			--self.dir = vmath.vector3(-self.dir.x, -self.dir.y, 0)
 		end
 	end
 	if message_id == knockback and self.knockbacking == false then
