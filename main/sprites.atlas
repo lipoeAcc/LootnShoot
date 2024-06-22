@@ -235,6 +235,25 @@ animations {
   flip_horizontal: 0
   flip_vertical: 0
 }
+animations {
+  id: "portal_spawnpoint"
+  images {
+    image: "/game-resources/sprites/portal/portal_spawnpoint/spawner_spawnpoint_00.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/game-resources/sprites/portal/portal_spawnpoint/spawner_spawnpoint_01.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/game-resources/sprites/portal/portal_spawnpoint/spawner_spawnpoint_02.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 3
+  flip_horizontal: 0
+  flip_vertical: 0
+}
 margin: 0
 extrude_borders: 2
 inner_padding: 0
