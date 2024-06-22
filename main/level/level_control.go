@@ -1,6 +1,6 @@
 components {
   id: "level_control"
-  component: "/main/level/level_control.script"
+  component: "/main/level/level_1/level_control.script"
   position {
     x: 0.0
     y: 0.0

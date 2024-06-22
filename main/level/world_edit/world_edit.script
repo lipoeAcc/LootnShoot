@@ -2,6 +2,7 @@ local create_portal = hash("create_portal")
 local update_difficulty = hash("update_difficulty")
 local get_time_difficulty = hash("get_time_difficulty")
 local unregister_spawnpoint_message = hash("unregister_spawnpoint")
+local register_portal_spawnpoint = hash("register_portal_spawnpoint")
 
 local BASE_DELAY = 5
 
@@ -33,6 +34,21 @@ local function spawn_random_enemy(self)
     msg.post(msg.url("/enemies"), "spawn_random_enemy", {position = self.spawnpoint_dictionary[spawnpoint_index].position})
 end
 
+local function message_all_portal_spawnpoints(self, message_id)
+	for i = 1, #self.portal_spawnpoint_list do
+		msg.post(self.portal_spawnpoint_list[i].id, message_id)
+	end
+end
+
+local function spawn_portal(self)
+	if next(self.portal_spawnpoint_list) == nil then
+		collectionfactory.create("#portal_factory", vmath.vector3(0,0,0))
+	end
+	local spawnpoint_index = math.random(#self.portal_spawnpoint_list)
+	collectionfactory.create("#portal_factory", self.portal_spawnpoint_list[spawnpoint_index].position)
+	message_all_portal_spawnpoints(self, "portal_spawned")
+end
+
 local function spawn_enviroment(self)
 	return timer.delay((BASE_DELAY/self.difficulty), true, function ()
 		spawn_random_enemy(self)
@@ -42,9 +58,13 @@ end
 function init(self)
 	self.spawnpoint_dictionary = {}
 	self.difficulty = 1
+	self.portal_spawnpoint_list = {}
 
 	msg.post(msg.url("main","/level_control","level_control"), "get_time_difficulty")
 
+	timer.delay(5, false, function ()
+		spawn_portal(self)
+	end)
 	--self.spawner_handler = spawn_enviroment(self)
 end
 
@@ -83,6 +103,10 @@ function on_message(self, message_id, message, sender)
 			timer.cancel(self.spawn_handler)
 		end
 		self.spawn_handler = spawn_enviroment(self)
+	elseif message_id == register_portal_spawnpoint then 
+		print("registering portal spawnpoint")
+		table.insert(self.portal_spawnpoint_list, {position = message.position, id = message.id})
+		print("portal spawnpoint list length: " .. tostring(#self.portal_spawnpoint_list))
 	end
 end
 
