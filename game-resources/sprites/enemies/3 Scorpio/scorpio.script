@@ -1,9 +1,10 @@
 local POISON_COOLDOWN = 0.5 -- seconds
 local DEFAULT_SPEED = 20
 
-local function calculate_next_position(self, dt)
+local function calculate_next_position(self, dt, direction)
 	self.dt = dt or self.dt
-	local direction_normalized = vmath.normalize(self.dir)
+	local direction = direction or self.dir
+	local direction_normalized = vmath.normalize(direction)
 	local position = go.get_position() + direction_normalized * self.speed * self.dt
 	return position
 end
@@ -28,15 +29,48 @@ local function handle_cooldown(self, dt)
 	end
 end
 
-local function handle_wall_collision(self)
-	if self.wall_trigger_count == 0 then
-		-- turn 90 degrees from current direction
-		local direction = vmath.vector3(-self.dir.y, -self.dir.x, 0)
-		self.dir = direction
-		self.wall_trigger_count = self.wall_trigger_count + 1
-	elseif self.wall_trigger_count == 1 then
-		self.wall_trigger_count = 0
+local function transform_90_degrees(self, direction, distance_to_self)
+	local result = nil
+	-- wall is down
+	if distance_to_self == vmath.vector3(0,1,0) then
+		if direction == vmath.vector3(1,-1,0) then
+			result = vmath.vector3(1,1,0)
+		elseif direction == vmath.vector3(-1,-1,0) then
+			result = vmath.vector3(-1,1,0)
+		end
+	-- wall is up
+	elseif distance_to_self == vmath.vector3(0,-1,0) then
+		if direction == vmath.vector3(1,1,0) then
+			result = vmath.vector3(1,-1,0)
+		elseif direction == vmath.vector3(-1,1,0) then
+			result = vmath.vector3(-1,-1,0)
+		end
+	-- wall is left
+	elseif distance_to_self == vmath.vector3(-1,0,0) then
+		if direction == vmath.vector3(1,1,0) then
+			result = vmath.vector3(-1,1,0)
+		elseif direction == vmath.vector3(1,-1,0) then
+			result = vmath.vector3(-1,-1,0)
+		end
+	-- wall is right
+	elseif distance_to_self == vmath.vector3(1,0,0) then
+		if direction == vmath.vector3(-1,1,0) then
+			result = vmath.vector3(1,1,0)
+		elseif direction == vmath.vector3(-1,-1,0) then
+			result = vmath.vector3(1,-1,0)
+		end
 	end
+
+	if result == nil then
+		return direction
+	else
+		return result
+	end
+end
+
+local function handle_wall_collision(self, distance_to_self)
+	local new_direction = transform_90_degrees(self, self.dir, distance_to_self)
+	self.dir = new_direction
 end
 
 function init(self)
@@ -45,7 +79,7 @@ function init(self)
 	self.dir = vmath.vector3(1, 1, 0)
 	self.level_url = nil
 	self.dt = 0
-	self.wall_trigger_count = 0
+	self.direction_changed = false
 	timer.delay(0, false, function() msg.post(msg.url("main","/level_control","level_control"), "get_level_object_url") end)
 	
 	local pos = go.get_position()
@@ -62,16 +96,16 @@ function fixed_update(self, dt)
 	self.dt = dt
 	handle_cooldown(self, dt)
 	set_position(self, dt)
+
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("trigger_response")  then
+	if message_id == hash("contact_point_response") then
 		if message.other_group == hash("wall") then
-			handle_wall_collision(self)
-		end
+			handle_wall_collision(self, message.normal)
+		end	
 	elseif message_id == hash("set_level_object_url") then
 		self.level_url = message.level_url
-		print("Level url: " .. self.level_url)
 	end
 end
 
