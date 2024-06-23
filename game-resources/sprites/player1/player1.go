@@ -54,6 +54,7 @@ embedded_components {
   "mask: \"poison\"\n"
   "mask: \"spawnpoint\"\n"
   "mask: \"fog\"\n"
+  "mask: \"portal_spawnpoint\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"

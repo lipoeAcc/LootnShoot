@@ -1,7 +1,11 @@
 local portal_spawned = hash("portal_spawned")
+local trigger_response = hash("trigger_response")
+
 
 function init(self)
 	msg.post(msg.url("/world_edit"), "register_portal_spawnpoint", {position = go.get_position(), id = go.get_id()})
+
+	self.disabled = false
 end
 
 function final(self)
@@ -28,6 +32,12 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == portal_spawned then
 		go.delete()
+	elseif message_id == trigger_response and message.enter and self.disabled == false then
+		self.disabled = true
+		msg.post("/gui/messenger", "display_message", {message = "Here might be a good place to put a portal..."})
+		timer.delay(2, false, function()
+			self.disabled = false
+		end)
 	end
 end
 
