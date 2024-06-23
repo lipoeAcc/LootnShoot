@@ -1,10 +1,29 @@
 local display_message_hash = hash("display_message")
 local display_message_time = 5
+local display_condition = hash("display_condition")
+
+local function do_display_condition(self, condition)
+    local condition_text = "Condition: \n" .. condition
+    gui.set_text(self.condition_node, condition_text)
+    -- set initial opacity to 0
+    gui.set_color(self.condition_node, vmath.vector4(1, 1, 1, 0))
+    -- animate ease in setting visible
+    gui.set_visible(self.condition_node, true)
+    -- animate opacity from 0 to 1
+    gui.animate(self.condition_node, gui.PROP_COLOR, vmath.vector4(1, 1, 1, 1), gui.EASING_INOUTSINE, 2, 0, function()
+        -- after the text has fully appeared, wait for 2 seconds
+        timer.delay(2, false, function()
+            -- animate opacity from 1 to 0
+            gui.animate(self.condition_node, gui.PROP_COLOR, vmath.vector4(1, 1, 1, 0), gui.EASING_INOUTSINE, 2, 0, function()
+                -- after the text has fully disappeared, set it to invisible
+                gui.set_visible(self.condition_node, false)
+            end)
+        end)
+    end)
+end
 
 local function create_node_display_message(self, message)
 	--TODO set anchro - gui.set_xanchor and gui.setyanchor
-
-	
 	-- frame for the box node by making a node slightly larger than the box node in white
 	local frame_position = vmath.vector3(150, 75, 0)
 	local frame_size = vmath.vector3(260, 110, 0)
@@ -76,6 +95,7 @@ end
 
 function init(self)
 	self.message_boxes = {}
+	self.condition_node = gui.get_node("condition")
 end
 
 function final(self)
@@ -90,6 +110,8 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == display_message_hash then
 		display_message(self, message.message)
+	elseif message_id == display_condition then
+
 	end
 end
 
