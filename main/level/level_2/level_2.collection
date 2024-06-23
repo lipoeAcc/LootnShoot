@@ -14,9 +14,9 @@ instances {
     w: 1.0
   }
   scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
+    x: 1.5
+    y: 1.5
+    z: 1.5
   }
 }
 instances {
@@ -123,8 +123,8 @@ collection_instances {
   id: "player1"
   collection: "/game-resources/sprites/player1/player1.collection"
   position {
-    x: 0.0
-    y: 0.0
+    x: -419.0
+    y: 358.0
     z: 1.0
   }
   rotation {
@@ -163,7 +163,7 @@ collection_instances {
   id: "spawnpoints_2"
   collection: "/main/level/level_2/spawnpoints_2.collection"
   position {
-    x: 0.0
+    x: 24.0
     y: 0.0
     z: 0.0
   }
