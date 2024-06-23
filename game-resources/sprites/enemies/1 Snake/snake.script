@@ -52,7 +52,11 @@ local function update_position(self, direction, dt)
 		set_knockback_position(self, self.knockback_direction, dt)
 		return
 	end
-	set_position(self, calculate_direction_to_player(), dt)
+	-- snake should only move if there is no wall between it and the player
+	local is_wall_between_player = physics.raycast(go.get_position(),get_player_position() , {hash("wall")})
+	if is_wall_between_player == nil then
+		set_position(self, calculate_direction_to_player(), dt)
+	end
 end
 
 local function knockback_complete(self)
