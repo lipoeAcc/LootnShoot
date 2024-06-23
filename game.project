@@ -31,6 +31,7 @@ input_method = HiddenInputField
 [physics]
 gravity_y = 0.0
 scale = 0.01
+max_collision_object_count = 4096
 
 [tilemap]
 max_tile_count = 4096
