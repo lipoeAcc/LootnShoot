@@ -45,6 +45,10 @@ local function message_all_portal_spawnpoints(self, message_id)
 end
 
 local function spawn_portal(self)
+	if self.portal_spawned then
+		do return end
+	end
+	self.portal_spawned = true
 	if next(self.portal_spawnpoint_list) == nil then
 		collectionfactory.create("#portal_factory", vmath.vector3(0,0,0))
 	end
@@ -63,6 +67,8 @@ function init(self)
 	self.spawnpoint_dictionary = {}
 	self.difficulty = 1
 	self.portal_spawnpoint_list = {}
+
+	self.portal_spawned = false
 
 	msg.post(msg.url("main","/level_control","level_control"), "get_time_difficulty")
 
