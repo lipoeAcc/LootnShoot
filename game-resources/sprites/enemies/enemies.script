@@ -1,34 +1,16 @@
 local create_snake = hash("create_snake")
-local spawn_random_enemy = hash("spawn_random_enemy")
+local spawn_random_enemy_hash = hash("spawn_random_enemy")
 
-local costs = {
-	[2] = {
-		1.0, -- E
-		1.0, -- N
-		1.0, -- W
-		1.0, -- S
-		1.41, -- NE
-		1.41, -- NW
-		1.41, -- SW
-		1.41 -- SE
-	}
-}
-
-local world = {
-	2 ,2 ,0 ,1 ,0,
-	0 ,0 ,1 ,2 ,1,
-	0 ,0 ,2 ,0 ,0,
-	0 ,2 ,2 ,2 ,2,
-	2 ,1 ,1 ,0 ,1
-}
-
-
-
+local function spawn_random_enemy(self, position)
+	local enemy = self.enemies[math.random(1, #self.enemies)]
+	collectionfactory.create(enemy.factory, position)
+end
 
 function init(self)
-	astar.setup(5, 5, astar.DIRECTION_EIGHT,25, 8, true)
-	astar.set_costs(costs)
-	astar.set_map(world)
+	self.enemies = {
+		{factory="#snakefactory", spawnrate=5},
+		{factory="#scorpiofactory", spawnrate=2}
+	}
 end
 
 function final(self)
@@ -56,10 +38,10 @@ function on_message(self, message_id, message, sender)
     if message_id == create_snake then
 		collectionfactory.create("#snakefactory", vmath.vector3(500, 0, 0))
 		collectionfactory.create("#snakefactory", vmath.vector3(500, 5, 0))
-	elseif message_id == spawn_random_enemy then 
-		collectionfactory.create("#snakefactory", message.position)
+	elseif message_id == spawn_random_enemy_hash then 
+		print("spawning random enemy")
+		spawn_random_enemy(self, message.position)
 	end
-	
 end
 
 function on_input(self, action_id, action)
