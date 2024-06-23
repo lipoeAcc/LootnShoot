@@ -16,10 +16,17 @@ local function set_position(self, dt)
 	go.set_position(position + vmath.vector3(0, HEALTHBAR_HEIGHT, 0), self.healthbar_id)
 end
 
+local function get_player_position()
+	return go.get_position("/player1/player1")
+end
+
 local function shoot_poison()
-	local pos = go.get_position()
-	local rot = vmath.quat_rotation_z(math.rad(0))
-	factory.create("#poison_factory", pos, rot)
+	local is_wall_between_player = physics.raycast(go.get_position(),get_player_position() , {hash("wall")})
+	if is_wall_between_player == nil then
+		local pos = go.get_position()
+		local rot = vmath.quat_rotation_z(math.rad(0))
+		factory.create("#poison_factory", pos, rot)
+	end
 end
 
 local function handle_cooldown(self, dt)
@@ -117,6 +124,7 @@ local function apply_knockback(self, direction)
 	timer.delay(self.knockback_time, false, function() self.knockbacking = false end)
 end
 
+
 function init(self)
 	self.cooldown = POISON_COOLDOWN
 	self.speed = DEFAULT_SPEED
@@ -136,7 +144,6 @@ function init(self)
 	timer.delay(0, false, function() msg.post(msg.url("main","/level_control","level_control"), "get_level_object_url") end)
 	go.set(self.healthbar_id, "scale", vmath.vector3(0, 0, 0)) -- no healthbar initially
 	local pos = go.get_position()
-	factory.create("#poison_factory", pos, vmath.quat_rotation_z(math.rad(0)))
 end
 
 function final(self)
