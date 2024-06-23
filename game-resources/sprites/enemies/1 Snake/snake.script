@@ -9,6 +9,7 @@ local function die(self)
 	go.delete(msg.url(nil, go.get_id(), nil))
 
 	msg.post(msg.url("/item_factory"), "drop_item", {position = go.get_position(), individual_dropchance = self.individual_dropchance})
+	msg.post(msg.url("/player1/player1"), "kill_feedback")
 end
 
 local function reduce_health(self,damage)

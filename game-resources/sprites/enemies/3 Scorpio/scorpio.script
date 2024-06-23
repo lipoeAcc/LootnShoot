@@ -79,6 +79,7 @@ local function die(self)
 	go.delete(self.healthbar_id)
 	go.delete(msg.url(nil, go.get_id(), nil))
 	msg.post(msg.url("/item_factory"), "drop_item", {position = go.get_position(), individual_dropchance = self.individual_dropchance})
+	msg.post(msg.url("/player1/player1"), "kill_feedback")
 end
 
 local function reduce_health(self,damage)
@@ -131,6 +132,7 @@ function init(self)
 	self.knockback_speed = 500
 	self.knockback_time = 0.3
 	self.attack_delay = 0.3
+	self.individual_dropchance = 0.5
 	timer.delay(0, false, function() msg.post(msg.url("main","/level_control","level_control"), "get_level_object_url") end)
 	go.set(self.healthbar_id, "scale", vmath.vector3(0, 0, 0)) -- no healthbar initially
 	local pos = go.get_position()

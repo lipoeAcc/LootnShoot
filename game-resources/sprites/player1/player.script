@@ -19,7 +19,24 @@ local player_item_init = hash("player_item_init")
 local FOG_SPEED_FACTOR = 0.1
 
 
+local function check_level_conditions(self)
+	if self.condition == nil then
+		do return end
+	elseif self.condition.kills ~=nil and (self.condition.kills <= self.kill_count) then
+		msg.post("/gui/messenger", "display_message", { message = "Kill count met!" })
+	elseif self.condition.coins ~=nil and (self.condition.coins <= self.coin_count) then
+		msg.post("/gui/messenger", "display_message", { message = "Coin count met!" })
+	end
+	print("kill count: " .. self.kill_count .. " coin count: " .. self.coin_count)
+
+	if (self.condition.kills == nil or self.condition.kills <= self.kill_count) and (self.condition.coins == nil or self.condition.coins <= self.coin_count) then
+		msg.post(msg.url("/world_edit"), "enable_portal")
+	end
+end
+
+
 local function register_condition(self, condition)
+	self.condition = condition
 	local condition_message = "You need to... \n"
 	if condition == nil then 
 		do return end
@@ -128,6 +145,11 @@ function init(self)
 
 	-- notify level_control that player is loaded
 	msg.post(msg.url("main","/level_control","level_control"), "player_loaded")
+
+	-- to finish the level
+	self.condition = nil
+	self.kill_count = 0
+	self.coin_count = 0
 	
 	-- positional variables
 	self.firing = false
@@ -249,6 +271,10 @@ function on_message(self, message_id, message, sender)
 		end
 		self.items = message.items
 		update_stats(self)
+	elseif message_id == hash("kill_feedback") then
+		print("kill_feedback")
+		self.kill_count = self.kill_count + 1
+		check_level_conditions(self)
 	elseif message_id == collect_item then
 		if message.item_type == "melee_attack_speed" then
 			add_item(self, "melee_attack_speed", message.amount)

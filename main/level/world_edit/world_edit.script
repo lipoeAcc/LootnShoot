@@ -3,6 +3,7 @@ local update_difficulty = hash("update_difficulty")
 local get_time_difficulty = hash("get_time_difficulty")
 local unregister_spawnpoint_message = hash("unregister_spawnpoint")
 local register_portal_spawnpoint = hash("register_portal_spawnpoint")
+local enable_portal = hash("enable_portal")
 
 local BASE_DELAY = 5
 
@@ -65,9 +66,9 @@ function init(self)
 
 	msg.post(msg.url("main","/level_control","level_control"), "get_time_difficulty")
 
-	timer.delay(5, false, function ()
-		spawn_portal(self)
-	end)
+	--timer.delay(5, false, function ()
+	--	spawn_portal(self)
+	--end)
 	--self.spawner_handler = spawn_enviroment(self)
 end
 
@@ -107,6 +108,8 @@ function on_message(self, message_id, message, sender)
 		print("registering portal spawnpoint")
 		table.insert(self.portal_spawnpoint_list, {position = message.position, id = message.id})
 		print("portal spawnpoint list length: " .. tostring(#self.portal_spawnpoint_list))
+	elseif message_id == enable_portal then
+		spawn_portal(self)
 	end
 end
 

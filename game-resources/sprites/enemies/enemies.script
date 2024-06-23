@@ -39,7 +39,6 @@ function on_message(self, message_id, message, sender)
 		collectionfactory.create("#snakefactory", vmath.vector3(500, 0, 0))
 		collectionfactory.create("#snakefactory", vmath.vector3(500, 5, 0))
 	elseif message_id == spawn_random_enemy_hash then 
-		print("spawning random enemy")
 		spawn_random_enemy(self, message.position)
 	end
 end
