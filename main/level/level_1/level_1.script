@@ -7,9 +7,6 @@ function init(self)
 	local level_url = msg.url()
 	level_url.fragment = nil
 	msg.post(msg.url("main","/level_control","level_control"), "set_level_object_url", {level_url = level_url})
-	timer.delay(3, false, function()
-		msg.post(world_edit, "create_portal", {position = vmath.vector3(300, 300, 0)})
-	end)
 end
 
 function final(self)

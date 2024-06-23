@@ -90,10 +90,7 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	-- on message create_portal do
-	if message_id == create_portal then
-		collectionfactory.create("#portal_factory", message.position)
-	elseif message_id == hash("register_spawnpoint") then
+	if message_id == hash("register_spawnpoint") then
 		register_spawnpoint(self, message)
 	elseif message_id == unregister_spawnpoint_message then
 		unregister_spawnpoint(self, message)
