@@ -30,6 +30,7 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == trigger_response then
 		msg.post(message.other_id, "coin_collected")
+		go.delete()
 	end
 end
 
