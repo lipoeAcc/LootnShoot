@@ -1,4 +1,4 @@
-local DAMAGE = 10;
+local DAMAGE = 20;
 
 local function set_position(self, dt)
 	local direction_normalized = vmath.normalize(self.dir)
@@ -31,7 +31,6 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("trigger_response") and message.enter then
 		if message.other_group == hash("player") then
 			hit(message)
-			self.dir = -self.dir
 		end
 
 		if message.other_group == hash("wall") then
