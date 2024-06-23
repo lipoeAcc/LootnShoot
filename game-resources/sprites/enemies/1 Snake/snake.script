@@ -20,6 +20,16 @@ local function reduce_health(self,damage)
 	end
 end
 
+local function get_player_position()
+	return go.get_position("/player1/player1")
+end
+
+local function calculate_direction_to_player()
+	local player_position = get_player_position()
+	local direction = player_position - go.get_position()
+	return direction
+end
+
 local function set_position(self, direction, dt)
 	local direction_normalized = vmath.normalize(direction)
 	local position = go.get_position() + direction_normalized * self.speed * dt
@@ -42,7 +52,7 @@ local function update_position(self, direction, dt)
 		set_knockback_position(self, self.knockback_direction, dt)
 		return
 	end
-	set_position(self, direction, dt)
+	set_position(self, calculate_direction_to_player(), dt)
 end
 
 local function knockback_complete(self)
