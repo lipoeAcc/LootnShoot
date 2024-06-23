@@ -30,7 +30,21 @@ local function calculate_direction_to_player()
 	return direction
 end
 
+local function set_sprite_direction(self, new_dir)
+    if new_dir.x < 0 then
+        -- hflip the sprite
+        sprite.set_hflip(self.sprite_url, true)
+    elseif new_dir.x > 0 then
+        -- hflip the sprite
+        sprite.set_hflip(self.sprite_url, false)
+    end
+end
+
 local function set_position(self, direction, dt)
+	-- update snake sprite
+	set_sprite_direction(self, direction)
+
+
 	local direction_normalized = vmath.normalize(direction)
 	local position = go.get_position() + direction_normalized * self.speed * dt
 	go.set_position(vmath.vector3(position.x, position.y, 1))
@@ -90,6 +104,10 @@ function init(self)
 
 	-- do not show healthbar initially
 	go.set(self.healthbar_id, "scale", vmath.vector3(0, 0, 0))
+
+	local url = msg.url()
+	url.fragment = "sprite"
+	self.sprite_url = url
 end
 
 function final(self)
