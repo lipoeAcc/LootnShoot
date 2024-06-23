@@ -30,6 +30,9 @@ local function spawn_random_enemy(self)
     for k in pairs(self.spawnpoint_dictionary) do
         table.insert(spawnpoint_keys, k)
     end
+	if #spawnpoint_keys == 0 then
+		do return end
+	end
     local spawnpoint_index = spawnpoint_keys[math.random(#spawnpoint_keys)]
     msg.post(msg.url("/enemies"), "spawn_random_enemy", {position = self.spawnpoint_dictionary[spawnpoint_index].position})
 end
