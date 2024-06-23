@@ -44,7 +44,7 @@ function on_message(self, message_id, message, sender)
 			self.disabled = true
 			self.hitting = true
 			timer.delay(self.attack_speed, false, function() self.disabled = false end)
-			timer.delay(0.05, false, function() self.hitting = false end)
+			timer.delay(0, false, function() self.hitting = false end)
 			
 			local url = msg.url("#sprite")
 			sprite.play_flipbook(url, "sword_attack",play_idle)
