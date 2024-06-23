@@ -35,6 +35,7 @@ local function load_death_screen(self)
 		["ranged_attack_speed"] = {amount = 0},
 		["movement_speed"] = {amount = 0}
 	}
+	self.time_difficulty = { time=0, difficulty =1, difficulties = self.time_difficulty.difficulties}
 end
 
 function init(self)
