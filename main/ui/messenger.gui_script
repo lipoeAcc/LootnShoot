@@ -111,7 +111,7 @@ function on_message(self, message_id, message, sender)
 	if message_id == display_message_hash then
 		display_message(self, message.message)
 	elseif message_id == display_condition then
-
+		do_display_condition(self, message.message)
 	end
 end
 

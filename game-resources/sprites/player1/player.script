@@ -19,6 +19,23 @@ local player_item_init = hash("player_item_init")
 local FOG_SPEED_FACTOR = 0.1
 
 
+local function register_condition(self, condition)
+	local condition_message = "You need to... \n"
+	if condition == nil then 
+		do return end
+	end
+	if condition.kills then
+		condition_message = condition_message .. "kill " .. condition.kills .. " enemies. "
+	end
+	if condition.kills and condition.coins then
+		condition_message = condition_message .. "and collect " .. condition.coins .. " coins. "
+	elseif condition.coins then
+		condition_message = condition_message .. "collect " .. condition.coins .. " coins. "
+	end
+
+	msg.post("/gui/messenger", "display_condition", { message = condition_message })
+end
+
 local function fire_rocket(self)
 	-- fire in the direction of the mouse
 	local dir = vmath.normalize(self.mouse - go.get_position())
@@ -225,6 +242,11 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == player_stat_init then
 		--set_player_base_stats(self, message.max_health, message.speed, message.rocket_reload_time, message.knockback, message.melee_attackspeed)
 	elseif message_id == player_item_init then
+		print("player_item_init")
+		if message.condition then 
+			print("register condition")
+			register_condition(self, message.condition)
+		end
 		self.items = message.items
 		update_stats(self)
 	elseif message_id == collect_item then
@@ -237,10 +259,7 @@ function on_message(self, message_id, message, sender)
 		else 
 			print("unknown item type")
 		end
-
-	end
-
-	if message_id == trigger_response and message.other_group == hash("fog") then
+	elseif message_id == trigger_response and message.other_group == hash("fog") then
 		if (message.enter) then
 			self.is_in_fog = true
 		else

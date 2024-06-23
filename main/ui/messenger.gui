@@ -42,8 +42,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "Condition:\n"
-  "lsdkjfksj"
+  text: "fsdfs"
   font: "default"
   id: "condition"
   xanchor: XANCHOR_NONE
