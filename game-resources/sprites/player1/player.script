@@ -29,7 +29,6 @@ local function check_level_conditions(self)
 	end
 
 	if (self.condition.kills == nil or self.condition.kills <= self.kill_count) and (self.condition.coins == nil or self.condition.coins <= self.coin_count) then
-		print("sldkjfklsdjkflskldfk condition met")
 		msg.post(msg.url("/world_edit"), "enable_portal")
 	end
 end
@@ -265,9 +264,7 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == player_stat_init then
 		--set_player_base_stats(self, message.max_health, message.speed, message.rocket_reload_time, message.knockback, message.melee_attackspeed)
 	elseif message_id == player_item_init then
-		print("player_item_init")
 		if message.condition then 
-			print("register condition")
 			register_condition(self, message.condition)
 		end
 		self.items = message.items
