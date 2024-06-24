@@ -1,0 +1,422 @@
+name: "enemy_spawnpoints_3"
+instances {
+  id: "spawnpoint12"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 303.0
+    y: 121.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint17"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 389.0
+    y: 158.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint3"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 174.0
+    y: 118.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint18"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 365.0
+    y: 124.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint20"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 408.0
+    y: 123.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint11"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 284.0
+    y: 160.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint4"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 173.0
+    y: 177.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint7"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 210.0
+    y: 219.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint8"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 234.0
+    y: 165.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint14"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 331.0
+    y: 171.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint9"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 238.0
+    y: 121.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint5"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 85.0
+    y: 229.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint2"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 119.0
+    y: 164.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint1"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 122.0
+    y: 124.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint13"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 303.0
+    y: 121.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 62.0
+    y: 175.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint16"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 381.0
+    y: 205.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint15"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 327.0
+    y: 228.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint10"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 272.0
+    y: 213.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint6"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 142.0
+    y: 227.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "spawnpoint19"
+  prototype: "/main/level/world_edit/spawning/spawnpoint.go"
+  position {
+    x: 407.0
+    y: 221.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+scale_along_z: 0
