@@ -22,14 +22,18 @@ local FOG_SPEED_FACTOR = 0.1
 local function check_level_conditions(self)
 	if self.condition == nil then
 		do return end
-	elseif self.condition.kills ~=nil and (self.condition.kills <= self.kill_count) then
+	elseif self.condition.kills ~=nil and self.condition.kills > 0 and (self.condition.kills <= self.kill_count) and self.condition_message_kill_sent == false then
+		self.condition_message_kill_sent = true
 		msg.post("/gui/messenger", "display_message", { message = "Kill count met!" })
-	elseif self.condition.coins ~=nil and (self.condition.coins <= self.coin_count) then
+	elseif self.condition.coins ~=nil and self.condition.coins > 0 and (self.condition.coins <= self.coin_count) and self.condition_message_coin_sent == false then
+		self.condition_message_coin_sent = true
 		msg.post("/gui/messenger", "display_message", { message = "Coin count met!" })
 	end
 
-	if (self.condition.kills == nil or self.condition.kills <= self.kill_count) and (self.condition.coins == nil or self.condition.coins <= self.coin_count) then
+	if (self.condition.kills == nil or self.condition.kills <= self.kill_count) and (self.condition.coins == nil or self.condition.coins <= self.coin_count) and self.condition_message_sent == false then
+		self.condition_message_sent = true
 		msg.post(msg.url("/world_edit"), "enable_portal")
+		timer.delay(2, false, function () msg.post("/gui/messenger", "display_message", { message = "A portal appeared..." }) end)
 	end
 end
 
@@ -163,6 +167,11 @@ function init(self)
 	self.base_rocket_reload_time = 2
 	self.base_knockback = 100
 	self.base_melee_attackspeed = 1
+
+	-- condition messages sent
+	self.condition_message_coin_sent = false
+	self.condition_message_kill_sent = false
+	self.condition_message_sent = false
 
 	self.pressed_keys = {
 		[input_left] = false,
