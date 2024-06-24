@@ -99,7 +99,7 @@ animations {
 animations {
   id: "snake_idle"
   images {
-    image: "/game-resources/sprites/enemies/1 Snake/snake_walk_1.png"
+    image: "/game-resources/sprites/enemies/1 Snake/snake_01.png"
     sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_LOOP_FORWARD
@@ -110,23 +110,15 @@ animations {
 animations {
   id: "snake_walk"
   images {
-    image: "/game-resources/sprites/enemies/1 Snake/snake_walk_1.png"
+    image: "/game-resources/sprites/enemies/1 Snake/snake_00.png"
     sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
-    image: "/game-resources/sprites/enemies/1 Snake/snake_walk_2.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-  }
-  images {
-    image: "/game-resources/sprites/enemies/1 Snake/snake_walk_3.png"
-    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-  }
-  images {
-    image: "/game-resources/sprites/enemies/1 Snake/snake_walk_4.png"
+    image: "/game-resources/sprites/enemies/1 Snake/snake_01.png"
     sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_LOOP_FORWARD
-  fps: 8
+  fps: 3
   flip_horizontal: 1
   flip_vertical: 0
 }
