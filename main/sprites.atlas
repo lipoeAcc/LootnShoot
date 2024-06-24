@@ -97,14 +97,14 @@ animations {
   flip_vertical: 0
 }
 animations {
-  id: "snake"
+  id: "snake_idle"
   images {
-    image: "/game-resources/sprites/enemies/1 Snake/Snake.png"
+    image: "/game-resources/sprites/enemies/1 Snake/snake_walk_1.png"
     sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_LOOP_FORWARD
   fps: 60
-  flip_horizontal: 0
+  flip_horizontal: 1
   flip_vertical: 0
 }
 animations {

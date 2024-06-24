@@ -71,6 +71,13 @@ local function update_position(self, direction, dt)
 	local is_wall_between_player = physics.raycast(go.get_position(),get_player_position() , {hash("wall")})
 	if is_wall_between_player == nil then
 		set_position(self, calculate_direction_to_player(), dt)
+		if self.is_walking_animation_on == false then
+			sprite.play_flipbook(msg.url("#sprite"), "snake_walk")
+			self.is_walking_animation_on = true
+		end
+	else
+		sprite.play_flipbook(msg.url("#sprite"), "snake_idle")
+		self.is_walking_animation_on = false
 	end
 end
 
@@ -102,9 +109,10 @@ function init(self)
 	self.disabled = false
 	-- time to be able to attack again after hitting
 	self.attack_delay = 0.3
-
 	-- do not show healthbar initially
 	go.set(self.healthbar_id, "scale", vmath.vector3(0, 0, 0))
+	sprite.play_flipbook(msg.url("#sprite"), "snake_idle")
+	self.is_walking_animation_on = false
 
 	local url = msg.url()
 	url.fragment = "sprite"

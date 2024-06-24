@@ -14014,7 +14014,7 @@ layers {
   cell {
     x: 7
     y: 5
-    tile: 129
+    tile: 34
     h_flip: 0
     v_flip: 0
     rotate90: 0
@@ -14494,7 +14494,7 @@ layers {
   cell {
     x: 7
     y: 6
-    tile: 129
+    tile: 34
     h_flip: 0
     v_flip: 0
     rotate90: 0
@@ -14694,7 +14694,7 @@ layers {
   cell {
     x: 7
     y: 7
-    tile: 129
+    tile: 34
     h_flip: 0
     v_flip: 0
     rotate90: 0
