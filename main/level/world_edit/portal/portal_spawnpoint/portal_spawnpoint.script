@@ -32,7 +32,7 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == portal_spawned then
 		go.delete()
-	elseif message_id == trigger_response and message.enter and self.disabled == false then
+	elseif message_id == trigger_response and message.enter and message.group == hash("player") and self.disabled == false then
 		self.disabled = true
 		msg.post("/gui/messenger", "display_message", {message = "Here might be a good place to put a portal..."})
 		timer.delay(2, false, function()

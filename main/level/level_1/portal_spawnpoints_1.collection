@@ -23,8 +23,8 @@ instances {
   id: "portal_spawnpoint1"
   prototype: "/main/level/world_edit/portal/portal_spawnpoint/portal_spawnpoint.go"
   position {
-    x: 0.0
-    y: 0.0
+    x: -308.0
+    y: 1886.0
     z: 1.0
   }
   rotation {

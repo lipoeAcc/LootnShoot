@@ -47,9 +47,9 @@ embedded_instances {
   "    count: 3\\n"
   "    id: \\\"\\\"\\n"
   "  }\\n"
-  "  data: 96.94859\\n"
-  "  data: 63.53186\\n"
-  "  data: 8.6\\n"
+  "  data: 46.006516\\n"
+  "  data: 45.873817\\n"
+  "  data: 8.772\\n"
   "}\\n"
   "linear_damping: 0.0\\n"
   "angular_damping: 0.0\\n"
@@ -71,7 +71,7 @@ embedded_instances {
   "embedded_components {\n"
   "  id: \"sprite\"\n"
   "  type: \"sprite\"\n"
-  "  data: \"default_animation: \\\"fog\\\"\\n"
+  "  data: \"default_animation: \\\"fog2\\\"\\n"
   "material: \\\"/builtins/materials/sprite.material\\\"\\n"
   "blend_mode: BLEND_MODE_ALPHA\\n"
   "textures {\\n"
@@ -104,8 +104,8 @@ embedded_instances {
     w: 1.0
   }
   scale3 {
-    x: 1.0
-    y: 1.0
+    x: 1.5
+    y: 1.5
     z: 1.0
   }
 }
