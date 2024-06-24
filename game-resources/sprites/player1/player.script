@@ -27,9 +27,9 @@ local function check_level_conditions(self)
 	elseif self.condition.coins ~=nil and (self.condition.coins <= self.coin_count) then
 		msg.post("/gui/messenger", "display_message", { message = "Coin count met!" })
 	end
-	print("kill count: " .. self.kill_count .. " coin count: " .. self.coin_count)
 
 	if (self.condition.kills == nil or self.condition.kills <= self.kill_count) and (self.condition.coins == nil or self.condition.coins <= self.coin_count) then
+		print("sldkjfklsdjkflskldfk condition met")
 		msg.post(msg.url("/world_edit"), "enable_portal")
 	end
 end
