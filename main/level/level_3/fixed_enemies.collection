@@ -3,8 +3,8 @@ instances {
   id: "mummy"
   prototype: "/game-resources/sprites/enemies/5 Mummy/mummy.go"
   position {
-    x: 0.0
-    y: 0.0
+    x: 748.0
+    y: 128.0
     z: 0.0
   }
   rotation {
@@ -63,9 +63,9 @@ collection_instances {
   id: "fog"
   collection: "/game-resources/sprites/fog/fog.collection"
   position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
+    x: 419.0
+    y: 338.0
+    z: 1.0
   }
   rotation {
     x: 0.0
