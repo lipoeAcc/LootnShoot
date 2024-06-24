@@ -51,6 +51,7 @@ local function register_condition(self, condition)
 	end
 
 	msg.post("/gui/messenger", "display_condition", { message = condition_message })
+	msg.post(msg.url("/world_edit"), "spawn_all_coins", { amount = condition.coins })
 end
 
 local function fire_rocket(self)

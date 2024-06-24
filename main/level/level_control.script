@@ -43,7 +43,7 @@ function init(self)
 	-- array with an object for each state with level name, url and duration which can be nil (for infinite duration) 
 	self.levels = {
 		{name="menu", url=msg.url("main","/loader","menu_proxy"), condition = nil, duration= nil, hasplayer=false},
-		{name="level_1", url=msg.url("main","/loader","level_1_proxy"), condition = { kills = 4, coins = nil }, duration=nil, hasplayer=true, message_url=msg.url("level_1","/gui/messenger",nil), messages={{message="Welcome to level 1", delay=1}, {message="Good luck", delay=3}}, timer_difficulty_url=msg.url("level_1","/gui/timer_difficulty",nil), world_edit_url=msg.url("level_1","/world_edit",nil)},
+		{name="level_1", url=msg.url("main","/loader","level_1_proxy"), condition = { kills = 4, coins = 2 }, duration=nil, hasplayer=true, message_url=msg.url("level_1","/gui/messenger",nil), messages={{message="Welcome to level 1", delay=1}, {message="Good luck", delay=3}}, timer_difficulty_url=msg.url("level_1","/gui/timer_difficulty",nil), world_edit_url=msg.url("level_1","/world_edit",nil)},
 		{name="finished_level_1", url=msg.url("main","/loader","finished_level"), condition = nil, duration=nil, hasplayer=false},
 		{name="level_2", url=msg.url("main","/loader","level_2_proxy"), condition = { kills = nil, coins = 1 }, duration=nil, hasplayer=true, message_url=msg.url("level_2","/gui/messenger",nil), messages={{message="Welcome to level 2", delay=1}, {message="Good luck", delay=3}},  timer_difficulty_url=msg.url("level_2","/gui/timer_difficulty",nil), world_edit_url=msg.url("level_2","/world_edit",nil)},
 	}

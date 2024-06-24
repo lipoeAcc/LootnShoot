@@ -4,6 +4,8 @@ local get_time_difficulty = hash("get_time_difficulty")
 local unregister_spawnpoint_message = hash("unregister_spawnpoint")
 local register_portal_spawnpoint = hash("register_portal_spawnpoint")
 local enable_portal = hash("enable_portal")
+local register_coin_spawnpoint = hash("register_coin_spawnpoint")
+local spawn_all_coins = hash("spawn_all_coins")
 
 local BASE_DELAY = 5
 
@@ -57,6 +59,19 @@ local function spawn_portal(self)
 	message_all_portal_spawnpoints(self, "portal_spawned")
 end
 
+local function spawn_coins(self, amount)
+	for i = 1, amount do
+		if next(self.coin_spawnpoint_list) == nil then
+			print("configuration error. Not enough coin spawnpoints")
+			do return end
+		end
+		-- select a random entry from the coin spawnpoint list and spawn a coin there and delete the entry
+		local spawnpoint_index = math.random(#self.coin_spawnpoint_list)
+		collectionfactory.create("#coin_factory", self.coin_spawnpoint_list[spawnpoint_index].position)
+		table.remove(self.coin_spawnpoint_list, spawnpoint_index)
+	end
+end
+
 local function spawn_enviroment(self)
 	return timer.delay((BASE_DELAY/self.difficulty), true, function ()
 		spawn_random_enemy(self)
@@ -67,6 +82,7 @@ function init(self)
 	self.spawnpoint_dictionary = {}
 	self.difficulty = 1
 	self.portal_spawnpoint_list = {}
+	self.coin_spawnpoint_list = {}
 
 	self.portal_spawned = false
 
@@ -116,6 +132,12 @@ function on_message(self, message_id, message, sender)
 		print("portal spawnpoint list length: " .. tostring(#self.portal_spawnpoint_list))
 	elseif message_id == enable_portal then
 		spawn_portal(self)
+	elseif message_id == register_coin_spawnpoint then 
+		table.insert(self.coin_spawnpoint_list, {position = message.position, id = message.id})
+	elseif message_id == spawn_all_coins then
+		if message.amount ~= nil and message.amount >=0 then
+		spawn_coins(self, message.amount)
+		end
 	end
 end
 
