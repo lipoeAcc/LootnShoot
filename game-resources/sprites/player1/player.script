@@ -167,7 +167,7 @@ function init(self)
 	self.mouse = vmath.vector3(0, 0, 0)
 
 	-- player base stats
-	self.base_max_health = 1000
+	self.base_max_health = 200
 	self.base_speed = 100
 	self.base_rocket_reload_time = 1.2
 	self.base_knockback = 100
