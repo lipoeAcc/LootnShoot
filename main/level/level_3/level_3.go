@@ -15,7 +15,7 @@ components {
 }
 components {
   id: "level_3_script"
-  component: "/main/level/level_2/level_2_script.script"
+  component: "/main/level/level_3/level_3.script"
   position {
     x: 0.0
     y: 0.0

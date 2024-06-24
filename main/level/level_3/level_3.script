@@ -1,7 +1,7 @@
+local level_control_url = msg.url("main","/level_control", "level_control")
+
 function init(self)
-	-- Add initialization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	timer.delay(5, false, function () msg.post(level_control_url, "level_completed")  end)
 end
 
 function final(self)
