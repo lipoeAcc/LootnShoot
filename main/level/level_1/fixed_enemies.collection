@@ -1,30 +1,10 @@
-name: "level_1"
+name: "fixed_enemies"
 instances {
-  id: "level_1"
-  prototype: "/main/level/level_1/level_1.go"
+  id: "mummy"
+  prototype: "/game-resources/sprites/enemies/5 Mummy/mummy.go"
   position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.5
-    y: 1.5
-    z: 1.5
-  }
-}
-instances {
-  id: "explosionFactory"
-  prototype: "/game-resources/sprites/weapons/rocket/explosionFactory.go"
-  position {
-    x: 0.0
-    y: 0.0
+    x: 344.0
+    y: 121.0
     z: 0.0
   }
   rotation {
@@ -40,11 +20,11 @@ instances {
   }
 }
 instances {
-  id: "enemies"
-  prototype: "/game-resources/sprites/enemies/enemies.go"
+  id: "mummy1"
+  prototype: "/game-resources/sprites/enemies/5 Mummy/mummy.go"
   position {
-    x: 0.0
-    y: 0.0
+    x: 1013.0
+    y: -221.0
     z: 0.0
   }
   rotation {
@@ -60,11 +40,11 @@ instances {
   }
 }
 instances {
-  id: "world_edit"
-  prototype: "/main/level/world_edit/world_edit.go"
+  id: "mummy2"
+  prototype: "/game-resources/sprites/enemies/5 Mummy/mummy.go"
   position {
-    x: 10.0
-    y: 0.0
+    x: 998.0
+    y: 495.0
     z: 0.0
   }
   rotation {
@@ -80,11 +60,11 @@ instances {
   }
 }
 instances {
-  id: "item_factory"
-  prototype: "/main/items/item_factory.go"
+  id: "mummy3"
+  prototype: "/game-resources/sprites/enemies/5 Mummy/mummy.go"
   position {
-    x: 0.0
-    y: 0.0
+    x: 1560.0
+    y: -87.0
     z: 0.0
   }
   rotation {
@@ -100,11 +80,51 @@ instances {
   }
 }
 instances {
-  id: "damageFactory"
-  prototype: "/game-resources/sprites/weapons/rocket/damageFactory.go"
+  id: "mummy4"
+  prototype: "/game-resources/sprites/enemies/5 Mummy/mummy.go"
   position {
+    x: 1619.0
+    y: -607.0
+    z: 0.0
+  }
+  rotation {
     x: 0.0
     y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "mummy5"
+  prototype: "/game-resources/sprites/enemies/5 Mummy/mummy.go"
+  position {
+    x: 1599.0
+    y: 483.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "mummy6"
+  prototype: "/game-resources/sprites/enemies/5 Mummy/mummy.go"
+  position {
+    x: 1542.0
+    y: 823.0
     z: 0.0
   }
   rotation {
@@ -120,12 +140,12 @@ instances {
   }
 }
 collection_instances {
-  id: "player1"
-  collection: "/game-resources/sprites/player1/player1.collection"
+  id: "fog"
+  collection: "/game-resources/sprites/fog/fog.collection"
   position {
-    x: 69.0
-    y: 159.0
-    z: 1.0
+    x: 299.0
+    y: 138.0
+    z: 2.0
   }
   rotation {
     x: 0.0
@@ -140,12 +160,12 @@ collection_instances {
   }
 }
 collection_instances {
-  id: "gui"
-  collection: "/main/ui/gui.collection"
+  id: "fog1"
+  collection: "/game-resources/sprites/fog/fog.collection"
   position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
+    x: 724.0
+    y: 497.0
+    z: 2.0
   }
   rotation {
     x: 0.0
@@ -160,12 +180,12 @@ collection_instances {
   }
 }
 collection_instances {
-  id: "spawnpoints_1"
-  collection: "/main/level/level_1/spawnpoints_1.collection"
+  id: "fog2"
+  collection: "/game-resources/sprites/fog/fog.collection"
   position {
-    x: 160.0
-    y: 119.0
-    z: 0.0
+    x: 724.0
+    y: -205.0
+    z: 2.0
   }
   rotation {
     x: 0.0
@@ -180,12 +200,12 @@ collection_instances {
   }
 }
 collection_instances {
-  id: "portal_spawnpoints_1"
-  collection: "/main/level/level_1/portal_spawnpoints_1.collection"
+  id: "fog3"
+  collection: "/game-resources/sprites/fog/fog.collection"
   position {
-    x: 2256.0
-    y: -862.0
-    z: 0.0
+    x: 1322.0
+    y: 522.0
+    z: 2.0
   }
   rotation {
     x: 0.0
@@ -200,52 +220,12 @@ collection_instances {
   }
 }
 collection_instances {
-  id: "scorpio1"
-  collection: "/game-resources/sprites/enemies/3 Scorpio/scorpio.collection"
+  id: "fog4"
+  collection: "/game-resources/sprites/fog/fog.collection"
   position {
-    x: 300.0
-    y: 221.0
-    z: 1.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-collection_instances {
-  id: "coin_spawnpoints"
-  collection: "/main/level/level_1/coin_spawnpoints.collection"
-  position {
-    x: 97.0
-    y: 100.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-collection_instances {
-  id: "fixed_enemies"
-  collection: "/main/level/level_1/fixed_enemies.collection"
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
+    x: 1239.0
+    y: -207.0
+    z: 2.0
   }
   rotation {
     x: 0.0
