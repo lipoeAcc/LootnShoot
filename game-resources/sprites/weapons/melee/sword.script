@@ -59,7 +59,10 @@ function on_message(self, message_id, message, sender)
 			timer.delay(0, false, function() self.hitting = false end)
 			-- notify all enemies in radius to be hitted
 			for id, _ in pairs(self.enemies_in_radius) do
-				msg.post(id, "knockback", {knockback = self.knockback, damage = 10, other_id = go.get_id()})
+				if not pcall(function() msg.post(id, "knockback", {knockback = self.knockback, damage = 10, other_id = go.get_id()}) end) then
+					-- remove from table if enemy does not exist (because it has been killed)
+					self.enemies_in_radius[id] = nil
+				end
 			end
 			local url = msg.url("#sprite")
 			sprite.play_flipbook(url, "sword_attack",play_idle)
