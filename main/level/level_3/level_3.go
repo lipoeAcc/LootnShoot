@@ -42,6 +42,7 @@ embedded_components {
   "mask: \"enemy\"\n"
   "mask: \"poison\"\n"
   "mask: \"scorpio\"\n"
+  "mask: \"rockets\"\n"
   "linear_damping: 0.0\n"
   "angular_damping: 0.0\n"
   "locked_rotation: false\n"

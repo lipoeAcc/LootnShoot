@@ -1,7 +1,7 @@
 [project]
 title = Desktop game
 dependencies#0 = https://github.com/rgrams/rendercam/archive/1.0.3.zip
-dependencies#1 = https://github.com/selimanac/defold-astar/archive/master.zip
+dependencies#1 = https://github.com/subsoap/defos/archive/refs/tags/v2.7.1.zip
 
 [bootstrap]
 main_collection = /main/main.collectionc
@@ -38,4 +38,7 @@ max_tile_count = 4096
 
 [sprite]
 max_count = 1024
+
+[library]
+include_dirs = https://github.com/subsoap/defos/archive/refs/tags/v2.7.1.zip
 

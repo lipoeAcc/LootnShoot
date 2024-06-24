@@ -310,7 +310,11 @@ end
 function on_input(self, action_id, action)
 	if action.x and action.y then
 		-- convert mouse position from screen coordinates to world coordinates
-		self.mouse = rendercam.screen_to_world_2d(action.x, action.y)
+		local mouseX, mouseY = defos.get_cursor_pos_view()
+		local _, _, _, windowHeight = defos.get_view_size()
+		mouseY = windowHeight - mouseY -- Invertieren der Y-Koordinate
+	
+		self.mouse = rendercam.screen_to_world_2d(mouseX, mouseY)
 	end
 
 	local function is_arrow_key(action_id)
