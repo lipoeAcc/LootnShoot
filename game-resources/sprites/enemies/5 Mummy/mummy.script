@@ -1,6 +1,22 @@
 local DAMAGE = 20;
 
+local function get_player_position()
+	return go.get_position("/player1/player1")
+end
+
+local function set_sprite_direction(self, new_dir)
+    if new_dir.x < 0 then
+        -- hflip the sprite
+        sprite.set_hflip(self.sprite_url, false)
+    elseif new_dir.x > 0 then
+        -- hflip the sprite
+        sprite.set_hflip(self.sprite_url, true)
+    end
+end
+
 local function set_position(self, dt)
+	local view_direction_to_player = vmath.normalize(get_player_position() - go.get_position())
+	set_sprite_direction(self, view_direction_to_player)
 	local direction_normalized = vmath.normalize(self.dir)
 	local position = go.get_position() + direction_normalized * self.speed * dt
 	go.set_position(position)
@@ -15,6 +31,9 @@ end
 function init(self)
 	self.dir = vmath.vector3(0, 1, 0)
 	self.speed = 50
+	local url = msg.url()
+	url.fragment = "sprite"
+	self.sprite_url = url
 end
 
 function final(self)

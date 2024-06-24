@@ -64,7 +64,7 @@ embedded_components {
   }
 }
 embedded_components {
-  id: "mummy_sprite"
+  id: "sprite"
   type: "sprite"
   data: "default_animation: \"mummy\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"

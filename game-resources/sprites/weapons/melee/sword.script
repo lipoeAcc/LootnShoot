@@ -8,6 +8,15 @@ local function play_idle(self, message_id, message, sender)
 	sprite.play_flipbook(url, "sword")
 end
 
+local function register_enemy(self, id)
+	self.enemies_in_radius[id] = true
+end
+
+local function unregister_enemy(self, id)
+	self.enemies_in_radius[id] = nil
+end
+
+
 function init(self)
 	self.attack_speed = 2
 	self.disabled = false
@@ -17,6 +26,9 @@ function init(self)
 
 	self.sword_collision = msg.url("/player1/sword#sword_collision")
 	self.sword_trigger = msg.url("/player1/sword#sword_trigger")
+	-- list: ids of the other enemies
+	self.enemies_in_radius = {}
+	
 
 end
 
@@ -45,15 +57,20 @@ function on_message(self, message_id, message, sender)
 			self.hitting = true
 			timer.delay(self.attack_speed, false, function() self.disabled = false end)
 			timer.delay(0, false, function() self.hitting = false end)
-			
+			-- notify all enemies in radius to be hitted
+			for id, _ in pairs(self.enemies_in_radius) do
+				msg.post(id, "knockback", {knockback = self.knockback, damage = 10, other_id = go.get_id()})
+			end
 			local url = msg.url("#sprite")
 			sprite.play_flipbook(url, "sword_attack",play_idle)
 			msg.post(msg.url("/gui/ammo"), "sword_cooldown", { cooldown = self.attack_speed })
 		end
 	end
-	if message_id == collision_response and sender == self.sword_collision then
-		if self.hitting then
-			msg.post(message.other_id, "knockback", {knockback = self.knockback, damage = 10, other_id = go.get_id()})
+	if message_id == trigger_response and sender == self.sword_collision then
+		if message.enter then
+			register_enemy(self, message.other_id)
+		else
+			unregister_enemy(self, message.other_id)
 		end
 	elseif message_id == update_sword_stats then
 		self.attack_speed = message.attack_speed
