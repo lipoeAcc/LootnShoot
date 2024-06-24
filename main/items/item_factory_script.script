@@ -18,7 +18,7 @@ function init(self)
 	collectionfactory.create('#ranged_attack_speed_factory', vmath.vector3(200, 50, 1), nil, nil, 1)
 	-- aus Performance gründen die höchste dropchance nach oben
 	self.items = {
-		{name="hp_refill", factory="#hp_refill_factory", dropchance=5},
+		{name="hp_refill", factory="#hp_refill_factory", dropchance=10},
 		{name="melee_attack_speed", factory="#melee_attack_speed_factory", dropchance=2},
 		{name="movement_speed", factory="#movement_speed_factory", dropchance=2},
 		{name="ranged_attack_speed", factory="#ranged_attack_speed_factory", dropchance=2},
@@ -53,7 +53,6 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == drop_item then
-		print("drop_item in itemfactory. Dropchance: " .. message.individual_dropchance .. " Position: " .. message.position.x .. ", " .. message.position.y )
 		-- individual dropchance marks of any item to be dropped
 		if math.random(1, 100) <= message.individual_dropchance then
 			local item = select_item(self)

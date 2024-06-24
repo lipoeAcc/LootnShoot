@@ -99,8 +99,8 @@ end
 function init(self)
 	self.dir = vmath.vector3(1, 0, 0)
 	self.target = vmath.vector3(0, 0, 0)
-	self.individual_dropchance = 100
-	self.health = 100
+	self.individual_dropchance = 40
+	self.health = 30
 	self.speed = 20
 	self.healthbar_id = go.get_id("healthbar")
 	self.knockbacking = false

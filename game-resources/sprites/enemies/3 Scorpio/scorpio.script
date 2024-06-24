@@ -143,7 +143,7 @@ function init(self)
 	self.level_url = nil
 	self.dt = 0
 	self.direction_changed = false
-	self.health = 100
+	self.health = 30
 	self.healthbar_id = go.get_id("healthbar")
 	self.disabled = false
 	self.knockback_direction = nil

@@ -66,12 +66,12 @@ function init(self)
 	}
 
 	local difficulties = {
-		{name="easy", threshold=45, color=vmath.vector4(0, 1, 0, 1)}, -- green
-		{name="medium", threshold=180, color=vmath.vector4(1, 1, 0, 1)}, -- yellow
+		{name="easy", threshold=20, color=vmath.vector4(0, 1, 0, 1)}, -- green
+		{name="medium", threshold=60, color=vmath.vector4(1, 1, 0, 1)}, -- yellow
 		{name="hard", threshold=400, color=vmath.vector4(1, 0.5, 0, 1)}, -- orange
 		{name="incredible", threshold=800, color=vmath.vector4(1, 0, 0, 1)} -- red
 	}
-	self.time_difficulty = { time=0, difficulty =1, difficulties = difficulties}
+	self.time_difficulty = { time=0, difficulty = 1, difficulties = difficulties}
 
 
 
