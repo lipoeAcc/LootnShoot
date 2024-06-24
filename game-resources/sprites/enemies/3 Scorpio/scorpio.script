@@ -1,5 +1,5 @@
 local POISON_COOLDOWN = 2 -- seconds
-local DEFAULT_SPEED = 20
+local DEFAULT_SPEED = 30
 local HEALTHBAR_HEIGHT = 30
 
 local function calculate_next_position(self, dt, direction)

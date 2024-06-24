@@ -7,7 +7,7 @@ local enable_portal = hash("enable_portal")
 local register_coin_spawnpoint = hash("register_coin_spawnpoint")
 local spawn_all_coins = hash("spawn_all_coins")
 
-local BASE_DELAY = 3
+local BASE_DELAY = 2
 
 local function print_length(self)
 	for k, v in pairs(self.spawnpoint_dictionary) do

@@ -101,7 +101,7 @@ function init(self)
 	self.target = vmath.vector3(0, 0, 0)
 	self.individual_dropchance = 40
 	self.health = 30
-	self.speed = 20
+	self.speed = 40
 	self.healthbar_id = go.get_id("healthbar")
 	self.knockbacking = false
 	self.knockback_time = 0.3
