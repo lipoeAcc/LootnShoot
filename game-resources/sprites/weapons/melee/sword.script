@@ -21,10 +21,13 @@ local function apply_effect(self)
 		self.disabled = true
 		timer.delay(self.attack_speed, false, function() self.disabled = false end)
 		-- notify all enemies in radius to be hitted
-		timer.delay(0,false, function () 
+		timer.delay(0,false, function ()
 			for id, _ in pairs(self.enemies_in_radius) do
-				if not pcall(function() msg.post(id, "knockback", {knockback = self.knockback, damage = 10, other_id = go.get_id()}) end) then
-					-- remove from table if enemy does not exist (because it has been killed)
+				-- lookup if enemy still exists
+				local is_enemy_existing = pcall(function() go.get_position(id) end)
+				if is_enemy_existing then
+					msg.post(id, "knockback", {knockback = self.knockback, damage = 10, other_id = go.get_id()})
+				else
 					self.enemies_in_radius[id] = nil
 				end
 			end
@@ -47,7 +50,7 @@ function init(self)
 	self.sword_trigger = msg.url("/player1/sword#sword_trigger")
 	-- list: ids of the other enemies
 	self.enemies_in_radius = {}
-	
+
 
 end
 
