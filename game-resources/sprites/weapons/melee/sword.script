@@ -16,6 +16,25 @@ local function unregister_enemy(self, id)
 	self.enemies_in_radius[id] = nil
 end
 
+local function apply_effect(self)
+	if self.disabled == false then
+		self.disabled = true
+		timer.delay(self.attack_speed, false, function() self.disabled = false end)
+		-- notify all enemies in radius to be hitted
+		timer.delay(0,false, function () 
+			for id, _ in pairs(self.enemies_in_radius) do
+				if not pcall(function() msg.post(id, "knockback", {knockback = self.knockback, damage = 10, other_id = go.get_id()}) end) then
+					-- remove from table if enemy does not exist (because it has been killed)
+					self.enemies_in_radius[id] = nil
+				end
+			end
+			local url = msg.url("#sprite")
+			sprite.play_flipbook(url, "sword_attack",play_idle)
+			msg.post(msg.url("/gui/ammo"), "sword_cooldown", { cooldown = self.attack_speed })
+		end)
+	end
+end
+
 
 function init(self)
 	self.attack_speed = 2
@@ -52,22 +71,8 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == collision_response and sender == self.sword_trigger then
-		if self.disabled == false then
-			self.disabled = true
-			self.hitting = true
-			timer.delay(self.attack_speed, false, function() self.disabled = false end)
-			timer.delay(0, false, function() self.hitting = false end)
-			-- notify all enemies in radius to be hitted
-			for id, _ in pairs(self.enemies_in_radius) do
-				if not pcall(function() msg.post(id, "knockback", {knockback = self.knockback, damage = 10, other_id = go.get_id()}) end) then
-					-- remove from table if enemy does not exist (because it has been killed)
-					self.enemies_in_radius[id] = nil
-				end
-			end
-			local url = msg.url("#sprite")
-			sprite.play_flipbook(url, "sword_attack",play_idle)
-			msg.post(msg.url("/gui/ammo"), "sword_cooldown", { cooldown = self.attack_speed })
-		end
+		register_enemy(self, message.other_id)
+		apply_effect(self)
 	end
 	if message_id == trigger_response and sender == self.sword_collision then
 		if message.enter then
