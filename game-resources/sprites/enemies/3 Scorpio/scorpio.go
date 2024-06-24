@@ -87,7 +87,7 @@ embedded_components {
   }
 }
 embedded_components {
-  id: "scorpio_sprite"
+  id: "sprite"
   type: "sprite"
   data: "default_animation: \"scorpio\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
