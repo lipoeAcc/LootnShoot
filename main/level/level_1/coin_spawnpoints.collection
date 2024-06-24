@@ -3,8 +3,8 @@ instances {
   id: "coin_spawnpoint1"
   prototype: "/main/level/world_edit/spawning/coin_spawnpoint.go"
   position {
-    x: 1557.0
-    y: -87.0
+    x: 846.0
+    y: -289.0
     z: 1.0
   }
   rotation {
@@ -40,31 +40,11 @@ instances {
   }
 }
 instances {
-  id: "coin_spawnpoint4"
+  id: "coin_spawnpoint"
   prototype: "/main/level/world_edit/spawning/coin_spawnpoint.go"
   position {
-    x: 1513.0
-    y: 345.0
-    z: 1.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "coin_spawnpoint5"
-  prototype: "/main/level/world_edit/spawning/coin_spawnpoint.go"
-  position {
-    x: 1320.0
-    y: 623.0
+    x: -369.0
+    y: -237.0
     z: 1.0
   }
   rotation {
@@ -83,8 +63,28 @@ instances {
   id: "coin_spawnpoint6"
   prototype: "/main/level/world_edit/spawning/coin_spawnpoint.go"
   position {
-    x: 1537.0
-    y: -713.0
+    x: 440.0
+    y: -582.0
+    z: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "coin_spawnpoint5"
+  prototype: "/main/level/world_edit/spawning/coin_spawnpoint.go"
+  position {
+    x: 1142.0
+    y: 607.0
     z: 1.0
   }
   rotation {

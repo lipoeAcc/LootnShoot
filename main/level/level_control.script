@@ -1,6 +1,7 @@
 local level_completed = hash("level_completed")
 local done = hash("done")
 local player_loaded = hash("player_loaded")
+local game_finished = hash("game_finished")
 
 local function apply_messages(self, level)
 	if not level.message_url or not level.messages then
@@ -22,6 +23,21 @@ local function load_level(self, level)
 	local params = {level = self.levels[self.level_state], self.time_difficulty}
 
 	msg.post(loader_url, "load_level", params)
+end
+
+local function reset_game(self) 
+	self.level_state = 0
+	self.player_items = {
+		["melee_attack_speed"] = {amount = 0},
+		["ranged_attack_speed"] = {amount = 0},
+		["movement_speed"] = {amount = 0}
+	}
+	self.time_difficulty = { time=0, difficulty =1, difficulties = self.time_difficulty.difficulties}
+end
+
+local function finish_game(self)
+	reset_game(self)
+	load_level(self, self.levels[self.level_state+1])	
 end
 
 local function load_death_screen(self)
@@ -112,6 +128,8 @@ function on_message(self, message_id, message, sender)
 		end
 	elseif message_id == hash("player_died") then
 		load_death_screen(self)
+	elseif message_id == game_finished then
+		finish_game(self)
 	elseif message_id == player_loaded then
 		msg.post(sender, "player_item_init", {items= self.player_items, condition = self.levels[self.level_state].condition})
 		apply_messages(self, self.levels[self.level_state])

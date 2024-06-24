@@ -1,25 +1,25 @@
 function init(self)
     -- Set initial color of won_text and won_description to fully transparent
     gui.set_color(gui.get_node("won_text"), vmath.vector4(1, 1, 1, 0))
-    gui.set_color(gui.get_node("won_description"), vmath.vector4(1, 1, 1, 0))
+    gui.set_color(gui.get_node("time_text"), vmath.vector4(1, 1, 1, 0))
     
     -- Ease in for won_text
     gui.animate(gui.get_node("won_text"), gui.PROP_COLOR, vmath.vector4(1, 1, 1, 1), gui.EASING_INOUTSINE, 2)
     
     -- After won_text animation, start won_description animation
     timer.delay(2, false, function()
-        gui.animate(gui.get_node("won_description"), gui.PROP_COLOR, vmath.vector4(1, 1, 1, 1), gui.EASING_INOUTSINE, 2)
+        gui.animate(gui.get_node("time_text"), gui.PROP_COLOR, vmath.vector4(1, 1, 1, 1), gui.EASING_INOUTSINE, 2)
     end)
 
     -- Ease out for both won_text and won_description
     timer.delay(5, false, function() -- Adjusted delay to start after won_description animation
         gui.animate(gui.get_node("won_text"), gui.PROP_COLOR, vmath.vector4(1, 1, 1, 0), gui.EASING_INOUTSINE, 1)
-        gui.animate(gui.get_node("won_description"), gui.PROP_COLOR, vmath.vector4(1, 1, 1, 0), gui.EASING_INOUTSINE, 1)
+        gui.animate(gui.get_node("time_text"), gui.PROP_COLOR, vmath.vector4(1, 1, 1, 0), gui.EASING_INOUTSINE, 1)
     end)
 
     -- After animations, send level_completed message
     timer.delay(7, false, function() -- Adjusted delay to ensure animations complete
-        msg.post(msg.url("main", "/level_control", "level_control"), "level_completed")
+        msg.post(msg.url("main", "/level_control", "level_control"), "game_finished")
     end)
 
 	msg.post(msg.url("main","/level_control","level_control"), "get_time_difficulty")
@@ -43,8 +43,8 @@ function on_message(self, message_id, message, sender)
 		local time_text = string.format("Time survived: %.2f", time)
 		-- ease in for time_text
 		gui.set_text(gui.get_node("time_text"), time_text)
-		gui.set_color(gui.get_node("time_text"), vmath.vector4(1, 1, 1, 0))
-		gui.animate(gui.get_node("time_text"), gui.PROP_COLOR, vmath.vector4(1, 1, 1, 1), gui.EASING_INOUTSINE, 2)
+		--gui.set_color(gui.get_node("time_text"), vmath.vector4(1, 1, 1, 0))
+		--gui.animate(gui.get_node("time_text"), gui.PROP_COLOR, vmath.vector4(1, 1, 1, 1), gui.EASING_INOUTSINE, 2)
 	end
 end
 
