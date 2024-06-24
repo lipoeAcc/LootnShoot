@@ -52,6 +52,7 @@ embedded_components {
   "group: \"rockets\"\n"
   "mask: \"enemy\"\n"
   "mask: \"scorpio\"\n"
+  "mask: \"wall\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
