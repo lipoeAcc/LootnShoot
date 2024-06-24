@@ -112,8 +112,8 @@ local function update_player_stats(self, max_health, speed, rocket_reload_time, 
 end
 
 local function update_stats(self)
-    local new_melee_attackspeed = self.base_melee_attackspeed/(1 + 0.3 * self.items["melee_attack_speed"].amount)
-    local new_rocket_reload_time = self.base_rocket_reload_time/(1 + 0.3 * self.items["ranged_attack_speed"].amount)
+    local new_melee_attackspeed = self.base_melee_attackspeed/(1 + 0.5 * self.items["melee_attack_speed"].amount)
+    local new_rocket_reload_time = self.base_rocket_reload_time/(1 + 0.5 * self.items["ranged_attack_speed"].amount)
     local new_speed =  self.base_speed + 10 * self.items["movement_speed"].amount
 	local new_max_health = self.base_max_health
 	update_player_stats(self, new_max_health, new_speed, new_rocket_reload_time, self.base_knockback, new_melee_attackspeed)

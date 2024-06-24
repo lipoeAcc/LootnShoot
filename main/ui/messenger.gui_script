@@ -72,6 +72,7 @@ local function create_node_display_message(self, message)
 	-- make the text that it has a max width of 250 and will wrap around
 	gui.set_line_break(text_node, true)
 	gui.set_size(text_node, vmath.vector3(240, 100, 0))
+	gui.set_yanchor(text_node, gui.ANCHOR_BOTTOM)
 
 
 	return frame_node, box_node, text_node
