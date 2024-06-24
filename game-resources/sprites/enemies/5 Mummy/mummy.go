@@ -28,8 +28,8 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
-  "      x: 11.0\n"
-  "      y: -19.0\n"
+  "      x: 1.0\n"
+  "      y: 2.0\n"
   "      z: 0.0\n"
   "    }\n"
   "    rotation {\n"
@@ -42,9 +42,9 @@ embedded_components {
   "    count: 3\n"
   "    id: \"\"\n"
   "  }\n"
-  "  data: 9.928048\n"
-  "  data: 4.8700776\n"
-  "  data: 0.5\n"
+  "  data: 7.197093\n"
+  "  data: 16.490421\n"
+  "  data: 0.4988005\n"
   "}\n"
   "linear_damping: 0.0\n"
   "angular_damping: 0.0\n"
@@ -84,5 +84,10 @@ embedded_components {
     y: 0.0
     z: 0.0
     w: 1.0
+  }
+  scale {
+    x: 0.3
+    y: 0.3
+    z: 1.0
   }
 }
