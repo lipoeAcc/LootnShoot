@@ -40,12 +40,12 @@ local function register_condition(self, condition)
 	if condition == nil then 
 		do return end
 	end
-	if condition.kills then
+	if (condition.kills ~=nil and condition.kills > 0) then
 		condition_message = condition_message .. "kill " .. condition.kills .. " enemies. "
 	end
-	if condition.kills and condition.coins then
+	if (condition.kills ~=nil and condition.kills > 0)  and (condition.coins ~= nil and condition.coins > 0) then
 		condition_message = condition_message .. "and collect " .. condition.coins .. " coins. "
-	elseif condition.coins then
+	elseif condition.coins ~= nil and condition.coins > 0 then
 		condition_message = condition_message .. "collect " .. condition.coins .. " coins. "
 	end
 
