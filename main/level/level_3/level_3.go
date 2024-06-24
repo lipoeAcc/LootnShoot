@@ -31,7 +31,7 @@ components {
 embedded_components {
   id: "collisionobject"
   type: "collisionobject"
-  data: "collision_shape: \"/main/level/level_2/level_2.tilemap\"\n"
+  data: "collision_shape: \"/main/level/level_3/level_3.tilemap\"\n"
   "type: COLLISION_OBJECT_TYPE_STATIC\n"
   "mass: 0.0\n"
   "friction: 0.1\n"

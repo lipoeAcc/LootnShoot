@@ -1,8 +1,4 @@
 function init(self)
-	local url = msg.url("/enemies#enemies")
-	msg.post(url, "create_snake")
-	msg.post(url, "create_mummy")
-
 	local world_edit = msg.url("/world_edit#world_edit")
 	local level_url = msg.url()
 	level_url.fragment = nil

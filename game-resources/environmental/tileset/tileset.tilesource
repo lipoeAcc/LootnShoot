@@ -653,12 +653,12 @@ convex_hulls {
 convex_hulls {
   index: 519
   count: 0
-  collision_group: ""
+  collision_group: "wall"
 }
 convex_hulls {
   index: 519
   count: 0
-  collision_group: ""
+  collision_group: "wall"
 }
 convex_hulls {
   index: 519
