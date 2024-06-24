@@ -1,7 +1,7 @@
 embedded_components {
-  id: "damage_factory"
+  id: "explosion_factory"
   type: "factory"
-  data: "prototype: \"/game-resources/sprites/weapons/rocket/damageradius.go\"\n"
+  data: "prototype: \"/main/entities/weapons/rockets/rocketexplosion.go\"\n"
   "load_dynamically: false\n"
   "dynamic_prototype: false\n"
   ""

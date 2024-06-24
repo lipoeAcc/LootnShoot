@@ -1,6 +1,6 @@
 components {
-  id: "sword"
-  component: "/game-resources/sprites/weapons/melee/sword.script"
+  id: "scorpio_script"
+  component: "/main/entities/enemies/scorpio/scorpio.script"
   position {
     x: 0.0
     y: 0.0
@@ -14,21 +14,24 @@ components {
   }
 }
 embedded_components {
-  id: "sword_collision"
+  id: "scorpio_collisionobject"
   type: "collisionobject"
   data: "collision_shape: \"\"\n"
-  "type: COLLISION_OBJECT_TYPE_TRIGGER\n"
+  "type: COLLISION_OBJECT_TYPE_KINEMATIC\n"
   "mass: 0.0\n"
   "friction: 0.1\n"
   "restitution: 0.5\n"
-  "group: \"sword\"\n"
-  "mask: \"enemy\"\n"
-  "mask: \"scorpio\"\n"
+  "group: \"scorpio\"\n"
+  "mask: \"player\"\n"
+  "mask: \"wall\"\n"
+  "mask: \"sword\"\n"
+  "mask: \"rockets\"\n"
+  "mask: \"damageradius\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
-  "      x: 0.0\n"
+  "      x: -2.0\n"
   "      y: 0.0\n"
   "      z: 0.0\n"
   "    }\n"
@@ -42,9 +45,29 @@ embedded_components {
   "    count: 3\n"
   "    id: \"\"\n"
   "  }\n"
-  "  data: 50.0\n"
-  "  data: 50.0\n"
-  "  data: 50.0\n"
+  "  shapes {\n"
+  "    shape_type: TYPE_BOX\n"
+  "    position {\n"
+  "      x: 5.0\n"
+  "      y: 9.0\n"
+  "      z: 0.0\n"
+  "    }\n"
+  "    rotation {\n"
+  "      x: 0.0\n"
+  "      y: 0.0\n"
+  "      z: 0.0\n"
+  "      w: 1.0\n"
+  "    }\n"
+  "    index: 3\n"
+  "    count: 3\n"
+  "    id: \"\"\n"
+  "  }\n"
+  "  data: 12.816537\n"
+  "  data: 5.3810925\n"
+  "  data: 10.8\n"
+  "  data: 6.9046974\n"
+  "  data: 4.259441\n"
+  "  data: 10.8\n"
   "}\n"
   "linear_damping: 0.0\n"
   "angular_damping: 0.0\n"
@@ -66,7 +89,7 @@ embedded_components {
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "default_animation: \"sword\"\n"
+  data: "default_animation: \"scorpio\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
   "textures {\n"
@@ -75,59 +98,28 @@ embedded_components {
   "}\n"
   ""
   position {
-    x: 15.0
-    y: 0.0
+    x: -2.0
+    y: 2.0
     z: 0.0
   }
   rotation {
     x: 0.0
     y: 0.0
-    z: 0.70710677
-    w: -0.70710677
+    z: 0.0
+    w: 1.0
   }
   scale {
-    x: 0.15
-    y: 0.15
+    x: 0.5
+    y: 0.5
     z: 1.0
   }
 }
 embedded_components {
-  id: "sword_trigger"
-  type: "collisionobject"
-  data: "collision_shape: \"\"\n"
-  "type: COLLISION_OBJECT_TYPE_KINEMATIC\n"
-  "mass: 0.0\n"
-  "friction: 0.1\n"
-  "restitution: 0.5\n"
-  "group: \"sword\"\n"
-  "mask: \"enemy\"\n"
-  "mask: \"scorpio\"\n"
-  "embedded_collision_shape {\n"
-  "  shapes {\n"
-  "    shape_type: TYPE_BOX\n"
-  "    position {\n"
-  "      x: 0.0\n"
-  "      y: 0.0\n"
-  "      z: 0.0\n"
-  "    }\n"
-  "    rotation {\n"
-  "      x: 0.0\n"
-  "      y: 0.0\n"
-  "      z: 0.0\n"
-  "      w: 1.0\n"
-  "    }\n"
-  "    index: 0\n"
-  "    count: 3\n"
-  "    id: \"\"\n"
-  "  }\n"
-  "  data: 25.0\n"
-  "  data: 25.0\n"
-  "  data: 25.0\n"
-  "}\n"
-  "linear_damping: 0.0\n"
-  "angular_damping: 0.0\n"
-  "locked_rotation: false\n"
-  "bullet: false\n"
+  id: "poison_factory"
+  type: "factory"
+  data: "prototype: \"/main/entities/enemies/scorpio/poison/poison.go\"\n"
+  "load_dynamically: false\n"
+  "dynamic_prototype: false\n"
   ""
   position {
     x: 0.0

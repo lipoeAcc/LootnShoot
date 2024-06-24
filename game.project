@@ -39,6 +39,6 @@ max_tile_count = 4096
 [sprite]
 max_count = 1024
 
-[library]
-include_dirs = https://github.com/subsoap/defos/archive/refs/tags/v2.7.1.zip
+[resource]
+http_cache = 0
 

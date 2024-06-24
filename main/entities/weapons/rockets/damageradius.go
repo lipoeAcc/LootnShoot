@@ -1,6 +1,6 @@
 components {
   id: "damageradius"
-  component: "/game-resources/sprites/weapons/rocket/damageradius.script"
+  component: "/main/entities/weapons/rockets/damageradius.script"
   position {
     x: 0.0
     y: 0.0

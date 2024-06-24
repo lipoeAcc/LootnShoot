@@ -1,4 +1,4 @@
-tile_set: "/game-resources/environment/death-stage01/ground_source.tilesource"
+tile_set: "/main/level/map/ground_source.tilesource"
 layers {
   id: "ground"
   z: 0.0

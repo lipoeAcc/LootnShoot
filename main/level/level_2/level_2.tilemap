@@ -1,4 +1,4 @@
-tile_set: "/game-resources/environmental/tileset/tileset.tilesource"
+tile_set: "/main/level/map/tileset.tilesource"
 layers {
   id: "ground"
   z: 0.0

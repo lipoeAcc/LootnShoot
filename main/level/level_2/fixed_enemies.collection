@@ -1,7 +1,7 @@
 name: "fixed_enemies"
 instances {
   id: "mummy"
-  prototype: "/game-resources/sprites/enemies/5 Mummy/mummy.go"
+  prototype: "/main/entities/enemies/mummy/mummy.go"
   position {
     x: 0.0
     y: 0.0
@@ -21,7 +21,7 @@ instances {
 }
 instances {
   id: "mummy1"
-  prototype: "/game-resources/sprites/enemies/5 Mummy/mummy.go"
+  prototype: "/main/entities/enemies/mummy/mummy.go"
   position {
     x: -244.0
     y: -7.0
@@ -41,7 +41,7 @@ instances {
 }
 instances {
   id: "mummy3"
-  prototype: "/game-resources/sprites/enemies/5 Mummy/mummy.go"
+  prototype: "/main/entities/enemies/mummy/mummy.go"
   position {
     x: 500.0
     y: -235.0
@@ -61,7 +61,7 @@ instances {
 }
 instances {
   id: "mummy4"
-  prototype: "/game-resources/sprites/enemies/5 Mummy/mummy.go"
+  prototype: "/main/entities/enemies/mummy/mummy.go"
   position {
     x: 855.0
     y: -179.0
@@ -81,7 +81,7 @@ instances {
 }
 instances {
   id: "mummy5"
-  prototype: "/game-resources/sprites/enemies/5 Mummy/mummy.go"
+  prototype: "/main/entities/enemies/mummy/mummy.go"
   position {
     x: 216.0
     y: 142.0
@@ -101,7 +101,7 @@ instances {
 }
 collection_instances {
   id: "fog"
-  collection: "/game-resources/sprites/fog/fog.collection"
+  collection: "/main/entities/enemies/fog/fog.collection"
   position {
     x: 0.0
     y: 0.0
@@ -121,7 +121,7 @@ collection_instances {
 }
 collection_instances {
   id: "fog1"
-  collection: "/game-resources/sprites/fog/fog.collection"
+  collection: "/main/entities/enemies/fog/fog.collection"
   position {
     x: 0.0
     y: 0.0
@@ -141,7 +141,7 @@ collection_instances {
 }
 collection_instances {
   id: "fog2"
-  collection: "/game-resources/sprites/fog/fog.collection"
+  collection: "/main/entities/enemies/fog/fog.collection"
   position {
     x: -309.0
     y: 155.0
@@ -161,7 +161,7 @@ collection_instances {
 }
 collection_instances {
   id: "fog3"
-  collection: "/game-resources/sprites/fog/fog.collection"
+  collection: "/main/entities/enemies/fog/fog.collection"
   position {
     x: 489.0
     y: -216.0
@@ -181,7 +181,7 @@ collection_instances {
 }
 collection_instances {
   id: "fog4"
-  collection: "/game-resources/sprites/fog/fog.collection"
+  collection: "/main/entities/enemies/fog/fog.collection"
   position {
     x: 849.0
     y: -2.0

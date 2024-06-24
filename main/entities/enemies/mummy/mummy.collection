@@ -1,7 +1,7 @@
 name: "mummy"
 instances {
   id: "mummy"
-  prototype: "/game-resources/sprites/enemies/5 Mummy/mummy.go"
+  prototype: "/main/entities/enemies/mummy/mummy.go"
   position {
     x: 0.0
     y: 0.0

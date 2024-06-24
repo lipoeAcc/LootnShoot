@@ -1,7 +1,7 @@
 name: "player1"
 instances {
   id: "player1"
-  prototype: "/game-resources/sprites/player1/player1.go"
+  prototype: "/main/entities/player/player1.go"
   position {
     x: 0.0
     y: 0.0
@@ -21,7 +21,7 @@ instances {
 }
 instances {
   id: "sword"
-  prototype: "/game-resources/sprites/weapons/melee/sword.go"
+  prototype: "/main/entities/weapons/sword/sword.go"
   position {
     x: 0.0
     y: 0.0

@@ -1,11 +1,11 @@
-name: "snakeCollection"
+name: "scorpio"
 instances {
-  id: "snake"
-  prototype: "/game-resources/sprites/enemies/1 Snake/snake.go"
+  id: "scorpio"
+  prototype: "/main/entities/enemies/scorpio/scorpio.go"
   position {
     x: 0.0
     y: 0.0
-    z: 0.0
+    z: 1.0
   }
   rotation {
     x: 0.0
@@ -21,11 +21,11 @@ instances {
 }
 instances {
   id: "healthbar"
-  prototype: "/game-resources/sprites/enemies/health/healthbar.go"
+  prototype: "/main/entities/health/healthbar.go"
   position {
     x: 0.0
-    y: 11.0
-    z: 0.0
+    y: 30.0
+    z: 1.0
   }
   rotation {
     x: 0.0

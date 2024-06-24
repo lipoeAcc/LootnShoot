@@ -1,6 +1,6 @@
 components {
   id: "rocketexplosion"
-  component: "/game-resources/sprites/weapons/rocket/rocketexplosion.script"
+  component: "/main/entities/weapons/rockets/rocketexplosion.script"
   position {
     x: 0.0
     y: 0.0

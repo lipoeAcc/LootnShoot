@@ -21,7 +21,7 @@ instances {
 }
 instances {
   id: "explosionFactory"
-  prototype: "/game-resources/sprites/weapons/rocket/explosionFactory.go"
+  prototype: "/main/entities/weapons/rockets/explosionFactory.go"
   position {
     x: 0.0
     y: 0.0
@@ -41,7 +41,7 @@ instances {
 }
 instances {
   id: "enemies"
-  prototype: "/game-resources/sprites/enemies/enemies.go"
+  prototype: "/main/entities/enemies/enemies.go"
   position {
     x: 0.0
     y: 0.0
@@ -101,7 +101,7 @@ instances {
 }
 instances {
   id: "damageFactory"
-  prototype: "/game-resources/sprites/weapons/rocket/damageFactory.go"
+  prototype: "/main/entities/weapons/rockets/damageFactory.go"
   position {
     x: 0.0
     y: 0.0
@@ -121,7 +121,7 @@ instances {
 }
 collection_instances {
   id: "player1"
-  collection: "/game-resources/sprites/player1/player1.collection"
+  collection: "/main/entities/player/player1.collection"
   position {
     x: 69.0
     y: 159.0
@@ -201,7 +201,7 @@ collection_instances {
 }
 collection_instances {
   id: "scorpio1"
-  collection: "/game-resources/sprites/enemies/3 Scorpio/scorpio.collection"
+  collection: "/main/entities/enemies/scorpio/scorpio.collection"
   position {
     x: 300.0
     y: 221.0

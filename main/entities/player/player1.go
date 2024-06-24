@@ -1,6 +1,6 @@
 components {
   id: "player"
-  component: "/game-resources/sprites/player1/player.script"
+  component: "/main/entities/player/player.script"
   position {
     x: 0.0
     y: 0.0
@@ -98,7 +98,7 @@ embedded_components {
 embedded_components {
   id: "rocketfactory"
   type: "factory"
-  data: "prototype: \"/game-resources/sprites/weapons/rocket/rocket.go\"\n"
+  data: "prototype: \"/main/entities/weapons/rockets/rocket.go\"\n"
   "load_dynamically: false\n"
   "dynamic_prototype: false\n"
   ""

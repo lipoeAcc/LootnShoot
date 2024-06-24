@@ -1,6 +1,6 @@
 components {
   id: "mummy_script"
-  component: "/game-resources/sprites/enemies/5 Mummy/mummy.script"
+  component: "/main/entities/enemies/mummy/mummy.script"
   position {
     x: 0.0
     y: 0.0

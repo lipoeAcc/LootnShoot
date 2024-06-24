@@ -1,6 +1,6 @@
 components {
   id: "enemies"
-  component: "/game-resources/sprites/enemies/enemies.script"
+  component: "/main/entities/enemies/enemies.script"
   position {
     x: 0.0
     y: 0.0
@@ -16,7 +16,7 @@ components {
 embedded_components {
   id: "snakefactory"
   type: "collectionfactory"
-  data: "prototype: \"/game-resources/sprites/enemies/1 Snake/snakeCollection.collection\"\n"
+  data: "prototype: \"/main/entities/enemies/snake/snakeCollection.collection\"\n"
   "load_dynamically: false\n"
   "dynamic_prototype: false\n"
   ""
@@ -35,7 +35,7 @@ embedded_components {
 embedded_components {
   id: "scorpiofactory"
   type: "collectionfactory"
-  data: "prototype: \"/game-resources/sprites/enemies/3 Scorpio/scorpio.collection\"\n"
+  data: "prototype: \"/main/entities/enemies/scorpio/scorpio.collection\"\n"
   "load_dynamically: false\n"
   "dynamic_prototype: false\n"
   ""
