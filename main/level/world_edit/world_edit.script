@@ -127,11 +127,8 @@ function on_message(self, message_id, message, sender)
 		end
 		self.spawn_handler = spawn_enviroment(self)
 	elseif message_id == register_portal_spawnpoint then 
-		print("registering portal spawnpoint")
 		table.insert(self.portal_spawnpoint_list, {position = message.position, id = message.id})
-		print("portal spawnpoint list length: " .. tostring(#self.portal_spawnpoint_list))
 	elseif message_id == enable_portal then
-		print("sdlkfjlskdjfklskdjf spawn portal")
 		spawn_portal(self)
 	elseif message_id == register_coin_spawnpoint then 
 		table.insert(self.coin_spawnpoint_list, {position = message.position, id = message.id})
