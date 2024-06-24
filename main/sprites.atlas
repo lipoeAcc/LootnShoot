@@ -213,11 +213,15 @@ animations {
 animations {
   id: "scorpio"
   images {
-    image: "/game-resources/sprites/enemies/3 Scorpio/Scorpio.png"
+    image: "/game-resources/sprites/enemies/3 Scorpio/scorpio_linus/scorpio_00.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+  }
+  images {
+    image: "/game-resources/sprites/enemies/3 Scorpio/scorpio_linus/scorpio_01.png"
     sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_LOOP_FORWARD
-  fps: 60
+  fps: 3
   flip_horizontal: 0
   flip_vertical: 0
 }
