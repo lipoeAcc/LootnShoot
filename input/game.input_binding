@@ -20,5 +20,5 @@ key_trigger {
 }
 mouse_trigger {
   input: MOUSE_BUTTON_LEFT
-  action: "touch"
+  action: "primary_hit"
 }

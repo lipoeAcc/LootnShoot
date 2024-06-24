@@ -1,4 +1,4 @@
-local touch = hash("touch")
+local touch = hash("primary_hit")
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
