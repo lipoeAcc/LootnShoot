@@ -12,10 +12,6 @@ local function select_item(self)
 end
 
 function init(self)
-	collectionfactory.create('#hp_refill_factory', vmath.vector3(50, 50, 1), nil, nil, 1)
-	collectionfactory.create('#melee_attack_speed_factory', vmath.vector3(100, 50, 1), nil, nil, 1)
-	collectionfactory.create('#movement_speed_factory', vmath.vector3(150, 50, 1), nil, nil, 1)
-	collectionfactory.create('#ranged_attack_speed_factory', vmath.vector3(200, 50, 1), nil, nil, 1)
 	-- aus Performance gründen die höchste dropchance nach oben
 	self.items = {
 		{name="hp_refill", factory="#hp_refill_factory", dropchance=10},

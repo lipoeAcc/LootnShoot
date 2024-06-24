@@ -1,6 +1,27 @@
 local display_message_hash = hash("display_message")
 local display_message_time = 5
 local display_condition = hash("display_condition")
+local display_condition_timer = hash("display_condition_timer")
+
+local function do_display_condition_timer(self, time)
+	-- make the timer (text node condition_timer) go down to 0 (invisible by default)
+	local text = string.format("%.2f", time)
+	gui.set_text(self.condition_timer_node, text)
+	gui.set_visible(self.condition_timer_node, true)
+	timer.delay(0.1, true, function(self, handle, time_elapsed)
+		time = time - 0.1
+		if time <= 0 then
+			gui.set_text(self.condition_timer_node, "")
+			gui.set_visible(self.condition_timer_node, false)
+			timer.cancel(handle)
+			print("complete")
+			msg.post(msg.url("main","/level_control","level_control"), "level_completed")
+		else
+			text = string.format("%.2f", time)
+			gui.set_text(self.condition_timer_node, text)
+		end
+	end)
+end
 
 local function do_display_condition(self, condition)
     local condition_text = "Condition: \n" .. condition
@@ -96,6 +117,7 @@ end
 function init(self)
 	self.message_boxes = {}
 	self.condition_node = gui.get_node("condition")
+	self.condition_timer_node = gui.get_node("condition_timer")
 end
 
 function final(self)
@@ -112,6 +134,8 @@ function on_message(self, message_id, message, sender)
 		display_message(self, message.message)
 	elseif message_id == display_condition then
 		do_display_condition(self, message.message)
+	elseif message_id == display_condition_timer then
+		do_display_condition_timer(self, message.time)
 	end
 end
 

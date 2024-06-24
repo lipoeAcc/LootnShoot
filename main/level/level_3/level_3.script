@@ -1,7 +1,12 @@
 local level_control_url = msg.url("main","/level_control", "level_control")
+local FINAL_STAGE_ADDITIONAL_DELAY = 1
+local FINAL_STAGE_DURATION = 60
+
 
 function init(self)
-	timer.delay(5, false, function () msg.post(level_control_url, "level_completed")  end)
+	msg.post(msg.url("/world_edit"), "spawn_final_stage", { delay = FINAL_STAGE_ADDITIONAL_DELAY})	
+	--timer.delay(FINAL_STAGE_DURATION, false, function () msg.post(level_control_url, "level_completed")  end)
+
 end
 
 function final(self)

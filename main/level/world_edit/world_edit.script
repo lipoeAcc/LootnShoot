@@ -6,6 +6,7 @@ local register_portal_spawnpoint = hash("register_portal_spawnpoint")
 local enable_portal = hash("enable_portal")
 local register_coin_spawnpoint = hash("register_coin_spawnpoint")
 local spawn_all_coins = hash("spawn_all_coins")
+local spawn_final_stage = hash("spawn_final_stage")
 
 local BASE_DELAY = 2
 
@@ -136,6 +137,11 @@ function on_message(self, message_id, message, sender)
 		if message.amount ~= nil and message.amount >=0 then
 		spawn_coins(self, message.amount)
 		end
+	elseif message_id == spawn_final_stage then
+		print("spawning final stage")
+		timer.delay(message.delay, true, function ()
+			spawn_random_enemy(self)
+		end)
 	end
 end
 

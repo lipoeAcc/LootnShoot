@@ -53,6 +53,11 @@ local function register_condition(self, condition)
 		condition_message = condition_message .. "collect " .. condition.coins .. " coins. "
 	end
 
+	if condition.time ~= nil then
+		condition_message = condition_message .. "within " .. condition.time .. " seconds. "
+		msg.post("/gui/messenger", "display_condition_timer", { time = condition.time })
+	end
+	
 	msg.post("/gui/messenger", "display_condition", { message = condition_message })
 	msg.post(msg.url("/world_edit"), "spawn_all_coins", { amount = condition.coins })
 end
@@ -107,8 +112,8 @@ local function update_player_stats(self, max_health, speed, rocket_reload_time, 
 end
 
 local function update_stats(self)
-    local new_melee_attackspeed = self.base_melee_attackspeed/(1 + 0.1 * self.items["melee_attack_speed"].amount)
-    local new_rocket_reload_time = self.base_rocket_reload_time/(1 + 0.1 * self.items["ranged_attack_speed"].amount)
+    local new_melee_attackspeed = self.base_melee_attackspeed/(1 + 0.3 * self.items["melee_attack_speed"].amount)
+    local new_rocket_reload_time = self.base_rocket_reload_time/(1 + 0.3 * self.items["ranged_attack_speed"].amount)
     local new_speed =  self.base_speed + 10 * self.items["movement_speed"].amount
 	local new_max_health = self.base_max_health
 	update_player_stats(self, new_max_health, new_speed, new_rocket_reload_time, self.base_knockback, new_melee_attackspeed)
@@ -164,7 +169,7 @@ function init(self)
 	-- player base stats
 	self.base_max_health = 1000
 	self.base_speed = 100
-	self.base_rocket_reload_time = 2
+	self.base_rocket_reload_time = 1.2
 	self.base_knockback = 100
 	self.base_melee_attackspeed = 1
 
@@ -270,8 +275,6 @@ function on_message(self, message_id, message, sender)
 		end
 	elseif message_id == heal_message then
 		heal(self, message.amount)
-	elseif message_id == player_stat_init then
-		--set_player_base_stats(self, message.max_health, message.speed, message.rocket_reload_time, message.knockback, message.melee_attackspeed)
 	elseif message_id == player_item_init then
 		if message.condition then 
 			register_condition(self, message.condition)
