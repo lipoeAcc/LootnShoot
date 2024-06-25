@@ -15,7 +15,7 @@ local function set_time(self)
 
 	gui.set_text(self.timer_node, string.format("%02d:%04.01f", min, sec))
 	
-	if self.time_difficulty.time > self.time_difficulty.difficulties[self.time_difficulty.difficulty].threshold then
+	if self.time_difficulty.difficulties[self.time_difficulty.difficulty].threshold ~=nil and self.time_difficulty.time > self.time_difficulty.difficulties[self.time_difficulty.difficulty].threshold then
 		self.time_difficulty.difficulty = self.time_difficulty.difficulty + 1
 		update_difficulty(self)
 	end

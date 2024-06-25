@@ -59,11 +59,11 @@ function init(self)
 	-- array with an object for each state with level name, url and duration which can be nil (for infinite duration) 
 	self.levels = {
 		{name="menu", url=msg.url("main","/loader","menu_proxy"), condition = nil, duration= nil, hasplayer=false},
-		{name="level_1", url=msg.url("main","/loader","level_1_proxy"), condition = { kills = 1, coins = 0, time = nil }, duration=nil, hasplayer=true, message_url=msg.url("level_1","/gui/messenger",nil), messages={{message="Welcome to level 1", delay=1}, {message="Good luck", delay=3}}, timer_difficulty_url=msg.url("level_1","/gui/timer_difficulty",nil), world_edit_url=msg.url("level_1","/world_edit",nil)},
+		{name="level_1", url=msg.url("main","/loader","level_1_proxy"), condition = { kills = 10, coins = 0, time = nil }, duration=nil, hasplayer=true, message_url=msg.url("level_1","/gui/messenger",nil), messages={{message="Welcome to level 1", delay=1}, {message="Good luck", delay=3}}, timer_difficulty_url=msg.url("level_1","/gui/timer_difficulty",nil), world_edit_url=msg.url("level_1","/world_edit",nil)},
 		{name="finished_level_1", url=msg.url("main","/loader","finished_level"), condition = nil, duration=nil, hasplayer=false},
-		{name="level_2", url=msg.url("main","/loader","level_2_proxy"), condition = { kills = 0, coins = 1, time = nil }, duration=nil, hasplayer=true, message_url=msg.url("level_2","/gui/messenger",nil), messages={{message="Welcome to level 2", delay=1}},  timer_difficulty_url=msg.url("level_2","/gui/timer_difficulty",nil), world_edit_url=msg.url("level_2","/world_edit",nil)},
+		{name="level_2", url=msg.url("main","/loader","level_2_proxy"), condition = { kills = 0, coins = 4, time = nil }, duration=nil, hasplayer=true, message_url=msg.url("level_2","/gui/messenger",nil), messages={{message="Welcome to level 2", delay=1}},  timer_difficulty_url=msg.url("level_2","/gui/timer_difficulty",nil), world_edit_url=msg.url("level_2","/world_edit",nil)},
 		{name="finished_level_2", url=msg.url("main","/loader","finished_level"), condition = nil, duration=nil, hasplayer=false},
-		{name="level_3", url=msg.url("main","/loader","level_3_proxy"), condition = { kills = 1, coins = 0, time = 60}, duration=nil, hasplayer=true, message_url=msg.url("level_3","/gui/messenger",nil), messages={{message="Welcome to the final level!", delay=1}},  timer_difficulty_url=msg.url("level_3","/gui/timer_difficulty",nil), world_edit_url=msg.url("level_3","/world_edit",nil)},
+		{name="level_3", url=msg.url("main","/loader","level_3_proxy"), condition = { kills = nil, coins = 0, time = 60}, duration=nil, hasplayer=true, message_url=msg.url("level_3","/gui/messenger",nil), messages={{message="Welcome to the final level!", delay=1}},  timer_difficulty_url=msg.url("level_3","/gui/timer_difficulty",nil), world_edit_url=msg.url("level_3","/world_edit",nil)},
 		{name="game_finished", url=msg.url("main","/loader","game_finished"), condition = nil, duration=nil, hasplayer=false},
 	}
 	self.on_death = {name="death_screen", url=msg.url("main","/loader","on_death_proxy"), duration=nil}
@@ -85,8 +85,8 @@ function init(self)
 	local difficulties = {
 		{name="easy", threshold=20, color=vmath.vector4(0, 1, 0, 1)}, -- green
 		{name="medium", threshold=60, color=vmath.vector4(1, 1, 0, 1)}, -- yellow
-		{name="hard", threshold=400, color=vmath.vector4(1, 0.5, 0, 1)}, -- orange
-		{name="incredible", threshold=800, color=vmath.vector4(1, 0, 0, 1)} -- red
+		{name="hard", threshold=120, color=vmath.vector4(1, 0.5, 0, 1)}, -- orange
+		{name="incredible", threshold=nil, color=vmath.vector4(1, 0, 0, 1)} -- red
 	}
 	self.time_difficulty = { time=0, difficulty = 1, difficulties = difficulties}
 
@@ -123,6 +123,7 @@ function on_message(self, message_id, message, sender)
 			load_level(self, self.levels[self.level_state+1])
 		elseif self.level_state <=#self.levels and message.items ~= nil then
 			-- we need to update the time difficulty
+			self.player_items = message.items
 			msg.post(self.levels[self.level_state].timer_difficulty_url, "get_time_difficulty", self.time_difficulty)
 			--level will be loaded after time difficulty is being received
 		end
